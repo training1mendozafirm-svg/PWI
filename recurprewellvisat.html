@@ -1,0 +1,1624 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Recursos PWI VISA T | TMLF Learning Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#6b8f71;--sage-dark:#4a6b50;--sage-light:#8fad94;
+  --green-pale:#e8f0e9;--green-mid:rgba(107,143,113,.12);--green-border:rgba(107,143,113,.22);
+  --beige:#f5f0e8;--beige-dark:#ede5d4;--sand:#d4c5a9;--sand-dark:#b8a888;
+  --cafe:#8b6f47;--cafe-dark:#6b5035;--cafe-light:rgba(139,111,71,.1);--cafe-border:rgba(139,111,71,.22);
+  --warm-white:#faf8f4;--cream:#f7f3ec;
+  --ink:#2d2418;--slate:#6b5f52;--muted:#9a8f84;
+  --white:#fff;--shadow:0 8px 28px rgba(45,36,24,.09);--radius:16px;
+  --nav-h:56px;--sidebar-w:268px;
+  --accent:var(--sage-dark);--accent2:var(--sage);
+  --sidebar-bg:#1a1f1b;
+  --alert-warn-bg:rgba(180,130,60,.1);--alert-warn-border:rgba(180,130,60,.25);--alert-warn-color:#7a5010;
+  --alert-danger-bg:rgba(160,60,50,.09);--alert-danger-border:rgba(160,60,50,.22);--alert-danger-color:#8b2c1e;
+  --alert-success-bg:rgba(74,107,80,.1);--alert-success-border:rgba(74,107,80,.22);--alert-success-color:#2e5035;
+  --alert-info-bg:rgba(107,143,113,.08);--alert-info-border:rgba(107,143,113,.18);--alert-info-color:#3d5c41;
+  --alert-tip-bg:rgba(139,111,71,.09);--alert-tip-border:rgba(139,111,71,.22);--alert-tip-color:#6b4520;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--beige);color:var(--ink);line-height:1.65}
+
+/* TOP NAV */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav-h);background:rgba(26,31,27,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(107,143,113,.15);display:flex;align-items:center;padding:0 18px;gap:10px}
+.topnav .brand{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.topnav .brand .seal{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,rgba(107,143,113,.35),rgba(107,143,113,.08));border:1px solid rgba(107,143,113,.32);display:flex;align-items:center;justify-content:center;font-size:14px}
+.topnav .brand span{color:var(--sage-light)}
+.topnav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topnav-pill{padding:5px 14px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:rgba(107,143,113,.14);border:1px solid rgba(107,143,113,.3);color:rgba(143,173,148,.9)}
+.sidebar-toggle{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px}
+@media(max-width:900px){.sidebar-toggle{display:block}}
+
+/* SHELL */
+.app-shell{display:flex;min-height:100vh;padding-top:var(--nav-h)}
+
+/* SIDEBAR */
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--sidebar-bg);position:fixed;top:var(--nav-h);bottom:0;left:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.07) transparent;border-right:1px solid rgba(107,143,113,.09);z-index:200;transition:transform .3s ease}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:3px}
+.sidebar-header{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.sidebar-header .sh-label{font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px}
+.sidebar-header .sh-title{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(255,255,255,.86);font-weight:600;line-height:1.3}
+.sb-group{padding:6px 0}
+.sb-group-label{padding:6px 14px 3px;font-size:8px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:rgba(255,255,255,.22)}
+.sb-item{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;transition:all .18s;position:relative;user-select:none}
+.sb-item:hover{background:rgba(255,255,255,.04)}
+.sb-item.active{background:rgba(107,143,113,.1)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--sage);border-radius:0 3px 3px 0}
+.sb-num{width:24px;height:24px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;background:rgba(255,255,255,.06);color:rgba(255,255,255,.38);transition:all .18s}
+.sb-item.active .sb-num{background:var(--sage);color:#fff}
+.sb-text{flex:1;min-width:0}
+.sb-name{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.48);line-height:1.3;transition:color .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-item.active .sb-name{color:rgba(255,255,255,.9)}
+.sb-item:hover .sb-name{color:rgba(255,255,255,.75)}
+.sb-sub{font-size:9.5px;color:rgba(255,255,255,.25);margin-top:1px}
+.sb-divider{margin:3px 12px 5px;height:1px;background:linear-gradient(90deg,rgba(107,143,113,.16),transparent)}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:8px 0 32px rgba(0,0,0,.45)}
+  .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199}
+  .sb-overlay.show{display:block}
+}
+
+/* PROGRESS */
+.progress-bar-wrap{position:fixed;top:var(--nav-h);left:0;right:0;z-index:299;height:3px;background:rgba(255,255,255,.06)}
+.progress-bar-fill{height:3px;background:linear-gradient(90deg,var(--sage-dark),var(--sage-light));transition:width .5s ease;width:5%}
+
+/* MAIN */
+.main{margin-left:var(--sidebar-w);flex:1;padding:24px 26px 60px;max-width:100%}
+@media(max-width:900px){.main{margin-left:0;padding:16px 14px 50px}}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#1a1f1b 0%,#243328 45%,#2e4233 100%);color:#fff;border-radius:20px;padding:40px 36px 34px;box-shadow:0 14px 38px rgba(26,31,27,.22);position:relative;overflow:hidden;margin-bottom:20px}
+.header::before{content:'';position:absolute;top:-60px;right:-40px;width:250px;height:250px;border:1.5px solid rgba(107,143,113,.14);border-radius:50%;animation:pulse 5s ease-in-out infinite}
+.header::after{content:'';position:absolute;bottom:-60px;right:80px;width:160px;height:160px;border:1.5px solid rgba(139,111,71,.1);border-radius:50%;animation:pulse 6s ease-in-out infinite .8s}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.04);opacity:.85}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.header-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 13px;background:rgba(107,143,113,.14);border:1px solid rgba(107,143,113,.32);border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;margin-bottom:11px}
+.header-badge .dot{width:5px;height:5px;background:var(--sage-light);border-radius:50%}
+h1{font-family:'Cormorant Garamond',serif;font-size:34px;letter-spacing:.3px;position:relative;z-index:1;font-weight:700;line-height:1.15}
+.header h1 span{color:var(--sage-light)}
+.subtitle{font-size:13.5px;opacity:.72;max-width:54ch;position:relative;z-index:1;margin-top:6px}
+.header-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;position:relative;z-index:1}
+.header-meta-item{display:flex;align-items:center;gap:6px;padding:5px 12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);border-radius:8px;font-size:11px}
+.header-meta-item span:first-child{opacity:.55}
+
+/* PANELS */
+.panel{display:none;animation:fadeUp .28s ease both}
+.panel.active{display:block}
+
+/* SECTION NAV (internal) */
+.snav{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px}
+.snav-btn{padding:6px 14px;border-radius:8px;font-size:11.5px;font-weight:700;cursor:pointer;border:1.5px solid var(--green-border);background:var(--cream);color:var(--slate);transition:all .2s;font-family:'DM Sans',sans-serif}
+.snav-btn:hover{background:var(--green-pale);border-color:var(--sage);color:var(--sage-dark)}
+.snav-btn.active{background:var(--sage-dark);border-color:var(--sage-dark);color:#fff}
+
+/* SECTION */
+.section{display:none}
+.section.active{display:block;animation:fadeUp .25s ease}
+
+/* PAGE TITLE */
+.page-title{margin-bottom:16px}
+.page-title .pt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:4px}
+.page-title h2{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:700;color:var(--ink)}
+.page-title .pt-sub{font-size:13px;color:var(--slate);margin-top:3px}
+
+/* BLOCK */
+.block{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--green-border);overflow:hidden;margin-bottom:14px}
+.block:last-child{margin-bottom:0}
+.block .btitle{display:flex;align-items:center;gap:10px;padding:14px 17px;background:linear-gradient(180deg,var(--green-pale),var(--cream));border-bottom:1px solid var(--green-border)}
+.block .btitle .bicon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.block .btitle h3{font-size:15px;color:var(--ink);font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.2px;flex:1}
+.block .bbody{padding:17px}
+.block .bbody p{margin:0 0 10px;font-size:13.5px}
+.block .bbody p:last-child{margin-bottom:0}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:6px;font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.badge-sage{background:var(--green-mid);color:var(--sage-dark);border:1px solid var(--green-border)}
+.badge-cafe{background:var(--cafe-light);color:var(--cafe-dark);border:1px solid var(--cafe-border)}
+.badge-warn{background:var(--alert-warn-bg);color:var(--alert-warn-color);border:1px solid var(--alert-warn-border)}
+.badge-danger{background:var(--alert-danger-bg);color:var(--alert-danger-color);border:1px solid var(--alert-danger-border)}
+.badge-sand{background:rgba(212,197,169,.22);color:#6b5035;border:1px solid var(--sand-dark)}
+
+/* ALERTS */
+.alert{margin-top:10px;padding:11px 14px;border-radius:10px;font-size:12.5px;display:flex;align-items:flex-start;gap:9px;line-height:1.55}
+.alert.warn{background:var(--alert-warn-bg);border:1px solid var(--alert-warn-border);color:var(--alert-warn-color)}
+.alert.danger{background:var(--alert-danger-bg);border:1px solid var(--alert-danger-border);color:var(--alert-danger-color)}
+.alert.success{background:var(--alert-success-bg);border:1px solid var(--alert-success-border);color:var(--alert-success-color)}
+.alert.info{background:var(--alert-info-bg);border:1px solid var(--alert-info-border);color:var(--alert-info-color)}
+.alert.tip{background:var(--alert-tip-bg);border:1px solid var(--alert-tip-border);color:var(--alert-tip-color)}
+.alert-icon{flex-shrink:0;font-size:15px;margin-top:1px}
+.alert strong{font-weight:700}
+
+/* DIVIDERS */
+.sdiv{display:flex;align-items:center;gap:10px;margin:18px 0 12px}
+.sdiv .l{flex:1;height:1px;background:linear-gradient(90deg,rgba(107,143,113,.25),transparent)}
+.sdiv .l:last-child{background:linear-gradient(270deg,rgba(107,143,113,.25),transparent)}
+.sdiv .t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);white-space:nowrap}
+
+/* ACCORDION */
+details.acc{border:none;background:none;margin:7px 0}
+details.acc+details.acc{margin-top:6px}
+.acc-header{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:10px;background:var(--green-pale);border:1px solid var(--green-border);transition:all .2s;user-select:none}
+.acc-header::-webkit-details-marker{display:none}
+details.acc[open] .acc-header{border-radius:10px 10px 0 0;border-bottom-color:transparent;background:linear-gradient(135deg,var(--green-pale),#d8e8da)}
+.acc-left{display:flex;align-items:center;gap:10px}
+.acc-num{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.acc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:2px}
+.acc-title{font-size:13px;font-weight:700;color:var(--ink)}
+.acc-arrow{font-size:11px;color:var(--slate);transition:transform .2s}
+details.acc[open] .acc-arrow{transform:rotate(90deg)}
+.acc-body{padding:13px 15px 15px;border:1px solid var(--green-border);border-top:none;border-radius:0 0 10px 10px;background:var(--warm-white)}
+
+/* GRID */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grid-auto{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* CARD */
+.card{background:var(--white);border-radius:13px;padding:15px;border:1px solid var(--green-border);box-shadow:0 3px 12px rgba(45,36,24,.06)}
+.card .card-icon{font-size:24px;margin-bottom:8px}
+.card h4{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--ink);margin-bottom:5px}
+.card p{font-size:12px;color:var(--slate);line-height:1.55;margin:0}
+.card-sage{border-color:var(--sage);border-left:3px solid var(--sage);background:var(--green-pale)}
+.card-cafe{border-left:3px solid var(--cafe);background:rgba(139,111,71,.05)}
+.card-warn{border-left:3px solid #b48238;background:var(--alert-warn-bg)}
+.card-danger{border-left:3px solid #a03c32;background:var(--alert-danger-bg)}
+
+/* RESOURCE CARD */
+.res-card{background:var(--white);border-radius:13px;border:1px solid var(--green-border);overflow:hidden;box-shadow:0 4px 14px rgba(45,36,24,.07);margin-bottom:13px}
+.res-card-header{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,var(--green-pale),var(--cream));border-bottom:1px solid var(--green-border)}
+.res-num{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Barlow Condensed',sans-serif}
+.res-meta .res-label{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.res-meta .res-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--ink)}
+.res-body{padding:15px 16px}
+
+/* STEP LIST */
+.step-list{display:flex;flex-direction:column;gap:9px;margin-top:10px}
+.step-item{display:flex;gap:11px;align-items:flex-start}
+.step-dot{width:26px;height:26px;min-width:26px;border-radius:7px;background:var(--green-mid);border:1.5px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--sage-dark);margin-top:1px}
+.step-text{font-size:13px;color:var(--ink);line-height:1.6}
+
+/* TABLE */
+table.t{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px}
+table.t th{background:var(--sage-dark);color:#fff;padding:9px 12px;text-align:left;font-weight:700;font-size:11.5px}
+table.t th:first-child{border-radius:8px 0 0 0}
+table.t th:last-child{border-radius:0 8px 0 0}
+table.t td{padding:9px 12px;border-bottom:1px solid var(--green-border);vertical-align:top;color:var(--ink)}
+table.t tr:nth-child(even) td{background:var(--green-pale)}
+table.t tr:last-child td{border-bottom:none}
+table.t code{background:rgba(107,143,113,.14);padding:1px 6px;border-radius:4px;font-size:11.5px;font-weight:700;color:var(--sage-dark)}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px;margin-bottom:16px}
+.stat-card{background:var(--white);border-radius:12px;padding:14px;border:1px solid var(--green-border);text-align:center}
+.stat-card .sv{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--sage-dark);line-height:1}
+.stat-card .sl{font-size:11px;color:var(--slate);margin-top:4px;font-weight:600}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:0;margin:12px 0;position:relative}
+.timeline::before{content:'';position:absolute;left:19px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--sage-dark),var(--sage),var(--sage-light));border-radius:2px}
+.tl-item{display:flex;gap:14px;padding:0 0 14px;position:relative}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{width:38px;height:38px;min-width:38px;border-radius:9px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;box-shadow:0 3px 9px rgba(74,107,80,.22);font-family:'Barlow Condensed',sans-serif}
+.tl-content{background:var(--white);border-radius:10px;border:1px solid var(--green-border);padding:11px 14px;flex:1;transition:all .2s}
+.tl-content:hover{border-color:var(--sage);transform:translateX(2px)}
+.tl-etapa{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.tl-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.tl-desc{font-size:11.5px;color:var(--slate);line-height:1.5}
+.tl-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+
+/* CHECKLIST interactive */
+.chk-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.chk-item{display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border-radius:9px;background:var(--green-pale);border:1px solid var(--green-border);cursor:pointer;transition:all .18s;user-select:none}
+.chk-item:hover{background:#d5e8d8}
+.chk-item.done{background:#d1e7d4;border-color:rgba(74,107,80,.35);text-decoration:line-through;opacity:.75}
+.chk-box{width:20px;height:20px;min-width:20px;border-radius:5px;border:2px solid var(--sage);background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .18s;margin-top:1px}
+.chk-item.done .chk-box{background:var(--sage-dark);border-color:var(--sage-dark);color:#fff}
+.chk-text{font-size:12.5px;color:var(--ink);line-height:1.5}
+
+/* FOCO ROJO */
+.foco-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.foco-item{display:flex;align-items:flex-start;gap:9px;padding:10px 13px;border-radius:9px;background:var(--alert-danger-bg);border:1px solid var(--alert-danger-border)}
+.foco-icon{font-size:14px;flex-shrink:0;margin-top:2px}
+.foco-text{font-size:12.5px;color:var(--alert-danger-color);line-height:1.5;font-style:italic}
+
+/* COMPETENCY TABLE */
+.comp-grid{display:grid;gap:9px;margin-top:10px}
+.comp-item{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:center;padding:10px 14px;border-radius:10px;background:var(--white);border:1px solid var(--green-border)}
+.comp-item .ci-name{font-size:12.5px;font-weight:700;color:var(--ink)}
+.comp-item .ci-ev{font-size:11.5px;color:var(--slate);line-height:1.5}
+.comp-badge{padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;background:var(--alert-success-bg);color:var(--alert-success-color);border:1px solid var(--alert-success-border);white-space:nowrap}
+@media(max-width:700px){.comp-item{grid-template-columns:1fr}}
+
+/* EVAL QUESTION */
+.q-item{background:var(--white);border:1px solid var(--green-border);border-radius:11px;padding:14px 16px;margin-bottom:10px}
+.q-stem{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.5}
+.q-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:5px}
+.q-opts{display:flex;flex-direction:column;gap:7px}
+.q-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:8px;border:1.5px solid var(--green-border);background:var(--cream);cursor:pointer;font-size:13px;line-height:1.55;transition:all .18s;user-select:none}
+.q-opt input[type=radio]{display:none}
+.q-opt:hover{border-color:var(--sage);background:var(--green-pale)}
+.q-opt.opted{border-color:var(--sage-dark);background:var(--green-pale)}
+.q-opt.q-correct{border-color:#3a7a46!important;background:#d4edda!important;pointer-events:none}
+.q-opt.q-wrong{border-color:#a03c32!important;background:#f5d5d0!important;pointer-events:none}
+.q-opt.q-disabled{pointer-events:none}
+.q-letter{width:26px;height:26px;min-width:26px;border-radius:6px;background:var(--green-mid);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;color:var(--sage-dark);margin-top:1px;transition:all .18s}
+.q-opt.opted .q-letter{background:var(--sage-dark);color:#fff;border-color:var(--sage-dark)}
+.q-opt.q-correct .q-letter{background:#3a7a46;color:#fff;border-color:#3a7a46}
+.q-opt.q-wrong .q-letter{background:#a03c32;color:#fff;border-color:#a03c32}
+.q-feedback-box{display:none;margin-top:10px;padding:10px 13px;border-radius:9px;font-size:12.5px;line-height:1.55}
+.q-feedback-box.show{display:block}
+.q-feedback-box.ok{background:var(--alert-success-bg);border:1px solid var(--alert-success-border);color:var(--alert-success-color)}
+.q-feedback-box.fail{background:var(--alert-danger-bg);border:1px solid var(--alert-danger-border);color:var(--alert-danger-color)}
+.result-card{display:none;margin:16px 0 0;padding:22px;border-radius:13px;background:linear-gradient(135deg,rgba(107,143,113,.06),rgba(139,111,71,.06));border:1px solid var(--cafe-border);text-align:center}
+.result-card.show{display:block;animation:fadeUp .3s ease}
+.result-score{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;line-height:1}
+.result-score.pass{color:var(--alert-success-color)}.result-score.warn{color:var(--alert-warn-color)}.result-score.fail{color:var(--alert-danger-color)}
+.result-label{font-size:14px;font-weight:700;color:var(--ink);margin:6px 0 8px}
+.result-msg{font-size:12.5px;color:var(--slate);line-height:1.6;max-width:50ch;margin:0 auto 14px}
+.result-breakdown{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.rb-item{padding:10px 18px;border-radius:10px;text-align:center;min-width:80px}
+.rb-ok{background:var(--alert-success-bg);border:1px solid var(--alert-success-border)}
+.rb-bad{background:var(--alert-danger-bg);border:1px solid var(--alert-danger-border)}
+.rb-mod{background:var(--green-mid);border:1px solid var(--green-border)}
+.rb-n{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;line-height:1}
+.rb-ok .rb-n{color:var(--alert-success-color)}.rb-bad .rb-n{color:var(--alert-danger-color)}.rb-mod .rb-n{color:var(--sage-dark)}
+.rb-l{font-size:10px;font-weight:700;color:var(--slate);margin-top:2px}
+.btn-retry,.btn-submit{padding:10px 22px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;font-family:'DM Sans',sans-serif}
+.btn-retry{background:var(--green-mid);color:var(--sage-dark);border:1px solid var(--green-border)}
+.btn-retry:hover{background:var(--green-pale)}
+.btn-submit{background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(74,107,80,.3)}
+
+/* PRINCIPLE */
+.principle{margin-top:12px;padding:14px 17px;border-radius:11px;background:linear-gradient(135deg,rgba(107,143,113,.05),rgba(139,111,71,.06));border:1px solid var(--cafe-border);border-left:3px solid var(--cafe)}
+.principle p{margin:0;font-size:14px;font-weight:600;font-style:italic;font-family:'Cormorant Garamond',serif;line-height:1.55;color:var(--cafe-dark)}
+
+/* PROGRESO SECCIONES */
+.sec-progress{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap}
+.sp-item{flex:1;min-width:70px;height:5px;border-radius:3px;background:var(--beige-dark);transition:background .3s;cursor:pointer}
+.sp-item.done{background:var(--sage)}
+.sp-item.active{background:var(--sage-dark)}
+
+/* MISC */
+.tag-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tag{padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--green-mid);border:1px solid var(--green-border);color:var(--sage-dark)}
+.tag.cafe{background:var(--cafe-light);border-color:var(--cafe-border);color:var(--cafe-dark)}
+.tag.warn{background:var(--alert-warn-bg);border-color:var(--alert-warn-border);color:var(--alert-warn-color)}
+.tag.danger{background:var(--alert-danger-bg);border-color:var(--alert-danger-border);color:var(--alert-danger-color)}
+
+.lc-doc-link{display:inline-flex;align-items:center;gap:7px;padding:8px 16px;border-radius:9px;background:var(--sage-dark);color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;margin-top:10px;transition:all .2s}
+.lc-doc-link:hover{background:var(--sage);box-shadow:0 4px 12px rgba(74,107,80,.3);transform:translateY(-1px)}
+
+.mini-rule{margin:12px 0;height:1px;background:linear-gradient(90deg,var(--green-border),transparent)}
+</style>
+</head>
+<body>
+
+<!-- TOPNAV -->
+<nav class="topnav">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="brand"><div class="seal">🌿</div>TMLF <span>Learning Center</span></div>
+  <div class="topnav-right">
+    <span class="topnav-pill">Training Operativo</span>
+    <span class="topnav-pill" style="background:rgba(139,111,71,.14);border-color:rgba(139,111,71,.32);color:rgba(185,155,105,.9);">VISA T</span>
+  </div>
+</nav>
+
+<div class="sb-overlay" id="sbOverlay" onclick="toggleSidebar()"></div>
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="progBar"></div></div>
+
+<div class="app-shell">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sh-label">Módulo Principal</div>
+    <div class="sh-title">Recursos Operativos<br>Pre-Welcome Interview</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-group-label">Navegación</div>
+    <div class="sb-item active" data-section="s0" onclick="goSection('s0',this)">
+      <div class="sb-num">📋</div>
+      <div class="sb-text"><div class="sb-name">Descripción General</div></div>
+    </div>
+    <div class="sb-item" data-section="s1" onclick="goSection('s1',this)">
+      <div class="sb-num">🗺️</div>
+      <div class="sb-text"><div class="sb-name">Mapa Cronológico</div></div>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Recursos</div>
+    <div class="sb-item" data-section="s2" onclick="goSection('s2',this)">
+      <div class="sb-num">01</div>
+      <div class="sb-text"><div class="sb-name">TramCase y Codificación</div><div class="sb-sub">Notas PSYCH CDMX</div></div>
+    </div>
+    <div class="sb-item" data-section="s3" onclick="goSection('s3',this)">
+      <div class="sb-num">02</div>
+      <div class="sb-text"><div class="sb-name">Speechs & Guidelines</div><div class="sb-sub">Agenda y videollamada</div></div>
+    </div>
+    <div class="sb-item" data-section="s4" onclick="goSection('s4',this)">
+      <div class="sb-num">03</div>
+      <div class="sb-text"><div class="sb-name">SMS Operativos</div><div class="sb-sub">Plantillas por esquema</div></div>
+    </div>
+    <div class="sb-item" data-section="s5" onclick="goSection('s5',this)">
+      <div class="sb-num">04</div>
+      <div class="sb-text"><div class="sb-name">Checklist de Documentos</div><div class="sb-sub">Suficiencia por tipo de trata</div></div>
+    </div>
+    <div class="sb-item" data-section="s6" onclick="goSection('s6',this)">
+      <div class="sb-num">05</div>
+      <div class="sb-text"><div class="sb-name">Mendoza Hub</div><div class="sb-sub">Formas I-914</div></div>
+    </div>
+    <div class="sb-item" data-section="s7" onclick="goSection('s7',this)">
+      <div class="sb-num">06</div>
+      <div class="sb-text"><div class="sb-name">Guía Entrevista de Trata</div><div class="sb-sub">Proceso / Medios / Fines</div></div>
+    </div>
+    <div class="sb-item" data-section="s8" onclick="goSection('s8',this)">
+      <div class="sb-num">07</div>
+      <div class="sb-text"><div class="sb-name">Speech de Terapia</div><div class="sb-sub">Estrategia de fortalecimiento</div></div>
+    </div>
+    <div class="sb-item" data-section="s9" onclick="goSection('s9',this)">
+      <div class="sb-num">08</div>
+      <div class="sb-text"><div class="sb-name">Dropbox y Orden Documental</div></div>
+    </div>
+    <div class="sb-item" data-section="s10" onclick="goSection('s10',this)">
+      <div class="sb-num">09</div>
+      <div class="sb-text"><div class="sb-name">Antifraude Preventivo</div></div>
+    </div>
+    <div class="sb-item" data-section="s11" onclick="goSection('s11',this)">
+      <div class="sb-num">10</div>
+      <div class="sb-text"><div class="sb-name">Imagen Institucional</div></div>
+    </div>
+    <div class="sb-item" data-section="s12" onclick="goSection('s12',this)">
+      <div class="sb-num">11</div>
+      <div class="sb-text"><div class="sb-name">Supervisión y Cierre</div></div>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-group-label">Cierre</div>
+    <div class="sb-item" data-section="s13" onclick="goSection('s13',this)">
+      <div class="sb-num">⚡</div>
+      <div class="sb-text"><div class="sb-name">Escenarios Especiales</div></div>
+    </div>
+    <div class="sb-item" data-section="s14" onclick="goSection('s14',this)">
+      <div class="sb-num">📊</div>
+      <div class="sb-text"><div class="sb-name">Flujo del Colaborador</div></div>
+    </div>
+    <div class="sb-item" data-section="s15" onclick="goSection('s15',this)">
+      <div class="sb-num">✅</div>
+      <div class="sb-text"><div class="sb-name">Criterios de Dominio</div></div>
+    </div>
+    <div class="sb-item" data-section="s16" onclick="goSection('s16',this)">
+      <div class="sb-num">📝</div>
+      <div class="sb-text"><div class="sb-name">Evaluación Final</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge"><span class="dot"></span>TMLF Learning Center · Training Operativo</div>
+    <h1>Recursos de <span>Pre-Welcome Interview</span><br>VISA T</h1>
+    <p class="subtitle">Manual cronológico y operativo para el uso de herramientas, guías, registros y controles de calidad durante la atención al cliente.</p>
+    <div class="header-meta">
+      <div class="header-meta-item"><span>📁</span><strong>Área:</strong> Pre-Welcome Interview VISA T</div>
+      <div class="header-meta-item"><span>🏛️</span><strong>Firma:</strong> The Mendoza Law Firm</div>
+      <div class="header-meta-item"><span>📚</span><strong>Tipo:</strong> Training Operativo</div>
+      <div class="header-meta-item"><span>🔖</span><strong>Módulos:</strong> 11 Recursos + Evaluación</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS VISUAL -->
+  <div class="sec-progress" id="secProgress"></div>
+
+  <!-- ════════ S0: DESCRIPCIÓN ════════ -->
+  <div class="section active" id="s0">
+    <div class="page-title">
+      <div class="pt-label">Inicio del módulo</div>
+      <h2>Descripción General del Training</h2>
+      <div class="pt-sub">Propósito, objetivos y contexto operativo del área PWI VISA T</div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="sv">11</div><div class="sl">Recursos Operativos</div></div>
+      <div class="stat-card"><div class="sv">4</div><div class="sl">Tipos de Trata</div></div>
+      <div class="stat-card"><div class="sv">3</div><div class="sl">Bloques de Entrevista</div></div>
+      <div class="stat-card"><div class="sv">10</div><div class="sl">Competencias</div></div>
+    </div>
+
+    <div class="block">
+      <div class="btitle"><div class="bicon">🎯</div><h3>Propósito del Training</h3></div>
+      <div class="bbody">
+        <p>Este training tiene como finalidad que el colaborador del área de Pre-Welcome Interview VISA T comprenda el conjunto completo de recursos operativos empleados en la rutina de trabajo y en las interacciones con el cliente, y que sea capaz de utilizarlos en el momento correcto, con claridad, consistencia y criterio.</p>
+        <p>Los contenidos están reorganizados de forma <strong>cronológica</strong>: preparación interna → llamada de agenda → videollamada → recolección de información → entrevista de trata → registros y seguimiento → incidencias → antifraude → supervisión final.</p>
+        <div class="alert info"><span class="alert-icon">🌿</span><div>La VISA T es una visa <strong>humanitaria</strong> para víctimas de trata. El colaborador debe manejar con sensibilidad cada momento del proceso sin perder el enfoque estratégico del caso.</div></div>
+
+        <a href="#" class="lc-doc-link">📄 Documento de Operación — Recursos PWI VISA T</a>
+      </div>
+    </div>
+
+    <div class="sdiv"><div class="l"></div><div class="t">Objetivos específicos</div><div class="l"></div></div>
+
+    <div class="grid-2">
+      <div class="card card-sage">
+        <div class="card-icon">📍</div>
+        <h4>Identificar el momento correcto</h4>
+        <p>Saber qué recurso corresponde a cada etapa del proceso con el cliente: agenda, videollamada, entrevista, cierre y seguimiento.</p>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon">🎙️</div>
+        <h4>Ejecutar speechs con naturalidad</h4>
+        <p>Conducir la llamada de agenda y la videollamada con los speechs y guidelines sin sonar leído, cubriendo todos los puntos sustanciales.</p>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon">📋</div>
+        <h4>Solicitar evidencia diferenciada</h4>
+        <p>Pedir documentación y evidencias con base en checklist y tipo de esquema de trata (coyote, laboral, pareja, sexual).</p>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon">🗂️</div>
+        <h4>Registrar correctamente en TramCase</h4>
+        <p>Notas PSYCH CDMX, codificación correcta en todos los contactos y fechas de compromiso establecidas.</p>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon">💻</div>
+        <h4>Operar Mendoza Hub</h4>
+        <p>Obtener suficiencia de información para el llenado de las formas migratorias de VISA T (I-914 y suplementos).</p>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon">🧩</div>
+        <h4>Conducir la entrevista de trata</h4>
+        <p>Desarrollar los tres bloques: Proceso, Medios y Fines, con detalle operativo y estratégico por tipo de esquema.</p>
+      </div>
+    </div>
+
+    <div class="sdiv"><div class="l"></div><div class="t">Tipos de esquema de trata</div><div class="l"></div></div>
+    <div class="grid-auto">
+      <div class="card"><div class="card-icon">🚗</div><h4>Coyote / Contrabando</h4><p>Convertido en trata. Retención, pagos, fotos del lugar, mensajes del coyote.</p></div>
+      <div class="card"><div class="card-icon">🏢</div><h4>Trata Laboral</h4><p>Empleador coercitivo. Quejas laborales, mensajes, lesiones laborales, testigos.</p></div>
+      <div class="card"><div class="card-icon">💔</div><h4>Violencia Doméstica</h4><p>Pareja o familiar. Mensajes abusivos, reportes médicos, órdenes de restricción.</p></div>
+      <div class="card"><div class="card-icon">🔴</div><h4>Trata Sexual Directa</h4><p>Explotación sexual. Evidencia física, declaraciones, reportes policiales.</p></div>
+    </div>
+
+    <div class="principle"><p>"El dominio del puesto no consiste en memorizar speechs o plantillas, sino en saber utilizarlos con intención, con trazabilidad y con criterio profesional frente al cliente."</p></div>
+
+    <div style="display:flex;justify-content:flex-end;margin-top:18px">
+      <button class="lc-doc-link" onclick="goSection('s1',document.querySelector('[data-section=s1]'))" style="border:none;cursor:pointer;">Continuar → Mapa Cronológico</button>
+    </div>
+  </div>
+
+  <!-- ════════ S1: MAPA CRONOLÓGICO ════════ -->
+  <div class="section" id="s1">
+    <div class="page-title">
+      <div class="pt-label">Visión general del proceso</div>
+      <h2>Mapa Cronológico del Proceso</h2>
+      <div class="pt-sub">Orden de uso de recursos a lo largo del flujo operativo PWI VISA T</div>
+    </div>
+
+    <div class="alert info"><span class="alert-icon">💡</span><div>Antes de estudiar cada recurso por separado, comprendé en qué momento exacto aparece dentro del flujo operativo. Este mapa resume el orden de uso.</div></div>
+
+    <div class="timeline" style="margin-top:16px">
+      <div class="tl-item">
+        <div class="tl-dot">0</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Preparación Interna</div>
+          <div class="tl-title">Preparación antes del contacto</div>
+          <div class="tl-desc">Revisar notas de TramCase, Dropbox, Call Strategy y checklist. Llegar preparado al contacto.</div>
+          <div class="tl-badges"><span class="tag">TramCase</span><span class="tag">Dropbox</span><span class="tag">Call Strategy</span><span class="tag">Checklist</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Primer Contacto</div>
+          <div class="tl-title">Llamada de Agenda</div>
+          <div class="tl-desc">Explicar proceso, solicitar documentos, informar sobre cooperación con autoridades y fijar cita. Cliente informado con fecha compromiso.</div>
+          <div class="tl-badges"><span class="tag">Speech agenda</span><span class="tag">Códigos</span><span class="tag">Checklist</span><span class="tag">SMS</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Post Agenda</div>
+          <div class="tl-title">SMS Post Agenda</div>
+          <div class="tl-desc">Enviar recordatorios y detallar documentos, información y evidencias para preparar antes de la videollamada.</div>
+          <div class="tl-badges"><span class="tag">SMS post agenda</span><span class="tag">Listado info</span><span class="tag">Fecha compromiso</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Videollamada</div>
+          <div class="tl-title">Inicio y Revisión Documental</div>
+          <div class="tl-desc">Abrir videollamada con fondo institucional, explicar dinámica, revisar documentos enviados y faltantes. Encuadre del cliente.</div>
+          <div class="tl-badges"><span class="tag">Fondos institucionales</span><span class="tag">Códigos</span><span class="tag">Speech PWC/Visa T</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Recopilación</div>
+          <div class="tl-title">Llenado de Formas — Mendoza Hub</div>
+          <div class="tl-desc">Obtener información suficiente para formas migratorias del proceso VISA T. Formulario llenado y datos validados.</div>
+          <div class="tl-badges"><span class="tag">Mendoza Hub</span><span class="tag">Checklist</span><span class="tag">Speech de llenado</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Entrevista de Trata</div>
+          <div class="tl-title">Desarrollo — Proceso / Medios / Fines</div>
+          <div class="tl-desc">Profundizar en el esquema de trata y solicitar soporte probatorio. Base narrativa y probatoria fortalecida.</div>
+          <div class="tl-badges"><span class="tag">Guideline entrevista</span><span class="tag">Evidencias</span><span class="tag">Testigos</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">6</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Cierre</div>
+          <div class="tl-title">Cierre de Entrevista y Seguimiento</div>
+          <div class="tl-desc">Confirmar documentos pendientes, evidencias de trata, paquete de bienvenida y recomendaciones finales. Pendientes con fecha compromiso.</div>
+          <div class="tl-badges"><span class="tag">Speech cierre Pte.1 y 2</span><span class="tag">SMS post entrevista</span><span class="tag">Terapia</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">7</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Incidencias</div>
+          <div class="tl-title">No Contesta / No Coopera / Reagenda</div>
+          <div class="tl-desc">Documentar intentos de contacto, incumplimientos o reprogramación. Historial de incidentes respaldados por SMS.</div>
+          <div class="tl-badges"><span class="tag cafe">SMS incidencias</span><span class="tag cafe">Nota TramCase</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">8</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Riesgo de Fraude</div>
+          <div class="tl-title">Antifraude Preventivo</div>
+          <div class="tl-desc">Intervenir ante intención de mentir, exagerar o fabricar información. Riesgo contenido y escalado.</div>
+          <div class="tl-badges"><span class="tag danger">Disclaimer antifraude</span><span class="tag danger">Reporte interno</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">9</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Organización Documental</div>
+          <div class="tl-title">Dropbox y Nomenclatura</div>
+          <div class="tl-desc">Ordenar documentos, evidencias, audios, videos y entregables del caso. Expediente completo y localizable.</div>
+          <div class="tl-badges"><span class="tag">Dropbox</span><span class="tag">Nomenclatura</span></div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">10</div>
+        <div class="tl-content">
+          <div class="tl-etapa">Control de Calidad</div>
+          <div class="tl-title">Forms de Supervisión — Revisión TL</div>
+          <div class="tl-desc">Validar suficiencia del caso y cumplimiento de estándares. Caso listo para siguiente etapa.</div>
+          <div class="tl-badges"><span class="tag sage">Form supervisión</span><span class="tag sage">Revisión TL</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S2: TRAMCASE ════════ -->
+  <div class="section" id="s2">
+    <div class="page-title">
+      <div class="pt-label">Recurso 1</div>
+      <h2>Notas de TramCase y Codificación del Contacto</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">01</div>
+        <div class="res-meta"><div class="res-label">Recurso</div><div class="res-title">Notas de TramCase — Estructura PSYCH CDMX</div></div>
+        <span class="badge badge-sage">Registro oficial</span>
+      </div>
+      <div class="res-body">
+        <p style="font-size:13px;color:var(--slate)">Las notas de TramCase son el registro oficial del trabajo realizado. Su función es dejar trazabilidad, proteger a la operación y facilitar la continuidad del caso. En VISA T, la codificación tiene una nomenclatura específica que debe respetarse en cada interacción.</p>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso operativo</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text"><strong>Antes de llamar:</strong> revisa notas existentes para entender historial, pendientes previos, evidencia prometida e incidencias relevantes.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text"><strong>En la presentación:</strong> menciona el nombre completo del cliente. Indispensable para que la llamada se codifique correctamente.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text"><strong>Durante el contacto:</strong> usa el código correspondiente: código de visa + modo de contacto + tipo de contacto. En VISA T el identificador es <code style="background:var(--green-mid);padding:1px 6px;border-radius:4px;font-weight:800;color:var(--sage-dark)">32</code>.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text"><strong>Modo de contacto:</strong> llamada en TramCase = (1); videollamada/Meet = (2). Seguido del tipo: agenda, reagenda, entrevista por partes, FAIR, DAIR, dictaminación, etc.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text"><strong>Al cierre:</strong> deja nota clara y cronológica con estructura PSYCH CDMX: qué se hizo, qué se pidió, qué entregó o no el cliente, fecha compromiso y qué sigue.</div></div>
+          <div class="step-item"><div class="step-dot">6</div><div class="step-text"><strong>Evidencia en proceso:</strong> si se está generando (terapia, cartas, reportes), registra seguimiento con nombre del psicólogo o contacto.</div></div>
+          <div class="step-item"><div class="step-dot">7</div><div class="step-text"><strong>No coopera / no contesta / reagenda:</strong> nota PSYCH CDMX con "No cooperation" y motivo específico.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Códigos operativos VISA T</div><div class="l"></div></div>
+        <table class="t">
+          <thead><tr><th>Estructura</th><th>Código</th><th>Interpretación</th></tr></thead>
+          <tbody>
+            <tr><td>32 + 1 + 3</td><td><code>32.1.3</code></td><td>Visa T + llamada + agenda</td></tr>
+            <tr><td>32 + 1 + 5</td><td><code>32.1.5</code></td><td>Visa T + llamada + reagenda</td></tr>
+            <tr><td>32 + 2 + 4PT1</td><td><code>32.2.4PT1</code></td><td>Visa T + videollamada + entrevista parte 1</td></tr>
+            <tr><td>32 + 2 + 4PT2</td><td><code>32.2.4PT2</code></td><td>Visa T + videollamada + entrevista parte 2</td></tr>
+            <tr><td>32 + 1 + 8</td><td><code>32.1.8</code></td><td>Visa T + llamada + DAIR</td></tr>
+            <tr><td>32 + 2 + DT</td><td><code>32.2.DT</code></td><td>Visa T + videollamada + dictaminación</td></tr>
+            <tr><td>32 + 1 + 0</td><td><code>32.1.0</code></td><td>Visa T + llamada + otros</td></tr>
+          </tbody>
+        </table>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Criterios</div><div class="l"></div></div>
+        <div class="grid-2">
+          <div class="alert success"><span class="alert-icon">✔</span><div>La nota debe permitir que otra persona retome el caso sin volver a preguntarle todo al cliente.</div></div>
+          <div class="alert success"><span class="alert-icon">✔</span><div>Todo compromiso del cliente debe quedar con fecha concreta y trazable.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes — evitar</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div><strong>Nota vaga:</strong> "Se habló con cliente" sin indicar acuerdos, pendientes ni resultado.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Omitir registrar fecha compromiso para evidencia o documentos.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No usar la estructura correcta en las notas de TramCase (PSYCH CDMX).</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Codificar mal la llamada por no mencionar el nombre completo del cliente o usar el tipo de contacto incorrecto.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S3: SPEECHS ════════ -->
+  <div class="section" id="s3">
+    <div class="page-title">
+      <div class="pt-label">Recurso 2</div>
+      <h2>Speechs y Guidelines para Agenda y Videollamada</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">02</div>
+        <div class="res-meta"><div class="res-label">Recurso</div><div class="res-title">Speechs PWI VISA T — Agenda y Videollamada</div></div>
+        <span class="badge badge-cafe">Tono empático</span>
+      </div>
+      <div class="res-body">
+        <div class="alert tip"><span class="alert-icon">🌿</span><div><strong>Particularidad de VISA T:</strong> es una visa humanitaria para víctimas de trata. El colaborador debe manejar con sensibilidad los momentos en que se aborda el esquema vivido, sin perder el enfoque estratégico del caso. Los speechs no deben sonar leídos.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Estructura de la llamada de agenda</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Presentación institucional, validación básica del contacto y explicación del objetivo de la llamada.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Referencia explícita a que la VISA T es una <strong>visa humanitaria para víctimas de trata</strong>.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Explica la dinámica de la videollamada: duración aproximada de <strong>6 horas</strong>, dos bloques (llenado de formas + entrevista de declaración sobre la trata).</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Introduce el principio de <strong>preponderancia de evidencia</strong>: entre más evidencias existan, más fuerte el caso.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Énfasis en la <strong>cooperación con autoridades</strong> como parte del proceso de VISA T — punto obligatorio.</div></div>
+          <div class="step-item"><div class="step-dot">6</div><div class="step-text">Usa la checklist para revisar con el cliente qué documentos tiene y cuáles puede conseguir antes de la entrevista.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Estructura de la videollamada</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Speech de inicio: explicar dinámica, pausas, uso de IA, confidencialidad y seguridad del cliente.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Bloque de antifraude integrado al speech: cliente confirma compromiso de hablar con la verdad.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Entrevista de trata en tres bloques: <strong>Proceso → Medios → Fines</strong>, adaptada al tipo de esquema.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Cierre: speech de terapia + encuesta de satisfacción + recomendaciones de seguridad + despedida institucional.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Bloques de entrevista por tipo de trata</div><div class="l"></div></div>
+        <div class="grid-2">
+          <div class="card card-sage"><div class="card-icon">📍</div><h4>Proceso</h4><p>Reclutamiento, traslado, recepción. Fechas aproximadas, lugares, personas involucradas, descripción física del tratante.</p></div>
+          <div class="card card-cafe"><div class="card-icon">⚙️</div><h4>Medios</h4><p>Control físico, coacción psicológica, manipulación, violencia, explotación económica. Nunca aceptar un relato sin explorar el propósito del control.</p></div>
+          <div class="card card-cafe"><div class="card-icon">🎯</div><h4>Fines</h4><p>Servidumbre involuntaria, trata sexual, trata laboral, según aplique.</p></div>
+          <div class="card card-sage"><div class="card-icon">🤝</div><h4>PEU + Dificultades Extremas</h4><p>Permanencia en EUA derivada de la trata y dificultades extremas ante deportación. Bloques requeridos para VISA T.</p></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes — evitar</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>No explicar la naturaleza humanitaria de la VISA T al cliente.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Omitir el punto de <strong>cooperación con autoridades</strong>, que es requisito fundamental del proceso.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No adaptar las preguntas de la entrevista al tipo de trata del cliente.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Pasar de información objetiva a entrevista de trata sin preparar emocionalmente al cliente.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Omitir el speech de terapia al cierre.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S4: SMS ════════ -->
+  <div class="section" id="s4">
+    <div class="page-title">
+      <div class="pt-label">Recurso 3</div>
+      <h2>SMS Operativos</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">03</div>
+        <div class="res-meta"><div class="res-label">Recurso</div><div class="res-title">Plantillas SMS — Diferenciadas por Tipo de Trata</div></div>
+        <span class="badge badge-cafe">Siempre editar</span>
+      </div>
+      <div class="res-body">
+        <div class="alert warn"><span class="alert-icon">⚡</span><div><strong>Regla de oro:</strong> en VISA T existen mensajes diferenciados por tipo de esquema de trata. El colaborador debe <strong>editar siempre</strong> el mensaje según las características del caso antes de enviarlo. Nunca enviar plantilla sin editar.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Cuándo y cómo usar cada SMS</div><div class="l"></div></div>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">1</div><div><div class="acc-label">Post agenda</div><div class="acc-title">SMS de documentos e instrucciones</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body">
+            <p style="font-size:13px">Enviado después de la llamada de agenda. Incluye documentos, información e instrucciones según la checklist y el tipo de trata.</p>
+            <div class="mini-rule"></div>
+            <p style="font-size:12.5px;color:var(--slate)"><strong>Información que el cliente debe tener lista:</strong> historial de direcciones (5 años en EUA y país de origen), empleo, historial criminal, historial marital, última entrada, datos actuales, información de hijos y familia.</p>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">2</div><div><div class="acc-label">Evidencia diferenciada</div><div class="acc-title">SMS según tipo de esquema de trata</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body">
+            <div class="grid-2" style="margin-top:8px">
+              <div class="card card-sage"><h4>Violencia doméstica</h4><p>Mensajes abusivos, fotos, reportes médicos, informes policiales, órdenes de restricción, declaraciones de testigos.</p></div>
+              <div class="card card-sage"><h4>Trata laboral</h4><p>Quejas laborales, mensajes coercitivos, talones de pago, lesiones laborales, declaraciones de otras víctimas.</p></div>
+              <div class="card card-sage"><h4>Contrabando convertido en trata</h4><p>Fotos del lugar de retención, grabaciones del coyote, evidencia de pagos, declaraciones de testigos.</p></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">3</div><div><div class="acc-label">Confirmación</div><div class="acc-title">SMS de confirmación de entrevista</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body"><p style="font-size:13px">Recordatorio con fecha, hora y preparación requerida, incluido el link de Google Meet.</p></div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">4</div><div><div class="acc-label">Post videollamada</div><div class="acc-title">SMS post entrevista — Evidencias pendientes</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body"><p style="font-size:13px">Lista de evidencias pendientes personalizada según lo detectado en la entrevista.</p></div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">5</div><div><div class="acc-label">Incidencias</div><div class="acc-title">SMS no contesta / no coopera / reagenda</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body">
+            <p style="font-size:13px">Mensaje específico según la incidencia. <strong>Inmediatamente después</strong> dejar nota en TramCase.</p>
+            <div class="alert warn" style="margin-top:8px"><span class="alert-icon">⚡</span><div>El SMS de incidencia debe informar al cliente sobre las posibles consecuencias del incumplimiento, dejando historial respaldado.</div></div>
+          </div>
+        </details>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Enviar plantillas sin editar o con tipo de trata equivocado.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No solicitar evidencia diferenciada por tipo de esquema.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No documentar en TramCase el envío o resultado del contacto.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Mandar mensajes ambiguos sin fecha compromiso ni instrucción clara.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S5: CHECKLIST ════════ -->
+  <div class="section" id="s5">
+    <div class="page-title">
+      <div class="pt-label">Recurso 4</div>
+      <h2>Checklist de Documentos y Suficiencia</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">04</div>
+        <div class="res-meta"><div class="res-label">Recurso</div><div class="res-title">Checklist VISA T — Diferenciada por Tipo de Trata</div></div>
+        <span class="badge badge-sage">Suficiencia probatoria</span>
+      </div>
+      <div class="res-body">
+        <p style="font-size:13px;color:var(--slate)">La checklist no es solo para pedir documentos: su función es <strong>medir suficiencia del caso y detectar vacíos probatorios</strong>. Se usa desde la agenda hasta la entrega a supervisión.</p>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Cuándo usar la checklist</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">📞</div><div class="step-text"><strong>Llamada de agenda:</strong> confirmar qué ya existe y qué debe obtenerse antes de la videollamada.</div></div>
+          <div class="step-item"><div class="step-dot">🎥</div><div class="step-text"><strong>Videollamada:</strong> validar que lo recibido esté completo, correcto y legible.</div></div>
+          <div class="step-item"><div class="step-dot">📅</div><div class="step-text"><strong>Por cada faltante:</strong> explorar si puede conseguirlo, en qué fecha y por qué vía. Fijar fecha compromiso y asentar en TramCase.</div></div>
+        </div>
+
+        <div class="alert tip"><span class="alert-icon">💡</span><div>Valida siempre <strong>calidad documental</strong>: documentos completos, nítidos, legibles y coherentes con el caso.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Suficiencia documental por tipo de trata</div><div class="l"></div></div>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">💔</div><div><div class="acc-label">Tipo de trata</div><div class="acc-title">Violencia doméstica</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body">
+            <div class="chk-list">
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Mensajes de texto abusivos y grabaciones de voz</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Fotos de daños a propiedad, lesiones físicas, moretones o cicatrices</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Reportes médicos, recetas de depresión/ansiedad, expedientes de terapia</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Informes policiales y órdenes de restricción</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Evidencia del mal carácter del abusador (antecedentes penales, fotos de drogas, tatuajes de pandilla)</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Declaraciones de testigos firmadas con ID</div></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">🏢</div><div><div class="acc-label">Tipo de trata</div><div class="acc-title">Trata laboral</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body">
+            <div class="chk-list">
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Quejas laborales, registros de LLC, reseñas del negocio, fotos del lugar de trabajo</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Mensajes coercitivos del tratante, talones de pago o cheques</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Fotos de lesiones laborales, reportes médicos relacionados con la trata</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Declaraciones de otras víctimas del mismo tratante</div></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header"><div class="acc-left"><div class="acc-num">🚗</div><div><div class="acc-label">Tipo de trata</div><div class="acc-title">Contrabando convertido en trata</div></div></div><span class="acc-arrow">▶</span></summary>
+          <div class="acc-body">
+            <div class="chk-list">
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Fotos del lugar donde fueron retenidos, si es identificable</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Mensajes o grabaciones de voz del tratante (coyote)</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Evidencia de pagos realizados al tratante</div></div>
+              <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Declaraciones de testigos del esquema</div></div>
+            </div>
+          </div>
+        </details>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Criterios de suficiencia</div><div class="l"></div></div>
+        <div class="grid-2">
+          <div class="alert success"><span class="alert-icon">✔</span><div>La checklist debe reflejar el estado real del expediente en cada etapa.</div></div>
+          <div class="alert success"><span class="alert-icon">✔</span><div>El colaborador debe saber explicar qué falta, para qué sirve y cuándo debe enviarse.</div></div>
+          <div class="alert success"><span class="alert-icon">✔</span><div>Validar tanto existencia como calidad de los documentos.</div></div>
+          <div class="alert success"><span class="alert-icon">✔</span><div>Todo faltante termina en fecha compromiso asentada en TramCase.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S6: MENDOZA HUB ════════ -->
+  <div class="section" id="s6">
+    <div class="page-title">
+      <div class="pt-label">Recurso 5</div>
+      <h2>Formas Mendoza Hub</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">05</div>
+        <div class="res-meta"><div class="res-label">Recurso</div><div class="res-title">Mendoza Hub — Formulario I-914 y Suplementos</div></div>
+        <span class="badge badge-sage">Suficiencia informativa</span>
+      </div>
+      <div class="res-body">
+        <p style="font-size:13px;color:var(--slate)">Mendoza Hub aloja los formularios de VISA T y concentra las preguntas que deben responderse en conjunto con el cliente durante la videollamada. Su función es asegurar suficiencia de información para el llenado de las formas migratorias I-914 y sus suplementos.</p>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso operativo</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text"><strong>Antes de la videollamada:</strong> avanza la forma con toda la información ya disponible en MyCase, documentos previos y antecedentes del expediente.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Durante la entrevista, usa el formulario como guía estructurada para recabar datos faltantes y validar consistencia.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Inicia por datos básicos: nombre, fechas, lugares, datos del tratante, hijos, entradas y salidas, identidades alternas, historial criminal y situación familiar.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Si el cliente no recuerda fechas exactas, <strong>ayúdalo a estimar la fecha más cercana al evento.</strong></div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Mantén la llamada ágil: el llenado puede ser extenso, sé claro, directo y ordenado.</div></div>
+          <div class="step-item"><div class="step-dot">6</div><div class="step-text">Cuando surja una inconsistencia, aclárala en el momento y deja nota para revisión posterior.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Información clave que el cliente debe tener lista</div><div class="l"></div></div>
+        <div class="grid-2">
+          <div class="card card-sage"><div class="card-icon">📍</div><h4>Address History</h4><p>5 años de historial de direcciones en EUA y en país de origen.</p></div>
+          <div class="card card-sage"><div class="card-icon">💼</div><h4>Employment History</h4><p>Historial de empleos durante el período relevante.</p></div>
+          <div class="card card-sage"><div class="card-icon">⚖️</div><h4>Criminal History</h4><p>Historial criminal completo, incluyendo cargos menores.</p></div>
+          <div class="card card-sage"><div class="card-icon">💍</div><h4>Marital History</h4><p>Historial marital. Última entrada a EUA y datos actuales de hijos y familia.</p></div>
+        </div>
+
+        <div class="alert warn" style="margin-top:14px"><span class="alert-icon">⚡</span><div><strong>No confundir:</strong> la información objetiva del formulario (datos, fechas, lugares) con la narración del esquema de trata. Son bloques separados con propósitos distintos.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Llegar a la videollamada con la forma completamente vacía.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No solicitar al cliente la información de historial de direcciones y empleos antes de la llamada.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No confirmar nombres, fechas o lugares sensibles.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S7: GUÍA ENTREVISTA ════════ -->
+  <div class="section" id="s7">
+    <div class="page-title">
+      <div class="pt-label">Recurso 6</div>
+      <h2>Guía de Entrevista de Trata</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">06</div>
+        <div class="res-meta"><div class="res-label">Recurso central</div><div class="res-title">Entrevista de Trata — Proceso / Medios / Fines</div></div>
+        <span class="badge badge-danger">Recurso central</span>
+      </div>
+      <div class="res-body">
+        <p style="font-size:13px;color:var(--slate)">La guía de entrevista es el <strong>recurso central del proceso VISA T</strong>. Conduce la declaración del cliente sobre el esquema de trata vivido, organizada en tres grandes bloques. Se adapta al tipo de trata: coyote, empleador, pareja o familiar, o trata sexual directa.</p>
+
+        <div class="alert tip" style="margin-top:10px"><span class="alert-icon">🌿</span><div>La entrevista debe ser <strong>humana pero también estratégica</strong>. Cada evento relevante debe dejar una ruta probatoria: evidencia directa, indirecta o testigo.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Estructura de la entrevista</div><div class="l"></div></div>
+        <div class="grid-3">
+          <div class="card" style="border-top:3px solid var(--sage-dark)">
+            <div class="card-icon">🔵</div>
+            <h4>Background</h4>
+            <p>Historia familiar, último grado de estudios, relación con país de origen, vulnerabilidades previas y contexto antes de llegar a EUA.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--cafe)">
+            <div class="card-icon">📍</div>
+            <h4>Proceso</h4>
+            <p>Reclutamiento, traslado, recepción. Fechas aproximadas, lugares, personas involucradas, descripción física del tratante.</p>
+          </div>
+          <div class="card" style="border-top:3px solid #b48238">
+            <div class="card-icon">⚙️</div>
+            <h4>Medios</h4>
+            <p>Control físico, coacción psicológica, manipulación, violencia, explotación económica. Explorar <em>siempre</em> el propósito del control.</p>
+          </div>
+          <div class="card" style="border-top:3px solid #a03c32">
+            <div class="card-icon">🎯</div>
+            <h4>Fines</h4>
+            <p>Servidumbre involuntaria, trata sexual, trata laboral, según aplique.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--sage)">
+            <div class="card-icon">🧠</div>
+            <h4>Consecuencias</h4>
+            <p>Consecuencias psicológicas, escape o rescate, cooperación con fuerzas de la ley.</p>
+          </div>
+          <div class="card" style="border-top:3px solid var(--sage-dark)">
+            <div class="card-icon">🇺🇸</div>
+            <h4>PEU + Dificultades Extremas</h4>
+            <p>Permanencia en EUA derivada de la trata y dificultades extremas ante deportación. <strong>Bloques requeridos para VISA T.</strong></p>
+          </div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso operativo</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Antes de iniciar: revisar notas previas, evidencia en Dropbox y la estrategia de entrevista preparada.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Explicar al cliente que se redactará una declaración para inmigración, como una historia detallada. Confidencialidad + cooperación con autoridades.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Aplicar bloque de antifraude: confirmar que el cliente se compromete a no mentir, exagerar ni distorsionar hechos.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Iniciar siempre con Background antes de entrar a los bloques de trata.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Por cada evento relevante, solicitar evidencia inmediata o fijar fecha compromiso.</div></div>
+          <div class="step-item"><div class="step-dot">6</div><div class="step-text">Desarrollar PEU y Dificultades Extremas como parte del bloque requerido para VISA T.</div></div>
+          <div class="step-item"><div class="step-dot">7</div><div class="step-text">Cierre: pendientes claros y priorizados con fechas concretas.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Escuchar el relato sin solicitar evidencia asociada.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No desarrollar el bloque de <strong>Medios con propósito</strong>: la violencia sin finalidad no configura trata.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No explorar la sección de <strong>PEU y Dificultades Extremas</strong>, que son bloques requeridos para VISA T.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No preguntar sobre cooperación con autoridades, que es requisito del proceso.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Cerrar un evento sin dejar claro qué soporte existe o qué quedará pendiente.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S8: TERAPIA ════════ -->
+  <div class="section" id="s8">
+    <div class="page-title">
+      <div class="pt-label">Recurso 7</div>
+      <h2>Speech de Terapia</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">07</div>
+        <div class="res-meta"><div class="res-label">Recurso estratégico</div><div class="res-title">Speech de Terapia — Fortalecimiento del Caso</div></div>
+        <span class="badge badge-sage">Estrategia probatoria</span>
+      </div>
+      <div class="res-body">
+        <div class="alert success"><span class="alert-icon">🌿</span><div>En VISA T, la terapia psicológica es parte central de la estrategia de fortalecimiento del caso. Evidencia el impacto real de la trata y aumenta la credibilidad del expediente ante migración.</div></div>
+
+        <div class="grid-2" style="margin-top:14px">
+          <div class="card card-sage"><div class="card-icon">💚</div><h4>Beneficio 1: Bienestar del cliente</h4><p>La terapia psicológica contribuye al proceso de recuperación de la víctima durante el proceso migratorio.</p></div>
+          <div class="card card-sage"><div class="card-icon">📁</div><h4>Beneficio 2: Fortalecimiento del caso</h4><p>La carta o reporte del psicólogo puede elevar la credibilidad del caso <strong>por encima del 51%</strong>.</p></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso operativo</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Al cierre de la entrevista, antes de finalizar la llamada, presenta el speech de terapia explicando los dos beneficios.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Comparte el directorio de opciones de terapia gratuita y de pago si el cliente acepta.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Solicita que una vez iniciada la terapia, el cliente consiga: carta o reporte del psicólogo, comprobante de pago o confirmación de cita.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Deja nota en TramCase registrando si el cliente acepta o no el proceso de terapia.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">En llamadas de seguimiento de terapia (notas PSYCH CDMX: Evidence), registra cada intento de contacto para obtener la evidencia.</div></div>
+        </div>
+
+        <div class="principle" style="margin-top:14px"><p>"El speech no debe sonar como una obligación, sino como una recomendación estratégica. Si el cliente no acepta, se documenta y se continúa el proceso."</p></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Omitir el speech de terapia al cierre de la entrevista.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No compartir el directorio cuando el cliente acepta.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No registrar en TramCase la evidencia de terapia cuando se recibe.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S9: DROPBOX ════════ -->
+  <div class="section" id="s9">
+    <div class="page-title">
+      <div class="pt-label">Recurso 8</div>
+      <h2>Dropbox y Orden Documental</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">08</div>
+        <div class="res-meta"><div class="res-label">Recurso</div><div class="res-title">Dropbox — Nomenclatura y Estructura de Expediente</div></div>
+        <span class="badge badge-cafe">Orden obligatorio</span>
+      </div>
+      <div class="res-body">
+        <p style="font-size:13px;color:var(--slate)">Dropbox es el repositorio operativo donde deben quedar ordenados documentos, evidencias y entregables. En VISA T el expediente incluye transcript de entrevista, DOE, checklist y formulario de Mendoza Hub.</p>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Entregables y nomenclatura oficial</div><div class="l"></div></div>
+
+        <table class="t">
+          <thead><tr><th>Entregable</th><th>Nombre en Dropbox</th><th>Carpeta</th></tr></thead>
+          <tbody>
+            <tr><td>Entregable principal</td><td><code>First VISA T Interview [Nombre CL]</code></td><td>Carpeta principal</td></tr>
+            <tr><td>Transcript de entrevista</td><td>Incluido en entregable principal</td><td>Carpeta principal</td></tr>
+            <tr><td>Transcript de llamadas estrategia (TL/Attys)</td><td>Incluido en entregable principal</td><td>Carpeta principal</td></tr>
+            <tr><td>DOE de Visa T</td><td>Incluido en entregable principal</td><td>Carpeta principal</td></tr>
+            <tr><td>Checklist</td><td><code>Checklist Visa T [NOMBRE DEL CLIENTE]</code></td><td>5. Supporting documents</td></tr>
+            <tr><td>Formulario Mendoza Hub</td><td><code>Summary Visa T [NOMBRE DEL CLIENTE]</code></td><td>5. Supporting documents</td></tr>
+          </tbody>
+        </table>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso operativo</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Sube los documentos siguiendo la estructura de carpetas establecida por el área.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Descarga la checklist como .doc y súbela a 5.Supporting documents con el nombre correcto.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Descarga el formulario de Mendoza Hub en PDF y súbelo a la misma carpeta.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text"><strong>Antes de integrar audios o videos:</strong> verifica que sean reproducibles.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Evita duplicados, versiones confusas o archivos sin identificar.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Guardar archivos con nombres genéricos como "foto1" o "audio nuevo".</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No verificar si un video o audio abre correctamente antes de enviarlo a supervisión.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No integrar documentos o evidencia correctamente en la checklist o en la DOE.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S10: ANTIFRAUDE ════════ -->
+  <div class="section" id="s10">
+    <div class="page-title">
+      <div class="pt-label">Recurso 9</div>
+      <h2>Antifraude Preventivo</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">09</div>
+        <div class="res-meta"><div class="res-label">Protocolo de intervención</div><div class="res-title">Antifraude — Detección y Escalamiento</div></div>
+        <span class="badge badge-danger">Intervención inmediata</span>
+      </div>
+      <div class="res-body">
+        <div class="alert danger"><span class="alert-icon">🚨</span><div>El recurso antifraude se emplea en <strong>cualquier momento del contacto</strong> cuando se detectan indicios de intención de mentir, exagerar, fabricar evidencia o construir hechos. En VISA T está integrado al speech de inicio de entrevista.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso — Activación del protocolo</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Al inicio de la videollamada: aplicar bloque de antifraude integrado al speech. El cliente confirma compromiso de no mentir, exagerar ni tergiversar hechos.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Durante la entrevista: si se detecta intención de fabricar, <strong>reencuadrar de inmediato</strong> y enviar el disclaimer por mensaje de texto.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Pedir al cliente que responda por escrito: <em>"Acepto ser honesto al hablar de los hechos en mi caso."</em></div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Si persiste la intención de fraude: informar que la situación será reportada al área de Compliance y escalar de inmediato.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Documentar con precisión en TramCase todo lo ocurrido.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Focos rojos que activan el protocolo</div><div class="l"></div></div>
+        <div class="foco-list">
+          <div class="foco-item"><span class="foco-icon">🔴</span><div class="foco-text">"Usted dígame qué tengo que decir para arreglar."</div></div>
+          <div class="foco-item"><span class="foco-icon">🔴</span><div class="foco-text">"Póngale lo que necesita."</div></div>
+          <div class="foco-item"><span class="foco-icon">🔴</span><div class="foco-text">"Yo puedo provocar a mi familiar para obtener evidencia."</div></div>
+          <div class="foco-item"><span class="foco-icon">🔴</span><div class="foco-text">"Eso no pasó, pero si quiere lo decimos."</div></div>
+          <div class="foco-item"><span class="foco-icon">🔴</span><div class="foco-text">"Explíqueme qué responder y yo lo contesto así."</div></div>
+        </div>
+
+        <div class="alert info" style="margin-top:14px"><span class="alert-icon">💡</span><div>Ante cualquier foco rojo: <strong>reencuadrar → disclaimer → respuesta por escrito → escalamiento a Compliance si persiste → nota en TramCase.</strong></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S11: IMAGEN ════════ -->
+  <div class="section" id="s11">
+    <div class="page-title">
+      <div class="pt-label">Recurso 10</div>
+      <h2>Fondos de Videollamada e Imagen Institucional</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">10</div>
+        <div class="res-meta"><div class="res-label">Estándar visual</div><div class="res-title">Imagen Institucional — Videollamadas PWI VISA T</div></div>
+        <span class="badge badge-cafe">Estándar obligatorio</span>
+      </div>
+      <div class="res-body">
+        <div class="alert tip"><span class="alert-icon">🌿</span><div>Los fondos institucionales refuerzan que el cliente está siendo atendido dentro de un proceso serio y controlado. En casos de VISA T donde la confianza del cliente es fundamental, esto tiene un impacto directo en la experiencia.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Checklist antes de iniciar videollamada</div><div class="l"></div></div>
+        <div class="chk-list">
+          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Fondo institucional correcto activo</div></div>
+          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Iluminación adecuada y encuadre correcto</div></div>
+          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Audio verificado sin ruidos innecesarios</div></div>
+          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><div class="chk-text">Presentación profesional acorde al estándar institucional</div></div>
+        </div>
+
+        <div class="alert warn" style="margin-top:14px"><span class="alert-icon">⚡</span><div>Si la videollamada se corta o reinicia, al reconectar se debe mantener el mismo estándar visual sin excepciones.</div></div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Iniciar videollamadas sin fondo institucional.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Fondo mal recortado, mala iluminación o ruidos innecesarios.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Descuidar la imagen profesional por enfocarse solo en el contenido verbal.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S12: SUPERVISIÓN ════════ -->
+  <div class="section" id="s12">
+    <div class="page-title">
+      <div class="pt-label">Recurso 11</div>
+      <h2>Forms de Supervisión y Cierre del Ciclo Operativo</h2>
+    </div>
+    <div class="res-card">
+      <div class="res-card-header">
+        <div class="res-num">11</div>
+        <div class="res-meta"><div class="res-label">Control de calidad</div><div class="res-title">Supervisión TL — Cierre del Caso VISA T</div></div>
+        <span class="badge badge-sage">Control final</span>
+      </div>
+      <div class="res-body">
+        <p style="font-size:13px;color:var(--slate)">El form de supervisión permite a los Team Leaders revisar los casos entregados. En VISA T, la supervisión valida no solo los documentos sino también la calidad de la narrativa de trata, la suficiencia de los tres bloques y la estrategia probatoria por tipo de esquema.</p>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Entregables requeridos para supervisión</div><div class="l"></div></div>
+        <div class="grid-2">
+          <div class="card card-sage"><div class="card-icon">📄</div><h4>Transcript de entrevista</h4><p>Transcripción completa de la videollamada de trata.</p></div>
+          <div class="card card-sage"><div class="card-icon">📋</div><h4>DOE (Description of Evidence)</h4><p>Descripción de evidencia organizada por tipo.</p></div>
+          <div class="card card-sage"><div class="card-icon">✅</div><h4>Checklist completa</h4><p>Estado actualizado de cada documento requerido.</p></div>
+          <div class="card card-sage"><div class="card-icon">💻</div><h4>Formulario Mendoza Hub</h4><p>Summary PDF con información completa del caso.</p></div>
+          <div class="card card-sage"><div class="card-icon">🗂️</div><h4>Notas en TramCase</h4><p>Estructura PSYCH CDMX con trazabilidad completa.</p></div>
+          <div class="card card-sage"><div class="card-icon">📁</div><h4>Dropbox organizado</h4><p>Expediente completo con nomenclatura correcta.</p></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Paso a paso</div><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Una vez concluida la entrevista, presentar el caso de forma ordenada con todos los entregables.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">El TL revisa que la documentación cumpla con los estándares del proceso VISA T.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">La supervisión valida tanto <strong>contenido</strong> como <strong>proceso</strong>: qué se desarrolló en la entrevista, qué evidencia se solicitó, cómo quedó documentado y qué sigue pendiente.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Si detecta vacíos, el caso regresa con observaciones específicas que deben atenderse antes de avanzar.</div></div>
+        </div>
+
+        <div class="sdiv"><div class="l"></div><div class="t">Errores frecuentes</div><div class="l"></div></div>
+        <div class="alert danger"><span class="alert-icon">⚠️</span><div>Entregar casos con notas incompletas o sin trazabilidad.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>Entregar checklist, formulario o nota de entrevista con faltantes.</div></div>
+        <div class="alert danger" style="margin-top:7px"><span class="alert-icon">⚠️</span><div>No atender observaciones de supervisión con precisión.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S13: ESCENARIOS ESPECIALES ════════ -->
+  <div class="section" id="s13">
+    <div class="page-title">
+      <div class="pt-label">Manejo de incidencias</div>
+      <h2>Escenarios Especiales</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="block" style="border-left:3px solid #b48238">
+        <div class="btitle"><div class="bicon">📵</div><h3>Cliente No Contesta</h3></div>
+        <div class="bbody">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot">1</div><div class="step-text">Realizar intento de contacto por la vía establecida.</div></div>
+            <div class="step-item"><div class="step-dot">2</div><div class="step-text">Enviar el SMS correspondiente inmediatamente después.</div></div>
+            <div class="step-item"><div class="step-dot">3</div><div class="step-text">Dejar nota en TramCase: fecha, hora, canal y resultado.</div></div>
+            <div class="step-item"><div class="step-dot">4</div><div class="step-text">Aplicar la <strong>regla de 17 intentos</strong>: 3 diarios de lunes a viernes, 2 el sábado.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="block" style="border-left:3px solid #a03c32">
+        <div class="btitle"><div class="bicon">🚫</div><h3>Cliente No Coopera</h3></div>
+        <div class="bbody">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot">1</div><div class="step-text">Explicar la importancia usando el speech para clientes poco cooperativos, adaptado al tipo de trata.</div></div>
+            <div class="step-item"><div class="step-dot">2</div><div class="step-text">Solicitar fecha compromiso específica.</div></div>
+            <div class="step-item"><div class="step-dot">3</div><div class="step-text">Documentar en TramCase: nota PSYCH CDMX: No cooperation.</div></div>
+            <div class="step-item"><div class="step-dot">4</div><div class="step-text">Si persiste, elevar conforme al protocolo del área.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="block" style="border-left:3px solid var(--sage)">
+        <div class="btitle"><div class="bicon">🔄</div><h3>Reagenda</h3></div>
+        <div class="bbody">
+          <div class="step-list">
+            <div class="step-item"><div class="step-dot">1</div><div class="step-text">Confirmar la imposibilidad real del cliente para atender.</div></div>
+            <div class="step-item"><div class="step-dot">2</div><div class="step-text">Proponer nueva fecha y hora concretas.</div></div>
+            <div class="step-item"><div class="step-dot">3</div><div class="step-text">Enviar SMS de reagenda.</div></div>
+            <div class="step-item"><div class="step-dot">4</div><div class="step-text">Actualizar la nota y la codificación del contacto en TramCase.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert warn" style="margin-top:14px"><span class="alert-icon">⚡</span><div><strong>Regla de 17 intentos:</strong> 3 intentos diarios de lunes a viernes + 2 intentos el sábado. Cada intento debe quedar documentado en TramCase con hora, canal y resultado.</div></div>
+  </div>
+
+  <!-- ════════ S14: FLUJO DEL COLABORADOR ════════ -->
+  <div class="section" id="s14">
+    <div class="page-title">
+      <div class="pt-label">Flujo completo</div>
+      <h2>Flujo Operativo del Colaborador PWC VISA T</h2>
+    </div>
+
+    <div class="block">
+      <div class="btitle"><div class="bicon">⚡</div><h3>Secuencia completa — 15 pasos</h3></div>
+      <div class="bbody">
+        <div class="step-list">
+          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Revisar notas previas, MyCase, evidencia existente y Dropbox.</div></div>
+          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Preparar estrategia de entrevista y revisar checklist según tipo de trata.</div></div>
+          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Realizar llamada de agenda con speech comprendido y uso correcto de códigos.</div></div>
+          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Solicitar documentos, información y evidencia diferenciada; fijar fecha compromiso.</div></div>
+          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Enviar SMS post agenda y listados necesarios (información y evidencia por tipo de trata).</div></div>
+          <div class="step-item"><div class="step-dot">6</div><div class="step-text">Preparar Mendoza Hub antes de la videollamada.</div></div>
+          <div class="step-item"><div class="step-dot">7</div><div class="step-text">Iniciar videollamada con fondo institucional, apertura profesional y explicación de dinámica.</div></div>
+          <div class="step-item"><div class="step-dot">8</div><div class="step-text">Llenar formas con información objetiva y validar inconsistencias.</div></div>
+          <div class="step-item"><div class="step-dot">9</div><div class="step-text">Desarrollar entrevista de trata: Background → Proceso → Medios → Fines → Consecuencias → Cooperación con autoridades → PEU → Dificultades Extremas.</div></div>
+          <div class="step-item"><div class="step-dot">10</div><div class="step-text">Cerrar llamada: speech de terapia + cierre Pte.1 (paquete de bienvenida y evidencias pendientes) + cierre Pte.2 (recomendaciones de seguridad y despedida) + encuesta de satisfacción.</div></div>
+          <div class="step-item"><div class="step-dot">11</div><div class="step-text">Enviar SMS post entrevista con lista de evidencias pendientes personalizada.</div></div>
+          <div class="step-item"><div class="step-dot">12</div><div class="step-text">Subir y ordenar evidencias en Dropbox con nomenclatura correcta.</div></div>
+          <div class="step-item"><div class="step-dot">13</div><div class="step-text">Dejar notas completas en TramCase con estructura PSYCH CDMX.</div></div>
+          <div class="step-item"><div class="step-dot">14</div><div class="step-text">Aplicar antifraude o manejo de incidencias si corresponde.</div></div>
+          <div class="step-item"><div class="step-dot">15</div><div class="step-text">Entregar el caso a supervisión con trazabilidad completa: transcript + DOE + checklist + formulario.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S15: CRITERIOS ════════ -->
+  <div class="section" id="s15">
+    <div class="page-title">
+      <div class="pt-label">Evaluación de desempeño</div>
+      <h2>Criterios de Dominio Esperados</h2>
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp-item">
+        <div class="ci-name">Usa speechs con naturalidad</div>
+        <div class="ci-ev">Explica proceso, solicita cooperación con autoridades y agenda sin leer textualmente</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Maneja checklist con criterio</div>
+        <div class="ci-ev">Detecta faltantes por tipo de trata, valida calidades y fechas compromiso</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Documenta bien en TramCase</div>
+        <div class="ci-ev">Notas claras con estructura PSYCH CDMX, codificación correcta y seguimiento trazable</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Opera Mendoza Hub</div>
+        <div class="ci-ev">Llenado suficiente y validación de datos sensibles del formulario Visa T</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Desarrolla entrevista de trata</div>
+        <div class="ci-ev">Conduce los bloques de Proceso, Medios y Fines por tipo de trata con detalle y sin omisiones</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Solicita evidencia estratégicamente</div>
+        <div class="ci-ev">Pide evidencia diferenciada por tipo de esquema (coyote, laboral, pareja, sexual) y explora testigos</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Aplica SMS correctamente</div>
+        <div class="ci-ev">Plantillas siempre editadas, congruentes con el tipo de trata y oportunas</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Cuida orden documental</div>
+        <div class="ci-ev">Dropbox ordenado con nomenclatura correcta, archivos útiles y reproducibles</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Interviene riesgo de fraude</div>
+        <div class="ci-ev">Activa disclaimer, envía mensaje y escala cuando detecta indicios de fraude</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+      <div class="comp-item">
+        <div class="ci-name">Aplica speech de terapia</div>
+        <div class="ci-ev">Explica importancia de la terapia, comparte directorio y solicita evidencia del proceso</div>
+        <span class="comp-badge">✔ Logrado</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ S16: EVALUACIÓN ════════ -->
+  <div class="section" id="s16">
+    <div class="page-title">
+      <div class="pt-label">Evaluación final</div>
+      <h2>Evaluación Teórica — VISA T</h2>
+      <div class="pt-sub">Selecciona la respuesta correcta para cada pregunta. Recibirás retroalimentación inmediata.</div>
+    </div>
+
+    <div class="alert info" style="margin-bottom:16px"><span class="alert-icon">📝</span><div><strong>Instrucciones:</strong> Lee cada pregunta cuidadosamente y selecciona la opción que mejor responde. Al terminar todas las preguntas, presiona <strong>Verificar respuestas</strong> para ver tu resultado.</div></div>
+
+    <!-- QUIZ CONTAINER -->
+    <div id="quizContainer">
+
+      <!-- Q1 -->
+      <div class="q-item" id="qi_1">
+        <div class="q-num">Pregunta 1 de 10</div>
+        <div class="q-stem">¿Cuál es la diferencia fundamental entre un caso VAWA y un caso VISA T en términos del tipo de victimización que se documenta?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q1" value="A"><span class="q-letter">A</span>VAWA documenta víctimas de fraude migratorio; VISA T documenta víctimas de discriminación laboral.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q1" value="B"><span class="q-letter">B</span>VAWA documenta principalmente víctimas de violencia doméstica por parte de un ciudadano o residente; VISA T documenta víctimas de trata de personas en sus distintos esquemas.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q1" value="C"><span class="q-letter">C</span>Ambos procesos documentan el mismo tipo de victimización pero con formularios distintos.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q1" value="D"><span class="q-letter">D</span>VISA T es exclusivamente para víctimas de trata sexual; VAWA cubre todos los demás esquemas de trata.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_1"></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-item" id="qi_2">
+        <div class="q-num">Pregunta 2 de 10</div>
+        <div class="q-stem">¿Por qué en la llamada de agenda de VISA T es obligatorio mencionar el requisito de cooperación con autoridades?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q2" value="A"><span class="q-letter">A</span>Es una formalidad institucional sin impacto directo en el caso del cliente.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q2" value="B"><span class="q-letter">B</span>Se menciona únicamente si el cliente tiene antecedentes penales.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q2" value="C"><span class="q-letter">C</span>Porque la cooperación con autoridades es un requisito fundamental del proceso VISA T, y el cliente debe estar informado desde el primer contacto para que pueda prepararse.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q2" value="D"><span class="q-letter">D</span>Para que el cliente decida si quiere continuar o no con el proceso antes de agendar la videollamada.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_2"></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-item" id="qi_3">
+        <div class="q-num">Pregunta 3 de 10</div>
+        <div class="q-stem">¿Cuáles son los tres bloques principales de la entrevista de trata y qué diferencia hay entre Medios y Fines?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q3" value="A"><span class="q-letter">A</span>Antecedentes, Declaración y Cierre. Medios son las herramientas usadas y Fines son los objetivos del proceso migratorio.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q3" value="B"><span class="q-letter">B</span>Proceso, Medios y Fines. Medios son las formas de control y coacción ejercidas sobre la víctima; Fines es el propósito de la trata (servidumbre, trata sexual, trata laboral).</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q3" value="C"><span class="q-letter">C</span>Proceso, Medios y Fines. Medios son los documentos solicitados; Fines son los objetivos legales del caso.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q3" value="D"><span class="q-letter">D</span>Background, Narrativa y Cierre. Medios y Fines son lo mismo: describen el esquema de trata en general.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_3"></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-item" id="qi_4">
+        <div class="q-num">Pregunta 4 de 10</div>
+        <div class="q-stem">¿Qué diferencia existe entre la evidencia que se solicita en un caso de contrabando convertido en trata (coyote) y en un caso de trata laboral por empleador?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q4" value="A"><span class="q-letter">A</span>No hay diferencia; en ambos casos se solicitan los mismos documentos de identidad y expediente médico.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q4" value="B"><span class="q-letter">B</span>En coyote: fotos del lugar de retención, grabaciones del coyote y evidencia de pagos. En trata laboral: quejas laborales, mensajes coercitivos del empleador, talones de pago y declaraciones de otras víctimas.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q4" value="C"><span class="q-letter">C</span>En coyote se solicitan órdenes de restricción; en trata laboral se solicitan fotos de cicatrices.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q4" value="D"><span class="q-letter">D</span>Ambos esquemas requieren exclusivamente declaraciones de testigos firmadas con ID.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_4"></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-item" id="qi_5">
+        <div class="q-num">Pregunta 5 de 10</div>
+        <div class="q-stem">¿Qué información contiene el bloque de PEU (Permanencia en EUA) y por qué es relevante para VISA T?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q5" value="A"><span class="q-letter">A</span>Contiene el historial de empleos del cliente en EUA. Es relevante para justificar su presencia legal en el país.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q5" value="B"><span class="q-letter">B</span>Contiene información sobre las dificultades extremas ante una posible deportación. Es un bloque requerido para cualquier visa de inmigración.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q5" value="C"><span class="q-letter">C</span>Documenta la permanencia del cliente en EUA derivada directamente de la situación de trata, junto con las dificultades extremas que enfrentaría ante una deportación. Es un bloque requerido específicamente para VISA T.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q5" value="D"><span class="q-letter">D</span>Contiene el número de intentos fallidos de deportación previos. Se incluye solo si el cliente tiene orden de remoción activa.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_5"></div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q-item" id="qi_6">
+        <div class="q-num">Pregunta 6 de 10</div>
+        <div class="q-stem">¿Cuál es el propósito del speech de terapia y en qué momento de la videollamada debe aplicarse?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q6" value="A"><span class="q-letter">A</span>Informar al cliente que la terapia es obligatoria para continuar el proceso. Se aplica al inicio de la videollamada.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q6" value="B"><span class="q-letter">B</span>Recomendar terapia estratégicamente para el bienestar del cliente y el fortalecimiento del caso, ya que la carta del psicólogo aumenta la credibilidad del expediente. Se aplica al cierre de la entrevista, antes de finalizar la llamada.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q6" value="C"><span class="q-letter">C</span>Explicar al cliente que si no asiste a terapia, el caso puede ser rechazado automáticamente por migración.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q6" value="D"><span class="q-letter">D</span>Presentar opciones de terapia solo si el cliente lo solicita expresamente durante la entrevista de trata.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_6"></div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q-item" id="qi_7">
+        <div class="q-num">Pregunta 7 de 10</div>
+        <div class="q-stem">¿Qué debe validar el colaborador antes de enviar un SMS de evidencia de trata?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q7" value="A"><span class="q-letter">A</span>Que el cliente haya firmado el formulario de consentimiento digital de la firma.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q7" value="B"><span class="q-letter">B</span>Que el número de teléfono del cliente esté verificado en MyCase.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q7" value="C"><span class="q-letter">C</span>Que los placeholders estén sustituidos, la ortografía sea correcta, el nombre esté correcto, el tipo de trata sea congruente con el caso y el contenido no genere confusión ni respuestas falsas.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q7" value="D"><span class="q-letter">D</span>Que el TL haya aprobado previamente el texto del SMS para ese tipo de esquema.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_7"></div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q-item" id="qi_8">
+        <div class="q-num">Pregunta 8 de 10</div>
+        <div class="q-stem">¿Qué debe hacer el colaborador si el cliente sugiere mentir o fabricar evidencia durante la entrevista?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q8" value="A"><span class="q-letter">A</span>Ignorar el comentario y continuar con la entrevista para no interrumpir el flujo.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q8" value="B"><span class="q-letter">B</span>Pausar la llamada, reencuadrar de inmediato, enviar el disclaimer antifraude, pedir respuesta por escrito del cliente, y escalar a Compliance si la intención persiste. Documentar todo en TramCase.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q8" value="C"><span class="q-letter">C</span>Terminar la llamada de inmediato y notificar al TL sin dejar nota en TramCase para proteger la confidencialidad.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q8" value="D"><span class="q-letter">D</span>Advertir verbalmente al cliente una sola vez y continuar si el comentario no se repite.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_8"></div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q-item" id="qi_9">
+        <div class="q-num">Pregunta 9 de 10</div>
+        <div class="q-stem">¿Cuáles son los tres entregables principales del colaborador al cierre de un caso VISA T y cómo deben nombrarse en Dropbox?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q9" value="A"><span class="q-letter">A</span>Entrevista en audio, notas de TramCase y correo enviado al cliente. No existe una nomenclatura oficial.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q9" value="B"><span class="q-letter">B</span>Entregable principal (First VISA T Interview + Nombre CL), Checklist (Checklist Visa T + Nombre), y formulario de Mendoza Hub (Summary Visa T + Nombre). Checklist y Summary van en la carpeta 5.Supporting documents.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q9" value="C"><span class="q-letter">C</span>DOE, transcript y carta de terapia. Se guardan en la carpeta principal sin nomenclatura específica.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q9" value="D"><span class="q-letter">D</span>Solo el transcript de la entrevista es obligatorio; los demás son opcionales según el criterio del TL.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_9"></div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q-item" id="qi_10">
+        <div class="q-num">Pregunta 10 de 10</div>
+        <div class="q-stem">¿Qué valida el Team Leader mediante el form de supervisión en un caso VISA T?</div>
+        <div class="q-opts">
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q10" value="A"><span class="q-letter">A</span>Únicamente que el expediente de Dropbox esté ordenado y con la nomenclatura correcta.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q10" value="B"><span class="q-letter">B</span>Solo la calidad de redacción de las notas en TramCase.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q10" value="C"><span class="q-letter">C</span>La suficiencia del caso y cumplimiento de estándares: calidad de la narrativa de trata, suficiencia de los tres bloques (Proceso, Medios, Fines), estrategia probatoria por tipo de esquema, documentación completa y pendientes trazables.</label>
+          <label class="q-opt" onclick="pickOpt(this)"><input type="radio" name="q10" value="D"><span class="q-letter">D</span>Que el cliente haya firmado la carta de consentimiento antes de la videollamada.</label>
+        </div>
+        <div class="q-feedback-box" id="qf_10"></div>
+      </div>
+
+    </div><!-- /quizContainer -->
+
+    <!-- ACTIONS -->
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px;flex-wrap:wrap" id="quizActions">
+      <button class="btn-retry" id="btnRetry" style="display:none" onclick="retryQuiz()">🔄 Reintentar</button>
+      <button class="btn-submit" id="btnSubmit" onclick="submitQuiz()">Verificar respuestas →</button>
+    </div>
+
+    <!-- RESULT CARD -->
+    <div class="result-card" id="resultCard">
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-label" id="resultLabel"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <div class="result-breakdown">
+        <div class="rb-item rb-ok"><div class="rb-n" id="rbOk">0</div><div class="rb-l">Correctas</div></div>
+        <div class="rb-item rb-bad"><div class="rb-n" id="rbBad">0</div><div class="rb-l">Incorrectas</div></div>
+        <div class="rb-item rb-mod"><div class="rb-n">10</div><div class="rb-l">Total</div></div>
+      </div>
+    </div>
+
+    <div class="principle" style="margin-top:18px"><p>"La coherencia entre el speech, la entrevista, los SMS, el Dropbox y las notas de TramCase es lo que convierte un caso en un expediente sólido."</p></div>
+  </div>
+
+</main>
+</div>
+
+<script>
+const SECTIONS = ['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12','s13','s14','s15','s16'];
+let visited = new Set(['s0']);
+
+function buildProgress(){
+  const c = document.getElementById('secProgress');
+  SECTIONS.forEach((id,i)=>{
+    const d = document.createElement('div');
+    d.className='sp-item'+(id==='s0'?' active':'');
+    d.title='Sección '+(i+1);
+    d.onclick=()=>{
+      const sb=document.querySelector('[data-section='+id+']');
+      if(sb) goSection(id,sb);
+    };
+    d.id='sp_'+id;
+    c.appendChild(d);
+  });
+}
+
+function goSection(id, el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if(sec) sec.classList.add('active');
+  if(el) el.classList.add('active');
+  visited.add(id);
+  updateProgress(id);
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<=900) closeSidebar();
+}
+
+function updateProgress(activeId){
+  SECTIONS.forEach(id=>{
+    const el = document.getElementById('sp_'+id);
+    if(!el) return;
+    el.className='sp-item';
+    if(id===activeId) el.classList.add('active');
+    else if(visited.has(id)) el.classList.add('done');
+  });
+  const idx = SECTIONS.indexOf(activeId);
+  const pct = Math.round(((idx+1)/SECTIONS.length)*100);
+  document.getElementById('progBar').style.width = pct+'%';
+}
+
+function toggleChk(el){
+  el.classList.toggle('done');
+  const box = el.querySelector('.chk-box');
+  box.textContent = el.classList.contains('done') ? '✓' : '';
+}
+
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sbOverlay').classList.toggle('show');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sbOverlay').classList.remove('show');
+}
+
+/* ══ QUIZ LOGIC ══ */
+const ANSWERS = {q1:'B',q2:'C',q3:'B',q4:'B',q5:'C',q6:'B',q7:'C',q8:'B',q9:'B',q10:'C'};
+const FEEDBACK = {
+  q1:{B:"✔ Correcto. VAWA atiende principalmente violencia doméstica por parte de un ciudadano o residente; VISA T es una visa humanitaria específica para víctimas de trata en sus distintos esquemas (coyote, laboral, pareja, sexual).",A:"✘ Incorrecto. Revisa las diferencias fundamentales entre VAWA y VISA T según el tipo de victimización documentada.",C:"✘ Incorrecto. Ambos procesos documentan tipos distintos de victimización y tienen requerimientos de evidencia diferentes.",D:"✘ Incorrecto. VISA T abarca cuatro esquemas de trata, no únicamente la trata sexual."},
+  q2:{C:"✔ Correcto. La cooperación con autoridades es un requisito fundamental del proceso VISA T. El cliente debe conocerlo desde el primer contacto para que pueda prepararse adecuadamente.",A:"✘ Incorrecto. La cooperación con autoridades es un requisito legal del proceso, no una formalidad opcional.",B:"✘ Incorrecto. El requisito de cooperación aplica para todos los casos de VISA T, independientemente del historial del cliente.",D:"✘ Incorrecto. No se menciona para que el cliente decida retirarse, sino porque es un requisito que debe conocer desde el inicio."},
+  q3:{B:"✔ Correcto. Los tres bloques son Proceso, Medios y Fines. Los Medios describen las formas de control y coacción; los Fines describen el propósito de la trata (servidumbre, explotación sexual o laboral).",A:"✘ Incorrecto. Los bloques no son Antecedentes, Declaración y Cierre. Revisa la estructura de la guía de entrevista de trata.",C:"✘ Incorrecto. Los Medios no son documentos; son las formas de control ejercidas sobre la víctima.",D:"✘ Incorrecto. Medios y Fines tienen propósitos distintos y complementarios dentro de la entrevista."},
+  q4:{B:"✔ Correcto. En coyote se solicitan fotos del lugar de retención, grabaciones del tratante y evidencia de pagos. En trata laboral se requieren quejas laborales, mensajes coercitivos del empleador, talones de pago y declaraciones de otras víctimas.",A:"✘ Incorrecto. La evidencia es diferenciada según el tipo de esquema. No se solicitan los mismos documentos para todos los casos.",C:"✘ Incorrecto. Las órdenes de restricción corresponden a casos de violencia doméstica, no a contrabando convertido en trata.",D:"✘ Incorrecto. Las declaraciones de testigos pueden ser útiles en ambos esquemas, pero no son el único tipo de evidencia requerida."},
+  q5:{C:"✔ Correcto. El bloque PEU documenta la permanencia en EUA derivada de la situación de trata y las dificultades extremas que el cliente enfrentaría ante una deportación. Es un bloque requerido específicamente para VISA T.",A:"✘ Incorrecto. El historial de empleos corresponde al llenado de la forma en Mendoza Hub, no al bloque PEU.",B:"✘ Incorrecto. PEU no es un bloque genérico de visa de inmigración; es un requerimiento específico de VISA T.",D:"✘ Incorrecto. El bloque PEU no se relaciona con intentos de deportación previos."},
+  q6:{B:"✔ Correcto. El speech de terapia tiene dos propósitos: el bienestar del cliente y el fortalecimiento del caso (la carta del psicólogo puede elevar la credibilidad por encima del 51%). Se aplica al cierre de la entrevista, antes de finalizar la llamada.",A:"✘ Incorrecto. La terapia no es obligatoria; es una recomendación estratégica. Tampoco se aplica al inicio.",C:"✘ Incorrecto. El rechazo automático por falta de terapia no es parte del proceso. El speech debe sonar como recomendación, no como amenaza.",D:"✘ Incorrecto. El speech de terapia se aplica siempre al cierre de la entrevista, sin esperar que el cliente lo solicite."},
+  q7:{C:"✔ Correcto. Antes de enviar un SMS de evidencia, se debe sustituir placeholders, validar ortografía, confirmar el nombre correcto del cliente, verificar que el tipo de trata sea congruente y que el mensaje no genere confusión ni induzca respuestas falsas.",A:"✘ Incorrecto. La firma de consentimiento digital no es el criterio de validación para el envío de SMS operativos.",B:"✘ Incorrecto. Verificar el número de teléfono en MyCase es importante, pero no es la validación principal descrita en el recurso.",D:"✘ Incorrecto. El colaborador es responsable de editar y validar cada SMS antes de enviarlo; no requiere aprobación previa del TL para cada mensaje."},
+  q8:{B:"✔ Correcto. El protocolo es: reencuadrar de inmediato → enviar disclaimer antifraude → pedir respuesta por escrito ('Acepto ser honesto...') → escalar a Compliance si persiste → documentar todo en TramCase.",A:"✘ Incorrecto. Ignorar focos rojos de fraude va en contra del protocolo antifraude y expone el caso y a la firma.",C:"✘ Incorrecto. Siempre debe quedarse nota en TramCase. Terminar sin documentar no es parte del protocolo.",D:"✘ Incorrecto. Una advertencia verbal no es suficiente. El protocolo requiere acciones concretas y documentadas."},
+  q9:{B:"✔ Correcto. Los tres entregables son: (1) First VISA T Interview [Nombre CL] con transcript + DOE, (2) Checklist Visa T [NOMBRE] en carpeta 5.Supporting documents, y (3) Summary Visa T [NOMBRE] (formulario Mendoza Hub en PDF) en la misma carpeta.",A:"✘ Incorrecto. El audio de la entrevista no es el entregable principal. Existe una nomenclatura oficial que debe respetarse sin excepciones.",C:"✘ Incorrecto. La carta de terapia no forma parte de los tres entregables principales al cierre. Y sí existe nomenclatura específica.",D:"✘ Incorrecto. El transcript, el DOE, la checklist y el formulario son todos obligatorios para presentar el caso a supervisión."},
+  q10:{C:"✔ Correcto. El TL valida suficiencia integral del caso: calidad de la narrativa de trata, suficiencia de los tres bloques (Proceso, Medios, Fines), estrategia probatoria por tipo de esquema, documentación completa y pendientes trazables.",A:"✘ Incorrecto. El orden de Dropbox es solo parte de la revisión. La supervisión abarca contenido, proceso y estrategia probatoria.",B:"✘ Incorrecto. La calidad de las notas es un elemento, pero la supervisión valida mucho más que la redacción.",D:"✘ Incorrecto. La carta de consentimiento no es el objeto de validación del form de supervisión del TL."}
+};
+
+function pickOpt(lbl){
+  const name = lbl.querySelector('input').name;
+  document.querySelectorAll(`label.q-opt input[name="${name}"]`).forEach(o=>{
+    o.closest('label').classList.remove('opted');
+  });
+  lbl.classList.add('opted');
+  lbl.querySelector('input').checked=true;
+}
+
+function submitQuiz(){
+  let correct=0, unanswered=0;
+  for(let i=1;i<=10;i++){
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if(!sel){unanswered++;continue;}
+  }
+  if(unanswered>0){
+    alert(`Faltan ${unanswered} pregunta(s) por responder.`);
+    return;
+  }
+  for(let i=1;i<=10;i++){
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const fb = document.getElementById(`qf_${i}`);
+    const val = sel.value;
+    const right = ANSWERS[`q${i}`];
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(o=>{
+      const lbl = o.closest('label');
+      lbl.classList.remove('opted');
+      lbl.classList.add('q-disabled');
+      if(o.value===right) lbl.classList.add('q-correct');
+      else if(o.value===val && val!==right) lbl.classList.add('q-wrong');
+    });
+    fb.className = 'q-feedback-box show '+(val===right?'ok':'fail');
+    fb.textContent = FEEDBACK[`q${i}`][val] || FEEDBACK[`q${i}`][right];
+    if(val===right) correct++;
+  }
+  const pct = Math.round((correct/10)*100);
+  const rc = document.getElementById('resultCard');
+  rc.classList.add('show');
+  const rs = document.getElementById('resultScore');
+  rs.textContent = pct+'%';
+  rs.className = 'result-score '+(pct>=80?'pass':pct>=60?'warn':'fail');
+  document.getElementById('resultLabel').textContent = pct>=80?'¡Aprobado!' : pct>=60?'Puntaje aceptable — refuerza los temas marcados' : 'No aprobado — repasa el training completo';
+  document.getElementById('resultMsg').textContent = pct>=80?'Excelente desempeño. Dominas los recursos operativos del área PWI VISA T.' : pct>=60?'Revisa los temas donde obtuviste retroalimentación roja antes de avanzar.' : 'Repasa el training completo y vuelve a intentar la evaluación.';
+  document.getElementById('rbOk').textContent = correct;
+  document.getElementById('rbBad').textContent = 10-correct;
+  document.getElementById('btnSubmit').style.display='none';
+  document.getElementById('btnRetry').style.display='inline-block';
+  rc.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function retryQuiz(){
+  for(let i=1;i<=10;i++){
+    document.querySelectorAll(`input[name="q${i}"]`).forEach(o=>{
+      o.checked=false;
+      const lbl=o.closest('label');
+      lbl.className='q-opt';
+    });
+    const fb=document.getElementById(`qf_${i}`);
+    fb.className='q-feedback-box';
+    fb.textContent='';
+  }
+  document.getElementById('resultCard').classList.remove('show');
+  document.getElementById('btnSubmit').style.display='inline-block';
+  document.getElementById('btnRetry').style.display='none';
+  document.getElementById('quizContainer').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+buildProgress();
+updateProgress('s0');
+</script>
+</body>
+</html>
