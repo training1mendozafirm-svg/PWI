@@ -561,10 +561,11 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
     <div class="btitle"><div class="bicon">📌</div><h3>Criterio 1-5-15</h3><span class="mod-badge badge-gold">Criterio operativo</span></div>
     <div class="bbody">
       <div class="info-card-grid">
-        <div class="info-card ic-sage"><div class="ic-icon">1️⃣</div><div class="ic-label">Prioridad Alta</div><div class="ic-value">1</div><div class="ic-desc">Casos con entrega inmediata o condición especial detectada.</div></div>
-        <div class="info-card ic-gold"><div class="ic-icon">5️⃣</div><div class="ic-label">Prioridad Media</div><div class="ic-value">5</div><div class="ic-desc">Casos con entrega próxima dentro de la semana.</div></div>
-        <div class="info-card ic-brown"><div class="ic-icon">🔢</div><div class="ic-label">Prioridad Normal</div><div class="ic-value">15</div><div class="ic-desc">Casos en flujo regular sin urgencia inmediata.</div></div>
+        <div class="info-card ic-sage"><div class="ic-icon">1️⃣</div><div class="ic-label">Día 1</div><div class="ic-value">1</div><div class="ic-desc">Primer contacto con el cliente. Inicio del proceso de agenda y recopilación.</div></div>
+        <div class="info-card ic-gold"><div class="ic-icon">5️⃣</div><div class="ic-label">Día 5</div><div class="ic-value">5</div><div class="ic-desc">Fecha límite para tener la videollamada realizada y los entregables en proceso.</div></div>
+        <div class="info-card ic-brown"><div class="ic-icon">🔢</div><div class="ic-label">Día 11</div><div class="ic-value">11</div><div class="ic-desc">El caso pasa a <strong>Traducción y Packets</strong>. Es el límite operativo del agente PWI para la gestión con el cliente.</div></div>
       </div>
+      <div class="alert gold" style="margin-top:12px"><span class="ai">💡</span><div><strong>Nota importante sobre el criterio:</strong> El parámetro operativo para el agente de contacto en PWI es <mark class="hi-gold">1-5-11</mark>. El día 11 el caso se envía a Traducción y pre-ensamblaje (Packets), lo que permite que efectivamente salga del área al <mark class="hi-red">día 15</mark>, ya con sus traducciones y pre-ensamblaje completos. El <strong>15 corresponde a la salida del área PWI</strong>, no al límite de gestión del agente.</div></div>
     </div>
   </div>
   <div class="critical-rule">
@@ -652,9 +653,16 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
     <div class="btitle"><div class="bicon">📞</div><h3>Los 3 objetivos de la llamada de Agenda</h3></div>
     <div class="bbody">
       <div class="info-card-grid">
-        <div class="info-card ic-sage"><div class="ic-icon">🗓️</div><div class="ic-label">Objetivo 1</div><div class="ic-desc"><strong>Confirmar la cita</strong> para la videollamada de entrevista.</div></div>
-        <div class="info-card ic-gold"><div class="ic-icon">📋</div><div class="ic-label">Objetivo 2</div><div class="ic-desc"><strong>Explicar qué se necesita</strong> del cliente y cómo se trabajará el caso.</div></div>
-        <div class="info-card ic-brown"><div class="ic-icon">📅</div><div class="ic-label">Objetivo 3</div><div class="ic-desc"><strong>Establecer fechas compromiso</strong> para envío de documentos y evidencias.</div></div>
+        <div class="info-card ic-sage"><div class="ic-icon">🗓️</div><div class="ic-label">Objetivo 1</div><div class="ic-desc"><strong>Confirmar la cita</strong> para la videollamada de entrevista y establecer la fecha compromiso.</div></div>
+        <div class="info-card ic-gold"><div class="ic-icon">📋</div><div class="ic-label">Objetivo 2</div><div class="ic-desc"><strong>Explicar qué se necesita</strong> del cliente y cómo se trabajará el caso durante la videollamada.</div></div>
+        <div class="info-card ic-brown"><div class="ic-icon">📅</div><div class="ic-label">Objetivo 3</div><div class="ic-desc"><strong>Establecer fechas compromiso</strong> para envío de documentos y evidencias requeridas.</div></div>
+      </div>
+      <div class="rule-card rc-sage" style="margin-top:14px">
+        <div class="rc-icon">🔍</div>
+        <div>
+          <div class="rc-title">Identificación de documentos y evidencias — en la Agenda</div>
+          <div class="rc-body">Durante la llamada de Agenda, en conjunto con la <mark class="hi-sage">checklist</mark> y el <mark class="hi-gold">pre-estudio del caso</mark>, el agente debe identificar y confirmar si el cliente cuenta con las evidencias y documentos que se le solicitarán en la videollamada. En caso de que el cliente <mark class="hi-red">no cuente con algún documento o evidencia</mark>, se le apoya en ese momento para explorar las posibilidades de obtenerlo antes de la cita.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -878,7 +886,7 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
     <div class="bbody">
       <div class="tool-row"><span class="tool-chip">📂 KASE</span><span class="tool-chip">📝 TramCase</span><span class="tool-chip tc-gold">💬 SMS Templates</span></div>
       <ul class="checklist" style="margin-top:10px">
-        <li>Aplicar el criterio <mark class="hi-sage">1-5-15</mark> para priorizar la gestión de contactos.</li>
+        <li>Aplicar el criterio <mark class="hi-sage">1-5-11</mark> para priorizar la gestión de contactos con el cliente.</li>
         <li>Establecer <mark class="hi-gold">fecha compromiso</mark> de entrega en cada contacto sin excepción.</li>
         <li>Registrar <strong>todos los seguimientos en KASE</strong>, incluyendo faltas de cooperación.</li>
         <li>En no cooperación: aplicar el <mark class="hi-red">mensaje de texto correspondiente</mark> y registrar nota en TramCase.</li>
