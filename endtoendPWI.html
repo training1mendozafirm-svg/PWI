@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Training End to End PWI | TMLF Learning Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sage:#5d8a70;--sage-dark:#3a6b52;--sage-light:#a8c9b6;
+  --sage-bg:rgba(93,138,112,.09);--sage-border:rgba(93,138,112,.22);
+  --beige:#f5efe3;--sand:#e8dcc8;--brown:#7a6040;--brown-dark:#4a3820;
+  --cream:#fdfaf4;--warm-white:#fff9f2;
+  --ink:#2c2218;--slate:#6b6055;--mist:#9aa89f;
+  --gold:#c9a84c;--gold-bg:rgba(201,168,76,.09);
+  --red:#8b2c2c;--red-bg:rgba(180,50,50,.08);
+  --amber:#7a5200;--amber-bg:rgba(180,130,0,.08);
+  --sidebar-bg:#2b3f35;
+  --shadow:0 8px 28px rgba(44,34,24,.1);--radius:14px;
+  --nav-h:56px;--sidebar-w:268px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--beige);color:var(--ink);line-height:1.65}
+
+/* ══ TOPNAV ══ */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav-h);background:rgba(43,63,53,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,.12);display:flex;align-items:center;padding:0 18px;gap:10px}
+.topnav .brand{font-family:'Cormorant Garamond',serif;font-size:19px;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.topnav .brand .seal{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,rgba(201,168,76,.3),rgba(201,168,76,.08));border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:14px}
+.topnav .brand span{color:var(--gold)}
+.topnav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topnav-pill{padding:5px 14px;border-radius:999px;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.28);color:rgba(201,168,76,.9)}
+.sidebar-toggle{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px}
+@media(max-width:900px){.sidebar-toggle{display:block}}
+.progress-bar-wrap{position:fixed;top:var(--nav-h);left:0;right:0;z-index:299;height:3px;background:rgba(255,255,255,.06)}
+.progress-bar-fill{height:3px;background:linear-gradient(90deg,var(--sage),var(--gold));transition:width .5s ease;width:0%}
+.app-shell{display:flex;min-height:100vh;padding-top:var(--nav-h)}
+
+/* ══ SIDEBAR ══ */
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--sidebar-bg);position:fixed;top:var(--nav-h);bottom:0;left:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent;border-right:1px solid rgba(201,168,76,.07);z-index:200;transition:transform .3s ease}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:3px}
+.sidebar-header{padding:18px 16px 14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sidebar-header .sh-label{font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px}
+.sidebar-header .sh-title{font-family:'Cormorant Garamond',serif;font-size:15px;color:rgba(255,255,255,.88);font-weight:600;line-height:1.3}
+.sb-group{padding:8px 0}
+.sb-group-label{padding:6px 16px 3px;font-size:8.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:rgba(255,255,255,.25)}
+.sb-divider{margin:4px 14px 6px;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.18),transparent)}
+.sb-item{display:flex;align-items:center;gap:10px;padding:8px 16px;cursor:pointer;transition:all .18s;position:relative;user-select:none}
+.sb-item:hover{background:rgba(255,255,255,.045)}
+.sb-item.active{background:rgba(168,201,182,.09)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--gold);border-radius:0 3px 3px 0}
+.sb-item.completed .sb-num{background:var(--sage)!important;color:#fff!important}
+.sb-num{width:26px;height:26px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:rgba(255,255,255,.06);color:rgba(255,255,255,.45);transition:all .18s}
+.sb-item.active .sb-num{background:var(--gold);color:var(--ink)}
+.sb-item:hover .sb-num{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
+.sb-text{flex:1;min-width:0}
+.sb-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.55);line-height:1.3;transition:color .18s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-item.active .sb-name,.sb-item:hover .sb-name{color:rgba(255,255,255,.92)}
+.sb-sub{font-size:10px;color:rgba(255,255,255,.28);margin-top:1px}
+.sb-item.overview .sb-num{background:rgba(168,201,182,.13);color:var(--sage-light)}
+.sb-item.overview.active .sb-num{background:var(--sage-light);color:var(--ink)}
+.sb-spec-banner{margin:6px 12px 2px;padding:7px 11px;border-radius:9px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border:1px solid rgba(201,168,76,.16);display:flex;align-items:center;gap:7px}
+.sb-spec-banner .sbb-text{font-size:9.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:rgba(201,168,76,.75)}
+.sb-item.exam .sb-num{background:rgba(201,168,76,.14);color:var(--gold)}
+.sb-item.exam.active .sb-num{background:var(--gold);color:var(--ink)}
+.sb-item.exam .sb-name{color:rgba(255,210,80,.55)}
+.sb-item.exam.active .sb-name{color:rgba(255,210,80,.92)}
+.sb-item.res .sb-num{background:rgba(168,201,182,.13);color:var(--sage-light)}
+.sb-item.res.active .sb-num{background:var(--sage);color:#fff}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:8px 0 32px rgba(0,0,0,.45)}
+  .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199}
+  .sb-overlay.show{display:block}
+}
+
+/* ══ MAIN ══ */
+.main{margin-left:var(--sidebar-w);flex:1;padding:26px 26px 60px;max-width:100%}
+@media(max-width:900px){.main{margin-left:0;padding:18px 14px 50px}}
+.panel{display:none;animation:fadeUp .28s ease both}
+.panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.04);opacity:.85}}
+
+/* ══ HEADER ══ */
+.header{background:linear-gradient(135deg,#1e3328 0%,#2b4a38 50%,#3a6248 100%);color:#fff;border-radius:20px;padding:42px 38px 36px;box-shadow:0 16px 40px rgba(30,50,40,.22);position:relative;overflow:hidden;margin-bottom:22px}
+.header::before{content:'';position:absolute;top:-60px;right:-40px;width:270px;height:270px;border:1.5px solid rgba(201,168,76,.1);border-radius:50%;animation:pulse 5s ease-in-out infinite}
+.header-seal{position:absolute;top:26px;right:34px;width:62px;height:62px;border:1.5px solid rgba(201,168,76,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;opacity:.5}
+.header-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 14px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;margin-bottom:12px}
+.header-badge .dot{width:5px;height:5px;background:var(--gold);border-radius:50%}
+h1{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;line-height:1.15;position:relative;z-index:1}
+.subtitle{font-size:14px;opacity:.76;max-width:52ch;margin-top:6px;position:relative;z-index:1}
+.header-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;position:relative;z-index:1}
+.header-meta-item{display:flex;align-items:center;gap:6px;padding:5px 13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;font-size:11.5px}
+.header-meta-item span:first-child{opacity:.58}
+
+/* ══ PAGE TITLE ══ */
+.page-title{margin-bottom:16px}
+.page-title .pt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--slate);margin-bottom:4px}
+.page-title h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink)}
+.page-title .pt-sub{font-size:13px;color:var(--slate);margin-top:3px}
+
+/* ══ MOD HEADER ══ */
+.mod-header{background:linear-gradient(135deg,rgba(58,107,82,.12),rgba(93,138,112,.06));border:1px solid var(--sage-border);border-radius:14px;padding:20px 22px;margin-bottom:16px;display:flex;align-items:flex-start;gap:14px}
+.mod-num-badge{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mod-header-text .mod-label{font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--sage);margin-bottom:4px}
+.mod-header-text h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);line-height:1.2}
+.mod-header-text p{font-size:13px;color:var(--slate);margin-top:4px;line-height:1.55}
+
+/* ══ BLOCK ══ */
+.block{background:var(--warm-white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(122,96,64,.12);overflow:hidden;margin-bottom:14px}
+.block:last-child{margin-bottom:0}
+.block .btitle{display:flex;align-items:center;gap:10px;padding:14px 18px;background:linear-gradient(180deg,rgba(168,201,182,.14),rgba(168,201,182,.02));border-bottom:1px solid rgba(122,96,64,.1)}
+.block .btitle .bicon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.block .btitle h3{font-size:15px;color:var(--ink);font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.2px;flex:1}
+.mod-badge{padding:3px 10px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;flex-shrink:0;margin-left:auto}
+.badge-sage{background:var(--sage-bg);color:var(--sage-dark);border:1px solid var(--sage-border)}
+.badge-warn{background:rgba(139,44,44,.08);color:var(--red);border:1px solid rgba(139,44,44,.17)}
+.badge-gold{background:var(--gold-bg);color:var(--amber);border:1px solid rgba(201,168,76,.2)}
+.block .bbody{padding:18px}
+.block .bbody p{margin:0 0 10px;font-size:13.5px;color:var(--slate);line-height:1.65}
+.block .bbody p:last-child{margin-bottom:0}
+
+/* ══ HIGHLIGHTS ══ */
+mark.hi-sage{background:rgba(93,138,112,.18);color:#2a5a3e;border-radius:3px;padding:1px 6px;font-weight:700;border-bottom:2px solid rgba(93,138,112,.4);font-style:normal}
+mark.hi-gold{background:rgba(201,168,76,.2);color:#5a3e00;border-radius:3px;padding:1px 6px;font-weight:700;border-bottom:2px solid rgba(201,168,76,.45);font-style:normal}
+mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;padding:1px 6px;font-weight:700;border-bottom:2px solid rgba(180,50,50,.4);font-style:normal}
+
+/* ══ TOOL CHIPS ══ */
+.tool-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.tool-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:7px;font-size:11px;font-weight:700;background:rgba(43,63,53,.08);border:1px solid rgba(43,63,53,.18);color:var(--sidebar-bg)}
+.tool-chip.tc-gold{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.28);color:var(--amber)}
+.tool-chip.tc-red{background:rgba(180,50,50,.08);border-color:rgba(180,50,50,.2);color:var(--red)}
+
+/* ══ ALERTS ══ */
+.alert{margin-top:10px;padding:11px 14px;border-radius:10px;font-size:12.5px;display:flex;align-items:flex-start;gap:9px;line-height:1.55}
+.alert .ai{flex-shrink:0;font-size:16px;margin-top:1px}
+.alert.warn{background:var(--amber-bg);border:1px solid rgba(180,130,0,.19);color:var(--amber)}
+.alert.danger{background:var(--red-bg);border:1px solid rgba(180,50,50,.17);color:var(--red)}
+.alert.success{background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark)}
+.alert.info{background:rgba(122,96,64,.06);border:1px solid rgba(122,96,64,.14);color:var(--brown-dark)}
+.alert.gold{background:var(--gold-bg);border:1px solid rgba(201,168,76,.28);color:var(--amber)}
+.alert strong{font-weight:700;display:block;margin-bottom:2px}
+
+/* ══ INTERACTIVE CHECKLIST ══ */
+.ichk-list{display:flex;flex-direction:column;gap:7px;margin:10px 0}
+.ichk-item{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border-radius:9px;background:rgba(245,239,227,.7);border:1px solid rgba(232,220,200,.9);cursor:pointer;transition:all .2s;user-select:none}
+.ichk-item:hover{background:rgba(168,201,182,.12);border-color:var(--sage-border)}
+.ichk-item.checked{background:rgba(93,138,112,.08);border-color:var(--sage-border)}
+.ichk-box{width:20px;height:20px;border-radius:5px;border:2px solid rgba(122,96,64,.28);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:all .2s;font-size:11px;background:#fff;color:transparent}
+.ichk-item.checked .ichk-box{background:var(--sage-dark);border-color:var(--sage-dark);color:#fff}
+.ichk-item span{font-size:13px;line-height:1.5;color:var(--ink);transition:color .2s;flex:1}
+.ichk-item.checked span{color:var(--sage-dark)}
+.ichk-item.checked .ichk-box::before{content:'✓'}
+.ichk-hint{font-size:11px;color:var(--mist);margin-bottom:6px;display:flex;align-items:center;gap:5px}
+
+/* ══ STATIC CHECKLIST ══ */
+.checklist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px}
+.checklist li{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border-radius:9px;background:rgba(168,201,182,.07);border:1px solid rgba(93,138,112,.12);font-size:13px;line-height:1.5;color:var(--ink)}
+.checklist li::before{content:'✓';width:18px;height:18px;border-radius:5px;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px}
+
+/* ══ KEY LIST ══ */
+.key-list{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.key-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:10px;background:rgba(245,239,227,.6);border:1px solid rgba(232,220,200,.8)}
+.key-item .ki{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.key-item span{font-size:13px;line-height:1.5;color:var(--ink)}
+
+/* ══ STAT CARDS ══ */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px;margin-bottom:16px}
+.stat-card{background:var(--warm-white);border-radius:13px;padding:15px;border:1px solid rgba(122,96,64,.12);text-align:center}
+.stat-card .stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--sage-dark);line-height:1}
+.stat-card .stat-label{font-size:11px;color:var(--slate);margin-top:4px;font-weight:600}
+
+/* ══ INFO CARD GRID ══ */
+.info-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:12px 0}
+.info-card{background:var(--warm-white);border-radius:12px;padding:16px;border:1.5px solid rgba(122,96,64,.12);transition:transform .2s,box-shadow .2s}
+.info-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(44,34,24,.1)}
+.info-card.ic-sage{border-color:var(--sage-border);background:rgba(93,138,112,.04)}
+.info-card.ic-gold{border-color:rgba(201,168,76,.28);background:rgba(201,168,76,.04)}
+.info-card.ic-red{border-color:rgba(180,50,50,.2);background:rgba(180,50,50,.03)}
+.info-card.ic-brown{border-color:rgba(122,96,64,.22);background:rgba(122,96,64,.03)}
+.info-card .ic-icon{font-size:26px;margin-bottom:8px}
+.info-card .ic-label{font-size:9.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--mist);margin-bottom:5px}
+.info-card .ic-value{font-family:'Barlow Condensed',sans-serif;font-size:30px;font-weight:800;line-height:1}
+.info-card.ic-sage .ic-value{color:var(--sage-dark)}
+.info-card.ic-gold .ic-value{color:var(--amber)}
+.info-card.ic-red .ic-value{color:var(--red)}
+.info-card.ic-brown .ic-value{color:var(--brown)}
+.info-card .ic-desc{font-size:11.5px;color:var(--slate);margin-top:6px;line-height:1.5}
+
+/* ══ HI BANNER ══ */
+.hi-banner{border-radius:12px;padding:16px 20px;margin:12px 0;display:flex;align-items:center;gap:16px}
+.hi-banner.hb-sage{background:linear-gradient(135deg,rgba(58,107,82,.1),rgba(93,138,112,.05));border:1.5px solid var(--sage-border)}
+.hi-banner.hb-gold{background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(201,168,76,.04));border:1.5px solid rgba(201,168,76,.3)}
+.hi-banner.hb-red{background:linear-gradient(135deg,rgba(180,50,50,.09),rgba(180,50,50,.03));border:1.5px solid rgba(180,50,50,.22)}
+.hi-banner .hb-icon{font-size:34px;flex-shrink:0}
+.hi-banner .hb-val{font-family:'Barlow Condensed',sans-serif;font-size:38px;font-weight:800;line-height:1}
+.hi-banner.hb-sage .hb-val{color:var(--sage-dark)}
+.hi-banner.hb-gold .hb-val{color:var(--amber)}
+.hi-banner.hb-red .hb-val{color:var(--red)}
+.hi-banner .hb-label{font-size:12.5px;color:var(--slate);margin-top:3px;line-height:1.45}
+.hi-banner .hb-text{flex:1}
+
+/* ══ RULE CARDS ══ */
+.rule-card{border-radius:12px;padding:16px;margin-bottom:10px;display:flex;gap:13px;align-items:flex-start}
+.rule-card.rc-sage{background:rgba(93,138,112,.07);border:1.5px solid var(--sage-border)}
+.rule-card.rc-gold{background:rgba(201,168,76,.07);border:1.5px solid rgba(201,168,76,.26)}
+.rule-card.rc-red{background:rgba(180,50,50,.06);border:1.5px solid rgba(180,50,50,.2)}
+.rule-card .rc-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.rule-card.rc-sage .rc-icon{background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff}
+.rule-card.rc-gold .rc-icon{background:linear-gradient(135deg,#7a5200,#c9a84c);color:#fff}
+.rule-card.rc-red .rc-icon{background:linear-gradient(135deg,#6a1a1a,#8b2c2c);color:#fff}
+.rule-card .rc-title{font-size:13.5px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.rule-card.rc-sage .rc-title{color:var(--sage-dark)}
+.rule-card.rc-gold .rc-title{color:var(--amber)}
+.rule-card.rc-red .rc-title{color:var(--red)}
+.rule-card .rc-body{font-size:12.5px;color:var(--slate);line-height:1.55}
+
+/* ══ COMPARE DO/DON'T ══ */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
+@media(max-width:600px){.compare-grid{grid-template-columns:1fr}}
+.compare-card{border-radius:12px;padding:16px;border:1.5px solid}
+.compare-card.cc-yes{background:rgba(93,138,112,.05);border-color:var(--sage-border)}
+.compare-card.cc-no{background:rgba(180,50,50,.04);border-color:rgba(180,50,50,.2)}
+.compare-card .cc-head{font-size:11px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.compare-card.cc-yes .cc-head{color:var(--sage-dark)}
+.compare-card.cc-no .cc-head{color:var(--red)}
+.compare-card ul{padding-left:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.compare-card li{font-size:12.5px;line-height:1.5;display:flex;gap:8px;align-items:flex-start;color:var(--ink)}
+.compare-card.cc-yes li::before{content:'✓';color:var(--sage-dark);font-weight:800;flex-shrink:0;margin-top:1px}
+.compare-card.cc-no li::before{content:'✕';color:var(--red);font-weight:800;flex-shrink:0;margin-top:1px}
+
+/* ══ TABS ══ */
+.tab-nav{display:flex;gap:4px;border-bottom:2px solid rgba(122,96,64,.1);margin-bottom:0}
+.tab-btn{padding:9px 16px;border-radius:8px 8px 0 0;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:12.5px;font-weight:600;color:var(--slate);cursor:pointer;transition:all .18s;border-bottom:2px solid transparent;margin-bottom:-2px}
+.tab-btn.active{background:rgba(93,138,112,.1);color:var(--sage-dark);border-bottom-color:var(--sage-dark)}
+.tab-btn:hover:not(.active){background:rgba(122,96,64,.06)}
+.tab-pane{display:none;padding-top:14px;animation:fadeUp .2s ease}
+.tab-pane.active{display:block}
+.tab-wrap{background:var(--warm-white);border-radius:var(--radius);border:1px solid rgba(122,96,64,.12);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.tab-wrap .tab-nav{padding:0 16px;background:linear-gradient(180deg,rgba(168,201,182,.14),rgba(168,201,182,.02));border-bottom:1px solid rgba(122,96,64,.1)}
+.tab-wrap .tab-pane-wrap{padding:16px 18px}
+
+/* ══ STEPS FLOW ══ */
+.steps-flow{display:flex;flex-direction:column;gap:0;position:relative;margin:10px 0}
+.steps-flow::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:linear-gradient(180deg,var(--sage),var(--sage-light));border-radius:2px}
+.step-row{display:flex;gap:14px;padding:0 0 12px;position:relative}
+.step-dot{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;box-shadow:0 3px 9px rgba(58,107,82,.25)}
+.step-content{background:var(--warm-white);border-radius:10px;border:1px solid rgba(122,96,64,.12);padding:10px 14px;flex:1;transition:all .2s}
+.step-content:hover{border-color:var(--sage-light);transform:translateX(3px)}
+.step-content h4{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.step-content p{font-size:12px;color:var(--slate);margin:0;line-height:1.5}
+
+/* ══ TL EVAL CARDS ══ */
+.eval-cards{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
+.eval-card{border-radius:12px;padding:18px;border:1.5px solid var(--sage-border);background:linear-gradient(135deg,rgba(93,138,112,.06),rgba(93,138,112,.02));display:flex;gap:14px;align-items:flex-start}
+.eval-card .ec-num{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.eval-card .ec-title{font-size:13.5px;font-weight:700;color:var(--sage-dark);margin-bottom:4px}
+.eval-card .ec-body{font-size:12.5px;color:var(--slate);line-height:1.5}
+.eval-card .ec-tag{display:inline-block;margin-top:6px;padding:2px 9px;border-radius:5px;font-size:10px;font-weight:700;background:var(--sage-bg);color:var(--sage-dark);border:1px solid var(--sage-border)}
+
+/* ══ DECISION FLOW ══ */
+.decision-flow{margin:14px 0;display:flex;flex-direction:column;gap:0}
+.df-node{padding:11px 16px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;border:1.5px solid}
+.df-node.df-q{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.28);color:var(--amber)}
+.df-node.df-yes{background:var(--sage-bg);border-color:var(--sage-border);color:var(--sage-dark)}
+.df-node.df-no{background:var(--red-bg);border-color:rgba(180,50,50,.22);color:var(--red)}
+.df-node.df-end{background:linear-gradient(135deg,rgba(58,107,82,.12),rgba(93,138,112,.06));border-color:var(--sage-border);color:var(--sage-dark);font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800}
+.df-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0}
+.df-arrow{text-align:center;font-size:18px;color:var(--mist);margin:3px 0;opacity:.7}
+.df-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--mist);text-align:center;margin-bottom:2px}
+
+/* ══ CRITICAL RULE ══ */
+.critical-rule{background:linear-gradient(135deg,rgba(43,63,53,.97),rgba(58,107,82,.95));border-radius:13px;padding:16px 20px;margin:14px 0;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(43,63,53,.18)}
+.critical-rule::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--gold)}
+.critical-rule-label{font-size:9px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;color:rgba(201,168,76,.7);margin-bottom:6px}
+.critical-rule-text{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:800;color:#fff;line-height:1.3;text-transform:uppercase}
+.critical-rule-text em{font-style:normal;color:rgba(201,168,76,.95)}
+.critical-rule-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:7px;line-height:1.55}
+
+/* ══ DIVIDER ══ */
+.sdiv{display:flex;align-items:center;gap:11px;margin:18px 0 13px}
+.sdiv .l{flex:1;height:1px;background:linear-gradient(90deg,rgba(122,96,64,.22),transparent)}
+.sdiv .l:last-child{background:linear-gradient(270deg,rgba(122,96,64,.22),transparent)}
+.sdiv .t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--slate);white-space:nowrap}
+
+/* ══ TWO-COL ══ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}}
+.mini-card{padding:14px;border-radius:11px;border:1px solid rgba(122,96,64,.12);background:rgba(245,239,227,.5)}
+.mini-card h4{font-size:12.5px;margin-bottom:7px;display:flex;align-items:center;gap:6px;color:var(--ink);font-weight:700}
+.mini-card p,.mini-card li{font-size:12px;color:var(--slate);line-height:1.6}
+.mini-card ul{padding-left:15px}
+
+/* ══ MOD NAV ══ */
+.mod-nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(122,96,64,.1)}
+.mod-nav-btn{display:flex;align-items:center;gap:7px;padding:10px 20px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s}
+.mod-nav-prev{background:rgba(122,96,64,.09);color:var(--slate);border:1px solid rgba(122,96,64,.16)}
+.mod-nav-prev:hover{background:rgba(122,96,64,.16)}
+.mod-nav-next{background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;box-shadow:0 4px 14px rgba(58,107,82,.22)}
+.mod-nav-next:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(58,107,82,.32)}
+
+/* ══ OVERVIEW FLOW (inline) ══ */
+.ov-flow-wrap{background:var(--warm-white);border-radius:14px;border:1px solid rgba(122,96,64,.12);padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.ov-flow-title{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--sage-dark);margin-bottom:14px;opacity:.7}
+.ov-flow-grid{display:grid;grid-template-columns:minmax(70px,1fr) 18px minmax(70px,1fr) 18px minmax(80px,1fr) 18px minmax(70px,1fr) 18px minmax(70px,1fr);grid-template-rows:auto 12px auto 12px auto 12px auto 12px;gap:0;align-items:center}
+.ofn{padding:8px 8px 8px 10px;border-radius:9px;font-size:11px;font-weight:700;line-height:1.35;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;gap:3px;text-align:center;align-items:center;min-height:56px;justify-content:center}
+.ofn.step{background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff}
+.ofn.step:hover{transform:translateY(-2px);box-shadow:0 5px 16px rgba(58,107,82,.3)}
+.ofn.step.alt{background:linear-gradient(135deg,#2a5f4a,#4a8a6a);color:#fff}
+.ofn.step.cond{background:linear-gradient(135deg,#8a6a20,#c9a84c);color:#fff}
+.ofn.end-wae{background:linear-gradient(135deg,#1e5234,#2d7a50);color:#fff;border:2px solid rgba(255,255,255,.3);border-radius:9px;padding:8px;font-size:11.5px;text-align:center;font-weight:700;line-height:1.4}
+.ofn-n{width:18px;height:18px;border-radius:4px;background:rgba(255,255,255,.25);font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ofa{display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--mist);font-weight:400;line-height:1}
+.ofa.v{font-size:15px}
+.ofa.corner-rd{border-right:2px solid var(--sage-light);border-top:2px solid var(--sage-light);border-radius:0 6px 0 0;align-self:stretch}
+.ofa.corner-lu{border-left:2px solid var(--sage-light);border-bottom:2px solid var(--sage-light);border-radius:0 0 0 6px;align-self:stretch}
+.ofa.corner-ld{border-left:2px solid var(--sage-light);border-bottom:2px solid var(--sage-light);border-radius:0 0 0 5px;align-self:stretch}
+.ov-flow-note{margin-top:12px;padding:9px 12px;border-radius:8px;background:var(--gold-bg);border:1px solid rgba(201,168,76,.2);font-size:11.5px;color:var(--amber);display:flex;gap:7px;align-items:flex-start;line-height:1.5}
+@media(max-width:760px){.ov-flow-grid{display:none}}
+
+/* ══ FLOW SECTION (Flujo panel) ══ */
+.flow-section{background:var(--warm-white);border-radius:16px;padding:22px;border:1px solid rgba(122,96,64,.12);box-shadow:var(--shadow);margin-bottom:14px}
+.flow-section h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.flow-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:4px 0}
+.flow-node{padding:9px 13px;border-radius:9px;font-size:11.5px;font-weight:700;border:1.5px solid;display:flex;align-items:center;gap:6px;cursor:pointer;transition:all .2s;line-height:1.3}
+.flow-node.step{background:rgba(93,138,112,.1);border-color:var(--sage-border);color:var(--sage-dark)}
+.flow-node.step:hover{background:rgba(93,138,112,.2);transform:translateY(-2px)}
+.flow-node.step.alt{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--amber)}
+.flow-node.end-node{background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;border-color:var(--sage-dark)}
+.flow-arrow{color:var(--mist);font-size:16px;flex-shrink:0}
+.fn-num{width:20px;height:20px;border-radius:5px;background:rgba(255,255,255,.3);font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.flow-node.step .fn-num{background:rgba(93,138,112,.2);color:var(--sage-dark)}
+.flow-node.end-node .fn-num{background:rgba(255,255,255,.25);color:#fff}
+.flow-note{margin-top:14px;padding:10px 14px;border-radius:9px;background:var(--gold-bg);border:1px solid rgba(201,168,76,.22);font-size:12px;color:var(--amber);display:flex;gap:8px;align-items:flex-start}
+
+/* ══ QUIZ ══ */
+.q-block{background:var(--warm-white);border-radius:var(--radius);border:1px solid rgba(122,96,64,.12);margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow)}
+.q-block .qhead{padding:14px 18px;background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(201,168,76,.03));border-bottom:1px solid rgba(201,168,76,.15);display:flex;align-items:center;gap:10px}
+.q-block .qhead .qn{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--amber),#a07828);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.q-block .qhead p{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.4}
+.q-block .qbody{padding:14px 18px}
+.q-opt{display:block;width:100%;text-align:left;padding:10px 15px;margin-bottom:7px;border-radius:9px;border:1.5px solid rgba(122,96,64,.14);background:var(--beige);font-size:13px;cursor:pointer;transition:all .18s;color:var(--ink);font-family:'DM Sans',sans-serif;line-height:1.4}
+.q-opt:hover{border-color:var(--sage);background:rgba(93,138,112,.06)}
+.q-opt.selected{border-color:var(--sage-dark);background:var(--sage-bg)}
+.q-opt.correct{border-color:rgba(30,102,65,.5);background:rgba(30,102,65,.08);color:#1e6641;pointer-events:none}
+.q-opt.wrong{border-color:rgba(139,44,44,.4);background:var(--red-bg);color:var(--red);pointer-events:none}
+.q-opt.disabled{pointer-events:none;opacity:.7}
+.q-feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:9px;font-size:12.5px;line-height:1.5}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:rgba(30,102,65,.07);border:1px solid rgba(30,102,65,.2);color:#1e6641}
+.q-feedback.fail{background:var(--red-bg);border:1px solid rgba(139,44,44,.2);color:var(--red)}
+.quiz-result{display:none;margin-top:16px;padding:20px;border-radius:12px;text-align:center}
+.quiz-result.show{display:block;animation:fadeUp .3s ease}
+.quiz-result.pass{background:rgba(30,102,65,.07);border:1px solid rgba(30,102,65,.2)}
+.quiz-result.fail{background:var(--red-bg);border:1px solid rgba(139,44,44,.2)}
+.qr-score{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;line-height:1}
+.qr-score.pass{color:var(--sage-dark)}.qr-score.fail{color:var(--red)}
+.qr-label{font-size:14px;font-weight:700;margin:6px 0 4px;color:var(--ink)}
+.qr-msg{font-size:12.5px;color:var(--slate)}
+.quiz-actions{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.btn-quiz{padding:10px 22px;border-radius:9px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s}
+.btn-primary{background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;box-shadow:0 3px 12px rgba(58,107,82,.22)}
+.btn-primary:hover{transform:translateY(-1px)}
+.btn-secondary{background:rgba(122,96,64,.1);color:var(--brown);border:1px solid rgba(122,96,64,.18)}
+
+/* ══ RECURSOS ══ */
+.res-item{display:flex;gap:12px;padding:13px 15px;border-radius:11px;background:rgba(168,201,182,.07);border:1px solid rgba(93,138,112,.12);margin-bottom:9px;align-items:flex-start}
+.res-item .ri-icon{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.res-item .ri-body .ri-name{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.res-item .ri-body .ri-desc{font-size:12px;color:var(--slate);line-height:1.5}
+
+/* ══ WAE COMPLETE CARD ══ */
+.wae-card{background:linear-gradient(135deg,#1e3328,#2b4a38);border-radius:16px;padding:28px;text-align:center;margin:14px 0;position:relative;overflow:hidden}
+.wae-card::before{content:'';position:absolute;top:-40px;right:-30px;width:150px;height:150px;border:1.5px solid rgba(201,168,76,.1);border-radius:50%;animation:pulse 4s ease-in-out infinite}
+.wae-card .wae-icon{font-size:48px;margin-bottom:12px}
+.wae-card .wae-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:6px}
+.wae-card .wae-sub{font-size:13px;color:rgba(255,255,255,.65);max-width:38ch;margin:0 auto}
+.wae-card .wae-badge{display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:5px 16px;border-radius:999px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);font-size:11px;font-weight:700;color:rgba(201,168,76,.9);letter-spacing:.5px;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="brand"><div class="seal">⚖️</div>TMLF <span>Learning Center</span></div>
+  <div class="topnav-right"><div class="topnav-pill">PWI · End to End</div></div>
+</nav>
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="globalProgress"></div></div>
+<div class="sb-overlay" id="sbOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-shell">
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sh-label">TMLF Learning Center</div>
+    <div class="sh-title">Training End to End — Pre Welcome Interview</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-group-label">Inicio</div>
+    <div class="sb-item overview active" id="nav-overview" onclick="showPanel('overview')"><div class="sb-num">🏠</div><div class="sb-text"><div class="sb-name">Visión General</div><div class="sb-sub">Objetivo y flujo</div></div></div>
+    <div class="sb-item" id="nav-flujo" onclick="showPanel('flujo')"><div class="sb-num">🗺️</div><div class="sb-text"><div class="sb-name">Diagrama de Flujo</div><div class="sb-sub">Proceso completo</div></div></div>
+  </div>
+  <div class="sb-divider"></div>
+  <div class="sb-group">
+    <div class="sb-group-label">Módulos del Proceso</div>
+    <div class="sb-item" id="nav-mod1" onclick="showPanel('mod1')"><div class="sb-num">1</div><div class="sb-text"><div class="sb-name">Asignación del Caso</div><div class="sb-sub">Revisión y prioridades</div></div></div>
+    <div class="sb-item" id="nav-mod2" onclick="showPanel('mod2')"><div class="sb-num">2</div><div class="sb-text"><div class="sb-name">Elaboración Pre-Draft</div><div class="sb-sub">Borrador preliminar</div></div></div>
+    <div class="sb-item" id="nav-mod3" onclick="showPanel('mod3')"><div class="sb-num">3</div><div class="sb-text"><div class="sb-name">BOT Pre-Draft &amp; Estudio</div><div class="sb-sub">Reporte y preparación</div></div></div>
+    <div class="sb-item" id="nav-mod4" onclick="showPanel('mod4')"><div class="sb-num">4</div><div class="sb-text"><div class="sb-name">Agenda</div><div class="sb-sub">Llamada y cita</div></div></div>
+    <div class="sb-item" id="nav-mod5" onclick="showPanel('mod5')"><div class="sb-num">5</div><div class="sb-text"><div class="sb-name">Videollamada PWC</div><div class="sb-sub">Entrevista central</div></div></div>
+    <div class="sb-item" id="nav-mod6" onclick="showPanel('mod6')"><div class="sb-num">6</div><div class="sb-text"><div class="sb-name">Acciones Post Llamada</div><div class="sb-sub">Registro y entregables</div></div></div>
+    <div class="sb-item" id="nav-mod7" onclick="showPanel('mod7')"><div class="sb-num">7</div><div class="sb-text"><div class="sb-name">Procesamiento Draft</div><div class="sb-sub">Draft + Pre-Draft</div></div></div>
+    <div class="sb-item" id="nav-mod8" onclick="showPanel('mod8')"><div class="sb-num">8</div><div class="sb-text"><div class="sb-name">Revisión de Entregables</div><div class="sb-sub">Estándares de calidad</div></div></div>
+    <div class="sb-item" id="nav-mod9" onclick="showPanel('mod9')"><div class="sb-num">9</div><div class="sb-text"><div class="sb-name">Seguimiento al Cliente</div><div class="sb-sub">Contacto y fechas</div></div></div>
+    <div class="sb-item" id="nav-mod10" onclick="showPanel('mod10')"><div class="sb-num">10</div><div class="sb-text"><div class="sb-name">Integración &amp; Rev. Final</div><div class="sb-sub">Dropbox y DOE</div></div></div>
+    <div class="sb-item" id="nav-mod11" onclick="showPanel('mod11')"><div class="sb-num">11</div><div class="sb-text"><div class="sb-name">Acciones Administrativas</div><div class="sb-sub">KASE y DAILY</div></div></div>
+    <div class="sb-item" id="nav-mod12" onclick="showPanel('mod12')"><div class="sb-num">12</div><div class="sb-text"><div class="sb-name">Revisión Team Leader</div><div class="sb-sub">Supervisión checklist</div></div></div>
+    <div class="sb-item" id="nav-mod13" onclick="showPanel('mod13')"><div class="sb-num">13</div><div class="sb-text"><div class="sb-name">Llamada de Corrección</div><div class="sb-sub">Subsanar faltantes</div></div></div>
+    <div class="sb-item" id="nav-mod14" onclick="showPanel('mod14')"><div class="sb-num">14</div><div class="sb-text"><div class="sb-name">Supervisión Final</div><div class="sb-sub">Aprobación y WAE</div></div></div>
+  </div>
+  <div class="sb-divider"></div>
+  <div class="sb-spec-banner"><span style="font-size:14px">⭐</span><div class="sbb-text">Cierre del Training</div></div>
+  <div class="sb-group">
+    <div class="sb-item exam" id="nav-eval" onclick="showPanel('eval')"><div class="sb-num">✦</div><div class="sb-text"><div class="sb-name">Preguntas de Refuerzo</div><div class="sb-sub">4 preguntas · 80%</div></div></div>
+    <div class="sb-item res" id="nav-recursos" onclick="showPanel('recursos')"><div class="sb-num">📁</div><div class="sb-text"><div class="sb-name">Recursos Operativos</div><div class="sb-sub">Herramientas del área</div></div></div>
+  </div>
+</aside>
+
+<main class="main">
+
+<!-- ══ OVERVIEW ══ -->
+<div class="panel active" id="panel-overview">
+  <div class="header">
+    <div class="header-seal">⚖️</div>
+    <div class="header-badge"><div class="dot"></div>TMLF Learning Center · Enero 2026</div>
+    <h1>Training End to End<br>Pre Welcome Interview</h1>
+    <p class="subtitle">Proceso completo desde la asignación del caso hasta el cierre administrativo y envío a WAE.</p>
+    <div class="header-meta">
+      <div class="header-meta-item"><span>Área</span><strong>Pre Welcome Interview</strong></div>
+      <div class="header-meta-item"><span>Etapas</span><strong>14 Módulos</strong></div>
+      <div class="header-meta-item"><span>Versión</span><strong>Enero 2026</strong></div>
+      <div class="header-meta-item"><span>Destino</span><strong>Equipo PWI</strong></div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="stat-val">14</div><div class="stat-label">Etapas del proceso</div></div>
+    <div class="stat-card"><div class="stat-val">3.5h</div><div class="stat-label">Máx. videollamada</div></div>
+    <div class="stat-card"><div class="stat-val">17</div><div class="stat-label">Intentos de contacto</div></div>
+    <div class="stat-card"><div class="stat-val">WAE</div><div class="stat-label">Destino final</div></div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🎯</div><h3>¿Qué es el proceso PWI?</h3><span class="mod-badge badge-sage">Objetivo</span></div>
+    <div class="bbody">
+      <p>El Proceso Pre Welcome Interview (PWI) tiene como objetivo obtener, durante los primeros contactos con el cliente, la <mark class="hi-sage">documentación, evidencia e información necesaria para las formas migratorias</mark>. Esto permite un procesamiento <mark class="hi-gold">ágil del caso, apegado a los tiempos de entrega</mark> y calidad esperados.</p>
+      <div class="alert info" style="margin-top:10px"><span class="ai">ℹ️</span><div>El proceso es mayoritariamente secuencial, pero puede activar una <strong>Llamada de Corrección</strong> (paso 13) cuando el TL detecta faltantes. Si el caso está completo, va directo a WAE.</div></div>
+    </div>
+  </div>
+  <!-- INLINE FLOW -->
+  <div class="ov-flow-wrap">
+    <div class="ov-flow-title">Diagrama de Flujo — Proceso End to End</div>
+    <div class="ov-flow-grid">
+      <div class="ofn step" style="grid-column:1;grid-row:1" onclick="showPanel('mod1')"><span class="ofn-n">1</span>Asignación<br>del Caso</div>
+      <div class="ofa h" style="grid-column:2;grid-row:1">→</div>
+      <div class="ofn step" style="grid-column:3;grid-row:1" onclick="showPanel('mod2')"><span class="ofn-n">2</span>Elaboración<br>Pre-Draft</div>
+      <div class="ofa h" style="grid-column:4;grid-row:1">→</div>
+      <div class="ofn step" style="grid-column:5;grid-row:1" onclick="showPanel('mod3')"><span class="ofn-n">3</span>BOT Pre-Draft<br>&amp; Estudio</div>
+      <div class="ofa h" style="grid-column:6;grid-row:1">→</div>
+      <div class="ofn step" style="grid-column:7;grid-row:1" onclick="showPanel('mod4')"><span class="ofn-n">4</span>Agenda</div>
+      <div class="ofa corner-rd" style="grid-column:8;grid-row:1"></div>
+      <div class="ofa v" style="grid-column:8;grid-row:2">↓</div>
+      <div class="ofn step" style="grid-column:1;grid-row:3" onclick="showPanel('mod11')"><span class="ofn-n">11</span>Acciones<br>Administrativas</div>
+      <div class="ofa h" style="grid-column:2;grid-row:3">←</div>
+      <div class="ofn step" style="grid-column:3;grid-row:3" onclick="showPanel('mod10')"><span class="ofn-n">10</span>Integración<br>&amp; Rev. Final</div>
+      <div class="ofa h" style="grid-column:4;grid-row:3">←</div>
+      <div class="ofn step" style="grid-column:5;grid-row:3" onclick="showPanel('mod9')"><span class="ofn-n">9</span>Seguimiento<br>al Cliente</div>
+      <div class="ofa h" style="grid-column:6;grid-row:3">←</div>
+      <div class="ofn step" style="grid-column:7;grid-row:3" onclick="showPanel('mod8')"><span class="ofn-n">8</span>Rev. de<br>Entregables</div>
+      <div class="ofa corner-lu" style="grid-column:8;grid-row:3"></div>
+      <div class="ofn step alt" style="grid-column:9;grid-row:1" onclick="showPanel('mod5')"><span class="ofn-n">5</span>Videollamada<br>PWC</div>
+      <div class="ofa v" style="grid-column:9;grid-row:2">↓</div>
+      <div class="ofn step alt" style="grid-column:9;grid-row:3" onclick="showPanel('mod6')"><span class="ofn-n">6</span>Post<br>Llamada</div>
+      <div class="ofa v" style="grid-column:9;grid-row:4">↓</div>
+      <div class="ofn step alt" style="grid-column:9;grid-row:5" onclick="showPanel('mod7')"><span class="ofn-n">7</span>Procesamiento<br>Draft</div>
+      <div class="ofa v" style="grid-column:1;grid-row:4">↓</div>
+      <div class="ofn step" style="grid-column:1;grid-row:5" onclick="showPanel('mod12')"><span class="ofn-n">12</span>Revisión<br>Team Leader</div>
+      <div class="ofa h" style="grid-column:2;grid-row:5">→</div>
+      <div class="ofn step cond" style="grid-column:3;grid-row:5" onclick="showPanel('mod13')"><span class="ofn-n">13</span>Llamada de<br>Corrección</div>
+      <div class="ofa h" style="grid-column:4;grid-row:5">→</div>
+      <div class="ofn step" style="grid-column:5;grid-row:5" onclick="showPanel('mod14')"><span class="ofn-n">14</span>Supervisión<br>Final</div>
+      <div class="ofa v" style="grid-column:5;grid-row:6">↓</div>
+      <div class="ofn end-wae" style="grid-column:5;grid-row:7">✅ Caso a<br><strong>WAE</strong></div>
+    </div>
+    <div class="ov-flow-note"><span>ℹ️</span><span>El proceso <strong>no siempre es lineal</strong>: si el TL detecta faltantes en el paso 12, se activa la Llamada de Corrección (13) antes de la Supervisión Final. <strong>Haz clic en cualquier etapa</strong> para ir al módulo.</span></div>
+  </div>
+</div>
+
+<!-- ══ FLUJO ══ -->
+<div class="panel" id="panel-flujo">
+  <div class="page-title"><div class="pt-label">Proceso End to End · PWI</div><h2>Diagrama de Flujo</h2><p class="pt-sub">Recorrido completo — cada etapa es clickeable.</p></div>
+  <div class="flow-section">
+    <h3>🗺️ Flujo End to End — Pre Welcome Interview</h3>
+    <div class="flow-row">
+      <div class="flow-node step" onclick="showPanel('mod1')"><span class="fn-num">1</span>Asignación del Caso</div><div class="flow-arrow">→</div>
+      <div class="flow-node step" onclick="showPanel('mod2')"><span class="fn-num">2</span>Elaboración Pre-Draft</div><div class="flow-arrow">→</div>
+      <div class="flow-node step" onclick="showPanel('mod3')"><span class="fn-num">3</span>BOT Pre-Draft &amp; Estudio</div><div class="flow-arrow">→</div>
+      <div class="flow-node step" onclick="showPanel('mod4')"><span class="fn-num">4</span>Agenda</div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;padding-right:20px"><div style="font-size:18px;color:var(--mist);margin:4px 0">↓</div></div>
+    <div class="flow-row" style="justify-content:flex-end">
+      <div class="flow-node step" onclick="showPanel('mod9')"><span class="fn-num">9</span>Seguimiento al Cliente</div><div class="flow-arrow">←</div>
+      <div class="flow-node step" onclick="showPanel('mod8')"><span class="fn-num">8</span>Revisión Entregables</div><div class="flow-arrow">←</div>
+      <div class="flow-node step" onclick="showPanel('mod7')"><span class="fn-num">7</span>Procesamiento Draft</div><div class="flow-arrow">←</div>
+      <div class="flow-node step" onclick="showPanel('mod6')"><span class="fn-num">6</span>Post Llamada</div><div class="flow-arrow">←</div>
+      <div class="flow-node step" onclick="showPanel('mod5')"><span class="fn-num">5</span>Videollamada PWC</div>
+    </div>
+    <div style="display:flex;justify-content:flex-start;padding-left:14px"><div style="font-size:18px;color:var(--mist);margin:4px 0">↓</div></div>
+    <div class="flow-row">
+      <div class="flow-node step" onclick="showPanel('mod10')"><span class="fn-num">10</span>Integración &amp; Rev. Final</div><div class="flow-arrow">→</div>
+      <div class="flow-node step" onclick="showPanel('mod11')"><span class="fn-num">11</span>Acciones Administrativas</div><div class="flow-arrow">→</div>
+      <div class="flow-node step" onclick="showPanel('mod12')"><span class="fn-num">12</span>Revisión Team Leader</div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:80px;padding:0 8px"><div style="font-size:13px;color:var(--mist);margin:4px 0;flex:1;text-align:center;padding-left:100px">↙ caso incompleto</div><div style="font-size:13px;color:var(--mist);margin:4px 0">↓ caso completo</div></div>
+    <div class="flow-row" style="gap:10px">
+      <div class="flow-node step alt" onclick="showPanel('mod13')"><span class="fn-num">13</span>Llamada de Corrección</div><div class="flow-arrow">→</div>
+      <div class="flow-node step" onclick="showPanel('mod14')"><span class="fn-num">14</span>Supervisión Final</div><div class="flow-arrow">→</div>
+      <div class="flow-node end-node"><span class="fn-num">✅</span>Caso a WAE</div>
+    </div>
+    <div class="flow-note"><span>ℹ️</span><div><strong>Proceso no siempre lineal:</strong> Si el TL detecta un caso incompleto en el paso 12, puede solicitar una Llamada de Corrección (13) antes de la Supervisión Final. <strong>Haz clic en cada etapa</strong> para ir al módulo.</div></div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('overview')">← Volver al Inicio</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod1')">Módulo 1 →</button>
+  </div>
+</div>
+
+<!-- ══ M1 ══ -->
+<div class="panel" id="panel-mod1">
+  <div class="mod-header"><div class="mod-num-badge">1</div><div class="mod-header-text"><div class="mod-label">Módulo 1 · Proceso PWI</div><h2>Asignación del Caso</h2><p>Primera etapa: revisar el caso <em>antes</em> de cualquier contacto con el cliente.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📋</div><h3>¿Qué sucede en esta etapa?</h3><span class="mod-badge badge-sage">Inicio del proceso</span></div>
+    <div class="bbody">
+      <p>En la etapa de asignación es necesario revisar la cantidad de casos asignados para la entrega de la semana. El agente debe verificar el caso y su <mark class="hi-sage">stage en Kase</mark>, así como sus notas, para identificar si existe alguna situación particular <mark class="hi-red">antes de hacer el primer contacto</mark>.</p>
+      <div class="tool-row"><span class="tool-chip">📂 KASE</span><span class="tool-chip tc-gold">📊 DAILY</span></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">⚡</div><h3>Acciones clave en esta etapa</h3></div>
+    <div class="bbody">
+      <p class="ichk-hint">☝️ Haz clic en cada punto para marcarlo como revisado</p>
+      <div class="ichk-list">
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Solicitar <mark class="hi-gold">CL suficientes</mark> para asegurar las metas semanales.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Seguir las <strong>prioridades marcadas por el Team Leader</strong> al gestionar el orden de atención.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Considerar el criterio <mark class="hi-sage">1-5-15</mark> en la gestión y distribución de casos.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Revisar en <mark class="hi-sage">Kase</mark> el stage y las <strong>notas del caso</strong> antes de realizar cualquier llamada.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📌</div><h3>Criterio 1-5-15</h3><span class="mod-badge badge-gold">Criterio operativo</span></div>
+    <div class="bbody">
+      <div class="info-card-grid">
+        <div class="info-card ic-sage"><div class="ic-icon">1️⃣</div><div class="ic-label">Prioridad Alta</div><div class="ic-value">1</div><div class="ic-desc">Casos con entrega inmediata o condición especial detectada.</div></div>
+        <div class="info-card ic-gold"><div class="ic-icon">5️⃣</div><div class="ic-label">Prioridad Media</div><div class="ic-value">5</div><div class="ic-desc">Casos con entrega próxima dentro de la semana.</div></div>
+        <div class="info-card ic-brown"><div class="ic-icon">🔢</div><div class="ic-label">Prioridad Normal</div><div class="ic-value">15</div><div class="ic-desc">Casos en flujo regular sin urgencia inmediata.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="critical-rule">
+    <div class="critical-rule-label">⚠️ Regla crítica del módulo</div>
+    <div class="critical-rule-text">Nunca contactar al cliente <em>sin revisar Kase primero</em></div>
+    <div class="critical-rule-sub">Las notas pueden contener condiciones especiales de contacto: horarios específicos o situaciones de vulnerabilidad extrema. Ignorar esto puede generar daño al cliente o al caso.</div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('flujo')">← Flujo del Proceso</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod2')">Módulo 2 →</button>
+  </div>
+</div>
+
+<!-- ══ M2 ══ -->
+<div class="panel" id="panel-mod2">
+  <div class="mod-header"><div class="mod-num-badge">2</div><div class="mod-header-text"><div class="mod-label">Módulo 2 · Proceso PWI</div><h2>Elaboración Pre-Draft</h2><p>Generar el borrador preliminar de declaración a partir de la transcripción del Intake.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📝</div><h3>¿Qué es el Pre-Draft?</h3><span class="mod-badge badge-sage">Preparación</span></div>
+    <div class="bbody">
+      <p>En este paso se toma la <mark class="hi-sage">transcripción de la llamada de Intake</mark> y se genera un borrador preliminar de declaración. Este pre-draft funciona como referencia para <mark class="hi-gold">optimizar la entrevista</mark>, evitando redundancias en el cuestionamiento durante la videollamada de PWC.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🎯</div><h3>¿Para qué sirve el Pre-Draft?</h3></div>
+    <div class="bbody">
+      <div class="info-card-grid">
+        <div class="info-card ic-sage"><div class="ic-icon">🔍</div><div class="ic-label">Detectar</div><div class="ic-desc">Anticipar los temas que ya fueron cubiertos en el Intake.</div></div>
+        <div class="info-card ic-gold"><div class="ic-icon">🎯</div><div class="ic-label">Focalizar</div><div class="ic-desc">Identificar temas que requieren mayor profundización durante la entrevista.</div></div>
+        <div class="info-card ic-brown"><div class="ic-icon">⏱️</div><div class="ic-label">Optimizar</div><div class="ic-desc">Reducir el tiempo de llamada evitando preguntas repetitivas.</div></div>
+        <div class="info-card ic-sage"><div class="ic-icon">📄</div><div class="ic-label">Base</div><div class="ic-desc">Servir como base para el <strong>Draft final</strong> de declaración.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod1')">← Módulo 1</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod3')">Módulo 3 →</button>
+  </div>
+</div>
+
+<!-- ══ M3 ══ -->
+<div class="panel" id="panel-mod3">
+  <div class="mod-header"><div class="mod-num-badge">3</div><div class="mod-header-text"><div class="mod-label">Módulo 3 · Proceso PWI</div><h2>BOT Pre-Draft &amp; Estudio de Caso</h2><p>Lectura del reporte BOT y preparación profunda antes de la entrevista.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🤖</div><h3>¿Qué es el BOT Pre-Draft?</h3><span class="mod-badge badge-sage">Análisis</span></div>
+    <div class="bbody">
+      <p>El BOT Pre-Draft emite un reporte en el que se identifican los <mark class="hi-sage">temas abordados y profundizados durante el Intake</mark>. Con este reporte, el agente puede determinar con precisión en qué temas <mark class="hi-gold">no necesita indagar</mark> y cuáles son <mark class="hi-red">relevantes para complementar</mark> durante la entrevista de PWC.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">⚡</div><h3>Acciones de esta etapa</h3></div>
+    <div class="bbody">
+      <p class="ichk-hint">☝️ Haz clic para marcar cada acción como completada</p>
+      <div class="ichk-list">
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Leer el <mark class="hi-sage">reporte del BOT</mark> para identificar temas cubiertos y pendientes.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Revisar las notas en <mark class="hi-sage">KASE</mark> y anticipar cualquier eventualidad (horarios, información relevante).</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Llenar el <mark class="hi-gold">checklist previo</mark> a la interacción con el cliente.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Preparar notas de estudio con base en el reporte del BOT.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hi-banner hb-sage">
+    <div class="hb-icon">⏱️</div>
+    <div class="hb-text">
+      <div class="hb-val">3.5 h</div>
+      <div class="hb-label">Esta etapa es clave para que la videollamada no supere el <strong>tiempo máximo de 3.5 horas</strong>. Un buen estudio reduce preguntas innecesarias y mantiene la llamada focalizada.</div>
+    </div>
+  </div>
+  <div class="alert success"><span class="ai">✅</span><div><strong>Buena práctica</strong>Apóyate siempre en el reporte del BOT para estructurar tus preguntas. Esta etapa es vital para asegurar una llamada focalizada y productiva.</div></div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod2')">← Módulo 2</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod4')">Módulo 4 →</button>
+  </div>
+</div>
+
+<!-- ══ M4 ══ -->
+<div class="panel" id="panel-mod4">
+  <div class="mod-header"><div class="mod-num-badge">4</div><div class="mod-header-text"><div class="mod-label">Módulo 4 · Proceso PWI</div><h2>Agenda</h2><p>Preparar y ejecutar la llamada de agenda para agendar la videollamada con el cliente.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📅</div><h3>Antes de llamar</h3><span class="mod-badge badge-sage">Preparación</span></div>
+    <div class="bbody">
+      <p>Antes de la llamada de agenda, el agente debe enviar un <mark class="hi-sage">SMS al cliente</mark> con los documentos a solicitar, pidiendo que los tenga listos. Esto genera acciones preventivas y asegura que el cliente pueda enviar la información <mark class="hi-gold">en tiempo y forma</mark>.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📞</div><h3>Los 3 objetivos de la llamada de Agenda</h3></div>
+    <div class="bbody">
+      <div class="info-card-grid">
+        <div class="info-card ic-sage"><div class="ic-icon">🗓️</div><div class="ic-label">Objetivo 1</div><div class="ic-desc"><strong>Confirmar la cita</strong> para la videollamada de entrevista.</div></div>
+        <div class="info-card ic-gold"><div class="ic-icon">📋</div><div class="ic-label">Objetivo 2</div><div class="ic-desc"><strong>Explicar qué se necesita</strong> del cliente y cómo se trabajará el caso.</div></div>
+        <div class="info-card ic-brown"><div class="ic-icon">📅</div><div class="ic-label">Objetivo 3</div><div class="ic-desc"><strong>Establecer fechas compromiso</strong> para envío de documentos y evidencias.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">⚡</div><h3>Puntos clave durante la llamada</h3></div>
+    <div class="bbody">
+      <ul class="checklist">
+        <li>Verificar disponibilidad del cliente antes de llamar para evitar un falso <mark class="hi-red">"no contesta"</mark>.</li>
+        <li>Seguir las <mark class="hi-sage">Guidelines de Agenda</mark>: concretar la cita, resolver dudas y fijar fechas compromiso.</li>
+        <li>Comunicar la duración estimada de la videollamada: <mark class="hi-gold">aprox. 1 hora 40 minutos</mark>.</li>
+        <li>Revisar condiciones particulares de contacto, especialmente en situaciones de abuso extremo.</li>
+      </ul>
+      <div class="hi-banner hb-red" style="margin-top:14px">
+        <div class="hb-icon">🚨</div>
+        <div class="hb-text">
+          <div class="hb-val" style="font-size:18px;text-transform:uppercase">Verificar antes de llamar</div>
+          <div class="hb-label">En casos de <strong>abuso extremo</strong>, verificar las condiciones especiales de contacto es <strong>crítico para garantizar la seguridad del cliente</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod3')">← Módulo 3</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod5')">Módulo 5 →</button>
+  </div>
+</div>
+
+<!-- ══ M5 ══ -->
+<div class="panel" id="panel-mod5">
+  <div class="mod-header"><div class="mod-num-badge">5</div><div class="mod-header-text"><div class="mod-label">Módulo 5 · Proceso PWI</div><h2>Videollamada PWC</h2><p>La etapa central del proceso. Entrevista con el cliente para obtener información y evidencias.</p></div></div>
+  <div class="hi-banner hb-gold">
+    <div class="hb-icon">⏱️</div>
+    <div class="hb-text">
+      <div class="hb-val">3.5 h máximo</div>
+      <div class="hb-label">La videollamada tiene una duración máxima de <strong>3.5 horas</strong>. El estudio previo del caso (BOT Pre-Draft + Kase) es la herramienta principal para lograrlo sin sacrificar calidad.</div>
+    </div>
+  </div>
+  <div class="tab-wrap">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab(this,'t5-prep')">🎬 Preparación</button>
+      <button class="tab-btn" onclick="switchTab(this,'t5-durante')">🎥 Durante la llamada</button>
+      <button class="tab-btn" onclick="switchTab(this,'t5-vawa')">🛡️ Casos VAWA / Visa T</button>
+    </div>
+    <div class="tab-pane-wrap">
+      <div class="tab-pane active" id="t5-prep">
+        <div class="steps-flow">
+          <div class="step-row"><div class="step-dot">1</div><div class="step-content"><h4>Conexión a internet</h4><p>Asegurar una conexión estable antes de iniciar. No depender de datos móviles.</p></div></div>
+          <div class="step-row"><div class="step-dot">2</div><div class="step-content"><h4>Fondo corporativo</h4><p>Utilizar el <mark class="hi-sage">fondo institucional del área</mark> obligatoriamente en todas las videollamadas.</p></div></div>
+          <div class="step-row"><div class="step-dot">3</div><div class="step-content"><h4>Imagen profesional</h4><p>Cuidar presentación personal acorde con los estándares de la firma.</p></div></div>
+          <div class="step-row"><div class="step-dot">4</div><div class="step-content"><h4>Estudio previo del caso</h4><p>Haber completado el BOT Pre-Draft y las notas de Kase <mark class="hi-gold">antes de iniciar</mark>.</p></div></div>
+        </div>
+      </div>
+      <div class="tab-pane" id="t5-durante">
+        <p class="ichk-hint">☝️ Marca cada punto durante o después de la videollamada</p>
+        <div class="ichk-list">
+          <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Seguir las <mark class="hi-sage">guidelines de entrevista</mark> y dejar clara la expectativa desde el inicio de la llamada.</span></div>
+          <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Solicitar que el cliente busque y envíe documentos <mark class="hi-red">en ese momento</mark> — no postergar la entrega.</span></div>
+          <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Ejercer <mark class="hi-gold">persuasión efectiva</mark> para obtener la información en tiempo y forma.</span></div>
+          <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Cuidar tono y fluidez de la llamada para que la experiencia no se torne tediosa.</span></div>
+          <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Verificar que la <mark class="hi-sage">transcripción de la llamada</mark> se genere correctamente al finalizar.</span></div>
+        </div>
+      </div>
+      <div class="tab-pane" id="t5-vawa">
+        <div class="rule-card rc-gold">
+          <div class="rc-icon">💛</div>
+          <div><div class="rc-title">Empatía y contención emocional</div><div class="rc-body">En la sección de abuso o trata, la empatía y contención emocional son <strong>indispensables</strong>. El cliente necesita sentirse escuchado y seguro.</div></div>
+        </div>
+        <div class="rule-card rc-sage">
+          <div class="rc-icon">🎯</div>
+          <div><div class="rc-title">Sin perder el foco de la entrevista</div><div class="rc-body">Siempre recuerda al cliente la <strong>relevancia de la información para el caso</strong> y cómo puede impactar positiva o negativamente en el resultado.</div></div>
+        </div>
+        <div class="alert gold" style="margin-top:6px"><span class="ai">⚡</span><div>El <mark class="hi-gold">equilibrio entre empatía y focalización</mark> es la clave en secciones sensibles de VAWA y Visa T.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod4')">← Módulo 4</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod6')">Módulo 6 →</button>
+  </div>
+</div>
+
+<!-- ══ M6 ══ -->
+<div class="panel" id="panel-mod6">
+  <div class="mod-header"><div class="mod-num-badge">6</div><div class="mod-header-text"><div class="mod-label">Módulo 6 · Proceso PWI</div><h2>Acciones Administrativas Post Llamada</h2><p>Registro inmediato de estatus y gestión de entregables al concluir la videollamada.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📤</div><h3>Checklist post llamada</h3><span class="mod-badge badge-sage">Inmediato</span></div>
+    <div class="bbody">
+      <p>Al concluir la videollamada, es fundamental registrar el estatus del caso y gestionar todos los entregables de forma <mark class="hi-red">inmediata</mark>. La visibilidad del avance depende de un reporte oportuno y completo.</p>
+      <div class="tool-row"><span class="tool-chip">📂 KASE</span><span class="tool-chip tc-gold">📊 DAILY</span><span class="tool-chip">📁 Dropbox</span></div>
+      <p class="ichk-hint" style="margin-top:10px">☝️ Marca cada acción al completarla</p>
+      <div class="ichk-list">
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Reportar el estatus en <mark class="hi-sage">KASE</mark> y en el <mark class="hi-sage">DAILY</mark> inmediatamente.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Revisar la <strong>calidad de los documentos</strong> y evidencias enviadas por el cliente.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Si hay documentos faltantes: contactar al cliente vía <mark class="hi-gold">SMS o llamada</mark>.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Subir toda la información a <mark class="hi-sage">Dropbox</mark> usando las <strong>nomenclaturas correctas</strong>.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Verificar que los documentos enviados son correctos y funcionales.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Descargar la <mark class="hi-gold">transcripción</mark> y colocarla en el DAILY para iniciar el procesamiento.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Revisar que la transcripción no tenga <mark class="hi-red">errores u omisiones</mark> antes de continuar.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="critical-rule">
+    <div class="critical-rule-label">🚨 Nomenclatura en Dropbox — Obligatorio</div>
+    <div class="critical-rule-text">Archivo en la carpeta incorrecta = <em>IA no reconoce el caso</em></div>
+    <div class="critical-rule-sub">Respetar la nomenclatura de archivos en Dropbox es crítico. La IA de ensamblado no procesará el caso si el archivo no está en la carpeta correcta con el nombre correcto. Consulta siempre el recurso de orden de carpetas.</div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod5')">← Módulo 5</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod7')">Módulo 7 →</button>
+  </div>
+</div>
+
+<!-- ══ M7 ══ -->
+<div class="panel" id="panel-mod7">
+  <div class="mod-header"><div class="mod-num-badge">7</div><div class="mod-header-text"><div class="mod-label">Módulo 7 · Proceso PWI</div><h2>Procesamiento Draft + Pre-Draft</h2><p>Generación del Draft final con la declaración completa del cliente.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📄</div><h3>¿En qué consiste?</h3><span class="mod-badge badge-sage">Procesamiento</span></div>
+    <div class="bbody">
+      <p>Una vez procesadas ambas transcripciones (<mark class="hi-sage">Intake</mark> y <mark class="hi-sage">PWC</mark>), se genera el <mark class="hi-gold">Draft final</mark> con la declaración del cliente. La revisión se centra en que la información se plasme correctamente, sin exageraciones, omisiones ni errores en fechas importantes.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🔍</div><h3>Criterios de revisión del Draft</h3></div>
+    <div class="bbody">
+      <div class="compare-grid">
+        <div class="compare-card cc-yes">
+          <div class="cc-head">✅ Draft correcto</div>
+          <ul>
+            <li>Información <strong>consistente</strong> con lo declarado por el cliente</li>
+            <li>Fechas importantes <strong>sin errores</strong></li>
+            <li>Información de PWC <strong>integrada coherentemente</strong></li>
+            <li>Sin omisiones que afecten el caso</li>
+          </ul>
+        </div>
+        <div class="compare-card cc-no">
+          <div class="cc-head">❌ Errores a evitar</div>
+          <ul>
+            <li><mark class="hi-red">Exageraciones</mark> de lo declarado por el cliente</li>
+            <li><mark class="hi-red">Omisiones</mark> de información relevante</li>
+            <li>Errores en <mark class="hi-red">fechas clave</mark> del caso</li>
+            <li>Inconsistencias entre Intake y PWC</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod6')">← Módulo 6</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod8')">Módulo 8 →</button>
+  </div>
+</div>
+
+<!-- ══ M8 ══ -->
+<div class="panel" id="panel-mod8">
+  <div class="mod-header"><div class="mod-num-badge">8</div><div class="mod-header-text"><div class="mod-label">Módulo 8 · Proceso PWI</div><h2>Revisión de Entregables</h2><p>Verificación de calidad de documentos, evidencias y formas migratorias.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🔬</div><h3>¿Qué se revisa?</h3><span class="mod-badge badge-sage">Calidad</span></div>
+    <div class="bbody">
+      <p>Es necesario revisar las <mark class="hi-sage">evidencias de abuso o trata</mark>, la validez y legibilidad de los documentos, y la información capturada en las formas migratorias. Esta revisión es crítica porque los <mark class="hi-gold">abogados de la Welcome Call</mark> utilizan estos entregables para su llamada con el cliente.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📐</div><h3>Estándar de calidad — Sin excepciones</h3><span class="mod-badge badge-warn">Obligatorio</span></div>
+    <div class="bbody">
+      <div class="compare-grid">
+        <div class="compare-card cc-yes">
+          <div class="cc-head">✅ Se acepta</div>
+          <ul>
+            <li>Documentos <strong>completamente legibles</strong></li>
+            <li>Sin manchas ni <strong>sombras</strong></li>
+            <li>Imagen <strong>completa</strong>, sin recortes</li>
+            <li>Sin <strong>dedos visibles</strong> en la imagen</li>
+            <li>Información sin <strong>typos ni errores</strong></li>
+          </ul>
+        </div>
+        <div class="compare-card cc-no">
+          <div class="cc-head">❌ No se acepta — Solicitar de nuevo</div>
+          <ul>
+            <li>Documentos <mark class="hi-red">borrosos</mark> o con sombras</li>
+            <li><mark class="hi-red">Dedos visibles</mark> en la imagen</li>
+            <li>Documentos <mark class="hi-red">recortados</mark> o incompletos</li>
+            <li>Typos o <mark class="hi-red">errores en fechas</mark> o nombres</li>
+            <li>Información <mark class="hi-red">ilegible</mark> por cualquier razón</li>
+          </ul>
+        </div>
+      </div>
+      <div class="critical-rule" style="margin-top:14px">
+        <div class="critical-rule-label">🚨 Estándar absoluto</div>
+        <div class="critical-rule-text">Todo documento deficiente <em>se devuelve — sin excepción</em></div>
+        <div class="critical-rule-sub">Aceptar un documento deficiente impacta directamente en los entregables del caso y en la Welcome Call. No existe ninguna justificación para aceptar material de baja calidad.</div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod7')">← Módulo 7</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod9')">Módulo 9 →</button>
+  </div>
+</div>
+
+<!-- ══ M9 ══ -->
+<div class="panel" id="panel-mod9">
+  <div class="mod-header"><div class="mod-num-badge">9</div><div class="mod-header-text"><div class="mod-label">Módulo 9 · Proceso PWI</div><h2>Seguimiento al Cliente</h2><p>Gestión de contacto para obtener evidencias y documentos pendientes.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📞</div><h3>¿Cuándo y cómo?</h3><span class="mod-badge badge-sage">Seguimiento</span></div>
+    <div class="bbody">
+      <p>Si el cliente aún debe entregar evidencias o documentos, es indispensable enviar los SMS correspondientes y concretar las llamadas pactadas. Cada solicitud debe incluir una <mark class="hi-red">fecha compromiso de entrega</mark>. Sin fecha compromiso, la entrega <mark class="hi-red">se pospone indefinidamente</mark> y afecta los tiempos del caso.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📊</div><h3>Reglas y métricas clave</h3></div>
+    <div class="bbody">
+      <div class="info-card-grid">
+        <div class="info-card ic-sage"><div class="ic-icon">📞</div><div class="ic-label">Regla de intentos</div><div class="ic-value">17</div><div class="ic-desc">Intentos máximos de contacto por cliente que no contesta.</div></div>
+        <div class="info-card ic-gold"><div class="ic-icon">📅</div><div class="ic-label">Lunes a Viernes</div><div class="ic-value">3/día</div><div class="ic-desc">Tres intentos diarios en días hábiles, con variación de horario.</div></div>
+        <div class="info-card ic-brown"><div class="ic-icon">📅</div><div class="ic-label">Sábado</div><div class="ic-value">2/día</div><div class="ic-desc">Dos intentos el día sábado.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📋</div><h3>Reglas operativas de seguimiento</h3></div>
+    <div class="bbody">
+      <div class="tool-row"><span class="tool-chip">📂 KASE</span><span class="tool-chip">📝 TramCase</span><span class="tool-chip tc-gold">💬 SMS Templates</span></div>
+      <ul class="checklist" style="margin-top:10px">
+        <li>Aplicar el criterio <mark class="hi-sage">1-5-15</mark> para priorizar la gestión de contactos.</li>
+        <li>Establecer <mark class="hi-gold">fecha compromiso</mark> de entrega en cada contacto sin excepción.</li>
+        <li>Registrar <strong>todos los seguimientos en KASE</strong>, incluyendo faltas de cooperación.</li>
+        <li>En no cooperación: aplicar el <mark class="hi-red">mensaje de texto correspondiente</mark> y registrar nota en TramCase.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod8')">← Módulo 8</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod10')">Módulo 10 →</button>
+  </div>
+</div>
+
+<!-- ══ M10 ══ -->
+<div class="panel" id="panel-mod10">
+  <div class="mod-header"><div class="mod-num-badge">10</div><div class="mod-header-text"><div class="mod-label">Módulo 10 · Proceso PWI</div><h2>Integración &amp; Revisión Final</h2><p>Integración completa de documentos y validación previa al cierre del caso.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🗂️</div><h3>¿Qué se hace en esta etapa?</h3><span class="mod-badge badge-sage">Cierre previo</span></div>
+    <div class="bbody">
+      <p>Se integran todos los documentos y evidencias a <mark class="hi-sage">Dropbox</mark> y al sistema <mark class="hi-sage">DOE</mark> si es necesario. Es importante revisar el <mark class="hi-gold">previo de la forma</mark> para validar typos, errores de fechas o nombres, ya que cualquier error impacta directamente en la <mark class="hi-red">Welcome Call</mark>.</p>
+      <div class="tool-row"><span class="tool-chip">📁 Dropbox</span><span class="tool-chip tc-gold">📋 DOE</span></div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">✅</div><h3>Checklist de integración final</h3></div>
+    <div class="bbody">
+      <p class="ichk-hint">☝️ Marca cada punto antes de entregar al Team Leader</p>
+      <div class="ichk-list">
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Todos los documentos y evidencias integrados en <mark class="hi-sage">Dropbox</mark> con nomenclatura correcta.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span><mark class="hi-sage">DOE</mark> actualizado si aplica al proceso del cliente.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Previo de la forma revisado: sin <mark class="hi-red">typos, fechas ni nombres incorrectos</mark>.</span></div>
+        <div class="ichk-item" onclick="toggleCheck(this)"><div class="ichk-box"></div><span>Caso en estado listo para <mark class="hi-gold">revisión ágil del Team Leader</mark>.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod9')">← Módulo 9</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod11')">Módulo 11 →</button>
+  </div>
+</div>
+
+<!-- ══ M11 ══ -->
+<div class="panel" id="panel-mod11">
+  <div class="mod-header"><div class="mod-num-badge">11</div><div class="mod-header-text"><div class="mod-label">Módulo 11 · Proceso PWI</div><h2>Acciones Administrativas Finales</h2><p>Reporte y actualización de estatus para garantizar la visibilidad del avance.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📊</div><h3>¿Qué se registra?</h3><span class="mod-badge badge-sage">Registro</span></div>
+    <div class="bbody">
+      <p>Una vez terminado el caso, registrar en <mark class="hi-sage">KASE</mark> y en el <mark class="hi-sage">DAILY</mark> el reporte necesario para visibilizar el avance. Es indispensable <mark class="hi-gold">cambiar los estatus correspondientes</mark> para que cualquier área que interactúe con el caso tenga la información más actualizada.</p>
+      <div class="tool-row"><span class="tool-chip">📂 KASE</span><span class="tool-chip tc-gold">📊 DAILY</span></div>
+    </div>
+  </div>
+  <div class="rule-card rc-red" style="margin-top:0">
+    <div class="rc-icon">⚠️</div>
+    <div><div class="rc-title">Estatus desactualizado = problema operativo</div><div class="rc-body">Un estatus sin actualizar puede generar <strong>confusión y retrasos</strong> en el proceso para otras áreas. El reporte oportuno es responsabilidad directa del agente.</div></div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod10')">← Módulo 10</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod12')">Módulo 12 →</button>
+  </div>
+</div>
+
+<!-- ══ M12 ══ -->
+<div class="panel" id="panel-mod12">
+  <div class="mod-header"><div class="mod-num-badge">12</div><div class="mod-header-text"><div class="mod-label">Módulo 12 · Proceso PWI</div><h2>Revisión Team Leader</h2><p>El TL evalúa el caso completo a través de un checklist de supervisión estructurado.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">👁️</div><h3>Los 3 aspectos que evalúa el TL</h3><span class="mod-badge badge-gold">Supervisión</span></div>
+    <div class="bbody">
+      <div class="eval-cards">
+        <div class="eval-card"><div class="ec-num">1</div><div><div class="ec-title">Documentos del cliente</div><div class="ec-body">El TL verifica la <strong>calidad y suficiencia</strong> de todos los documentos de identidad, residencia y personales entregados por el cliente. <mark class="hi-sage">Deben estar completos y legibles.</mark></div><span class="ec-tag">Documentos</span></div></div>
+        <div class="eval-card"><div class="ec-num">2</div><div><div class="ec-title">Formas migratorias</div><div class="ec-body">El TL revisa que las formas migratorias estén completadas con <mark class="hi-gold">información correcta y suficiente</mark>: sin typos, fechas erróneas ni campos incompletos.</div><span class="ec-tag">Formas</span></div></div>
+        <div class="eval-card"><div class="ec-num">3</div><div><div class="ec-title">Evidencias de abuso o trata</div><div class="ec-body">El TL evalúa que las evidencias sean <strong>suficientes, legibles y relevantes</strong> para sustentar el caso. <mark class="hi-red">Sin evidencias adecuadas el caso no puede avanzar.</mark></div><span class="ec-tag">Evidencias</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🔀</div><h3>¿Qué pasa después de la revisión?</h3></div>
+    <div class="bbody">
+      <div class="decision-flow">
+        <div class="df-node df-q">¿El caso está completo y con calidad suficiente?</div>
+        <div class="df-arrow">↓</div>
+        <div class="df-row">
+          <div>
+            <div class="df-label">✅ SÍ</div>
+            <div class="df-node df-yes" onclick="showPanel('mod14')" style="cursor:pointer">→ Supervisión Final (Módulo 14)</div>
+          </div>
+          <div>
+            <div class="df-label">❌ NO</div>
+            <div class="df-node df-no" onclick="showPanel('mod13')" style="cursor:pointer">→ Llamada de Corrección (Módulo 13)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod11')">← Módulo 11</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod13')">Módulo 13 →</button>
+  </div>
+</div>
+
+<!-- ══ M13 ══ -->
+<div class="panel" id="panel-mod13">
+  <div class="mod-header"><div class="mod-num-badge">13</div><div class="mod-header-text"><div class="mod-label">Módulo 13 · Proceso PWI</div><h2>Llamada de Corrección</h2><p>Etapa condicional para subsanar faltantes antes del cierre definitivo.</p></div></div>
+  <div class="alert gold" style="margin-bottom:14px"><span class="ai">⚡</span><div><strong>Este paso es condicional:</strong> solo se activa cuando el TL identifica faltantes en el Módulo 12. Si el caso fue entregado completo y con calidad, se avanza directamente a la Supervisión Final.</div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🔧</div><h3>¿Qué se hace en la Llamada de Corrección?</h3><span class="mod-badge badge-warn">Condicional</span></div>
+    <div class="bbody">
+      <p>En la llamada de corrección se abordan los aspectos detectados como faltantes en términos de <mark class="hi-red">información, evidencias o documentos</mark>, ya sea por el BOT de revisión o por el Team Leader durante la supervisión. Es la oportunidad de <mark class="hi-gold">subsanar cualquier área de oportunidad</mark> antes del cierre definitivo del caso.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🎯</div><h3>Objetivo de esta etapa</h3></div>
+    <div class="bbody">
+      <div class="info-card-grid">
+        <div class="info-card ic-gold"><div class="ic-icon">📋</div><div class="ic-label">Información</div><div class="ic-desc">Obtener información <strong>faltante o incompleta</strong> detectada en la revisión del TL.</div></div>
+        <div class="info-card ic-red"><div class="ic-icon">📄</div><div class="ic-label">Documentos</div><div class="ic-desc">Solicitar documentos que no fueron entregados o que no cumplen estándares de calidad.</div></div>
+        <div class="info-card ic-sage"><div class="ic-icon">🖼️</div><div class="ic-label">Evidencias</div><div class="ic-desc">Completar las evidencias de abuso o trata que resultaron insuficientes.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod12')">← Módulo 12</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('mod14')">Módulo 14 →</button>
+  </div>
+</div>
+
+<!-- ══ M14 ══ -->
+<div class="panel" id="panel-mod14">
+  <div class="mod-header"><div class="mod-num-badge">14</div><div class="mod-header-text"><div class="mod-label">Módulo 14 · Proceso PWI</div><h2>Supervisión Final</h2><p>Verificación definitiva del TL y envío del caso al área de WAE.</p></div></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">🏁</div><h3>Paso final del proceso</h3><span class="mod-badge badge-sage">Cierre definitivo</span></div>
+    <div class="bbody">
+      <p>El Team Leader verifica que <mark class="hi-sage">todas las correcciones detectadas hayan sido realizadas correctamente</mark>, y que los faltantes de documentos, evidencias o información hayan sido <mark class="hi-gold">gestionados y recibidos</mark>. Una vez aprobado, el caso se envía al área de WAE.</p>
+    </div>
+  </div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">✅</div><h3>¿Qué verifica el TL en la Supervisión Final?</h3></div>
+    <div class="bbody">
+      <ul class="checklist">
+        <li>Todas las correcciones indicadas en la revisión han sido <strong>aplicadas correctamente</strong>.</li>
+        <li>Los documentos, evidencias e información faltantes han sido <mark class="hi-sage">recibidos y gestionados</mark>.</li>
+        <li>El caso cumple los <mark class="hi-gold">estándares de calidad</mark> requeridos para el área de WAE.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wae-card">
+    <div class="wae-icon">✅</div>
+    <div class="wae-title">Caso aprobado — Envío a WAE</div>
+    <div class="wae-sub">Una vez aprobado por el Team Leader en la Supervisión Final, el caso sale del área PWI y continúa su proceso en el área de Welcome Call (WAE).</div>
+    <div class="wae-badge">🏁 Proceso PWI completo</div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod13')">← Módulo 13</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('eval')">Preguntas de Refuerzo →</button>
+  </div>
+</div>
+
+<!-- ══ EVALUACIÓN ══ -->
+<div class="panel" id="panel-eval">
+  <div class="page-title"><div class="pt-label">Cierre del Training · PWI End to End</div><h2>Preguntas de Refuerzo</h2><p class="pt-sub">Verifica tu comprensión del proceso — 4 preguntas · 80% aprobatorio</p></div>
+  <div class="q-block">
+    <div class="qhead"><div class="qn">1</div><p>¿Cuál es el primer paso que debes realizar ANTES de hacer el primer contacto con un cliente asignado?</p></div>
+    <div class="qbody" id="exam-q1">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q1')">A. Enviar el SMS de Agenda con la lista de documentos requeridos.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q1')">B. Revisar el caso, su stage en Kase y las notas para identificar situaciones particulares.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q1')">C. Generar el Pre-Draft con base en la transcripción del Intake.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q1')">D. Llenar el checklist previo a la interacción con el cliente.</button>
+      <div class="q-feedback" id="exam-fb-q1"></div>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="qhead"><div class="qn">2</div><p>¿Cuál es la duración máxima permitida para la videollamada de PWC?</p></div>
+    <div class="qbody" id="exam-q2">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q2')">A. 2 horas.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q2')">B. 4 horas.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q2')">C. 3.5 horas.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q2')">D. No tiene límite de tiempo.</button>
+      <div class="q-feedback" id="exam-fb-q2"></div>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="qhead"><div class="qn">3</div><p>Un cliente envía una fotografía de su acta de nacimiento borrosa y con una sombra. ¿Cuál es la acción correcta?</p></div>
+    <div class="qbody" id="exam-q3">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q3')">A. Aceptarla provisionalmente y registrar una nota en Kase.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q3')">B. Usar la imagen si la información principal es legible.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q3')">C. No aceptarla y solicitar nuevamente con indicaciones claras de calidad.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q3')">D. Escalar al Team Leader para que tome la decisión.</button>
+      <div class="q-feedback" id="exam-fb-q3"></div>
+    </div>
+  </div>
+  <div class="q-block">
+    <div class="qhead"><div class="qn">4</div><p>¿Cuántos intentos de contacto se realizan como máximo con un cliente que no contesta, y en qué distribución?</p></div>
+    <div class="qbody" id="exam-q4">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q4')">A. 10 intentos: 2 diarios de lunes a viernes.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q4')">B. 17 intentos: 3 diarios de lunes a viernes y 2 el sábado.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q4')">C. 15 intentos: 3 diarios de lunes a viernes.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q4')">D. 20 intentos: 4 diarios de lunes a viernes.</button>
+      <div class="q-feedback" id="exam-fb-q4"></div>
+    </div>
+  </div>
+  <div id="quiz-result" class="quiz-result">
+    <div id="qr-score" class="qr-score"></div>
+    <div id="qr-label" class="qr-label"></div>
+    <div id="qr-msg" class="qr-msg"></div>
+  </div>
+  <div class="quiz-actions">
+    <button class="btn-quiz btn-primary" id="btn-submit" onclick="submitQuiz()">Verificar respuestas</button>
+    <button class="btn-quiz btn-secondary" id="btn-retry" onclick="resetQuiz()" style="display:none">Reintentar</button>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod14')">← Módulo 14</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('recursos')">Recursos →</button>
+  </div>
+</div>
+
+<!-- ══ RECURSOS ══ -->
+<div class="panel" id="panel-recursos">
+  <div class="page-title"><div class="pt-label">Módulo de Recursos · PWI</div><h2>Recursos Operativos del Área</h2><p class="pt-sub">Todos son de <mark class="hi-red">uso obligatorio</mark> en los momentos que aplican.</p></div>
+  <div class="block">
+    <div class="btitle"><div class="bicon">📁</div><h3>Herramientas del equipo PWI</h3><span class="mod-badge badge-sage">Uso obligatorio</span></div>
+    <div class="bbody">
+      <div class="res-item"><div class="ri-icon">📝</div><div class="ri-body"><div class="ri-name">Notas de TramCase</div><div class="ri-desc">Recurso para levantar notas. Cada contacto, intento, SMS y recepción de evidencias requiere una nota. <mark class="hi-red">Las notas no se reeditan.</mark></div></div></div>
+      <div class="res-item"><div class="ri-icon">📋</div><div class="ri-body"><div class="ri-name">Guidelines de Agenda PWC</div><div class="ri-desc">Script y lineamientos para la llamada de Agenda. Debe <mark class="hi-gold">conocerse el contenido</mark>, no leerse literalmente.</div></div></div>
+      <div class="res-item"><div class="ri-icon">🎥</div><div class="ri-body"><div class="ri-name">Guidelines de Videollamada PWC</div><div class="ri-desc">Script y lineamientos para la conducción de la videollamada de entrevista.</div></div></div>
+      <div class="res-item"><div class="ri-icon">💬</div><div class="ri-body"><div class="ri-name">SMS Templates</div><div class="ri-desc">Plantillas para: Agenda, Post Agenda, Confirmación, Post Videollamada, Seguimiento, <mark class="hi-red">No contesta / No coopera</mark> y Antifraude.</div></div></div>
+      <div class="res-item"><div class="ri-icon">☑️</div><div class="ri-body"><div class="ri-name">Checklist de Documentos</div><div class="ri-desc">Determina la <mark class="hi-sage">suficiencia de documentos</mark> requeridos según el tipo de proceso migratorio del cliente.</div></div></div>
+      <div class="res-item"><div class="ri-icon">🏛️</div><div class="ri-body"><div class="ri-name">Mendoza Hub (Formas)</div><div class="ri-desc">Plataforma que aloja los formularios de los procesos migratorios. Define la suficiencia de información requerida.</div></div></div>
+      <div class="res-item"><div class="ri-icon">📊</div><div class="ri-body"><div class="ri-name">Forms de Supervisión</div><div class="ri-desc">Formulario de Google para que los Team Leaders realicen la revisión de casos entregados.</div></div></div>
+      <div class="res-item"><div class="ri-icon">📂</div><div class="ri-body"><div class="ri-name">Dropbox</div><div class="ri-desc">Plataforma de almacenamiento de documentos y entregables. Requiere <mark class="hi-red">orden de carpetas y nomenclatura exacta</mark> de archivos.</div></div></div>
+      <div class="res-item"><div class="ri-icon">🛡️</div><div class="ri-body"><div class="ri-name">Disclaimer Anti-Fraude</div><div class="ri-desc">Recurso preventivo <mark class="hi-red">obligatorio</mark> ante indicios de intención del cliente de alterar o fabricar información. Incluye script de lectura y reporte al área de Compliance.</div></div></div>
+      <div class="res-item"><div class="ri-icon">🖼️</div><div class="ri-body"><div class="ri-name">Fondos de Videollamada</div><div class="ri-desc">Fondos institucionales empleados en <mark class="hi-gold">todas las videollamadas</mark> del área. Uso obligatorio.</div></div></div>
+    </div>
+  </div>
+  <div class="wae-card">
+    <div class="wae-icon">🎓</div>
+    <div class="wae-title">Has completado el Training End to End PWI</div>
+    <div class="wae-sub">Has recorrido las 14 etapas del proceso Pre Welcome Interview. Conoces el flujo completo desde la asignación del caso hasta la supervisión final y el envío a WAE.</div>
+    <div class="wae-badge">✅ Training completo — Enero 2026</div>
+  </div>
+  <div class="mod-nav">
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('eval')">← Preguntas de Refuerzo</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('overview')">🏠 Volver al Inicio</button>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script>
+/* ═══ INTERACTIVE CHECKLIST ═══ */
+function toggleCheck(el){
+  el.classList.toggle('checked');
+}
+
+/* ═══ TABS ═══ */
+function switchTab(btn, paneId){
+  var wrap = btn.closest('.tab-wrap');
+  wrap.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  wrap.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');
+  var pane = document.getElementById(paneId);
+  if(pane) pane.classList.add('active');
+}
+
+/* ═══ QUIZ ═══ */
+var examCorrect={q1:2,q2:3,q3:3,q4:2};
+var examFB={
+  q1:{ok:'✅ Correcto. Siempre debe revisarse el caso en Kase antes de cualquier contacto. Las notas pueden contener condiciones especiales que cambian el enfoque del contacto.',fail:'❌ Incorrecto. La respuesta correcta es B. Siempre revisar el caso en Kase antes del primer contacto para identificar condiciones especiales.'},
+  q2:{ok:'✅ Correcto. La videollamada tiene una duración máxima de 3.5 horas. El estudio previo del caso es la herramienta principal para lograrlo.',fail:'❌ Incorrecto. La respuesta correcta es C: 3.5 horas. El estudio previo (BOT Pre-Draft y notas en Kase) es clave para cumplir este límite.'},
+  q3:{ok:'✅ Correcto. El estándar de calidad no admite excepciones. Documentos borrosos, con sombras o recortados deben rechazarse y solicitarse de nuevo.',fail:'❌ Incorrecto. La respuesta correcta es C. No se acepta ningún documento deficiente. Aceptarlo impacta directamente en los entregables y en la Welcome Call.'},
+  q4:{ok:'✅ Correcto. La Regla de los 17 intentos: 3 por día lunes-viernes y 2 el sábado. Cada intento debe registrarse en TramCase.',fail:'❌ Incorrecto. La respuesta correcta es B: 17 intentos (3 diarios de lunes a viernes y 2 el sábado). Todos los intentos se registran en TramCase.'}
+};
+var examAnswers={};
+function examSel(el,qId){
+  if(el.classList.contains('disabled')) return;
+  document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){o.classList.remove('selected');});
+  el.classList.add('selected');
+  examAnswers[qId]=parseInt(el.dataset.val);
+}
+function submitQuiz(){
+  var total=4,correct=0;
+  ['q1','q2','q3','q4'].forEach(function(qId){
+    var ua=examAnswers[qId],ca=examCorrect[qId];
+    var fb=document.getElementById('exam-fb-'+qId);
+    document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){
+      o.classList.add('disabled');
+      var v=parseInt(o.dataset.val);
+      if(v===ca) o.classList.add('correct');
+      else if(v===ua&&ua!==ca) o.classList.add('wrong');
+    });
+    if(fb){fb.className='q-feedback show '+(ua===ca?'ok':'fail');fb.textContent=ua===ca?examFB[qId].ok:examFB[qId].fail;}
+    if(ua===ca) correct++;
+  });
+  var pct=Math.round(correct/total*100),pass=pct>=80;
+  var res=document.getElementById('quiz-result');
+  res.className='quiz-result show '+(pass?'pass':'fail');
+  document.getElementById('qr-score').textContent=pct+'%';
+  document.getElementById('qr-score').className='qr-score '+(pass?'pass':'fail');
+  document.getElementById('qr-label').textContent=pass?'✅ ¡Aprobado!':'❌ No aprobado';
+  document.getElementById('qr-msg').textContent=pass?'¡Excelente! Has demostrado comprensión del proceso End to End PWI con '+correct+'/'+total+' respuestas correctas.':'Obtuviste '+correct+'/'+total+' correctas ('+pct+'%). Necesitas 80% para aprobar. Repasa los módulos correspondientes.';
+  document.getElementById('btn-submit').style.display='none';
+  document.getElementById('btn-retry').style.display='inline-block';
+  document.getElementById('nav-eval').classList.add('completed');
+  updateProgress();
+  res.scrollIntoView({behavior:'smooth'});
+}
+function resetQuiz(){
+  examAnswers={};
+  document.getElementById('quiz-result').className='quiz-result';
+  ['q1','q2','q3','q4'].forEach(function(qId){
+    document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){o.className='q-opt';});
+    var fb=document.getElementById('exam-fb-'+qId);
+    if(fb) fb.className='q-feedback';
+  });
+  document.getElementById('btn-submit').style.display='inline-block';
+  document.getElementById('btn-retry').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ═══ NAVIGATION ═══ */
+var panels=['overview','flujo','mod1','mod2','mod3','mod4','mod5','mod6','mod7','mod8','mod9','mod10','mod11','mod12','mod13','mod14','eval','recursos'];
+var visited={overview:true};
+function showPanel(id){
+  panels.forEach(function(p){
+    var el=document.getElementById('panel-'+p);
+    var nav=document.getElementById('nav-'+p);
+    if(el) el.classList.toggle('active',p===id);
+    if(nav) nav.classList.toggle('active',p===id);
+  });
+  visited[id]=true;
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+  var sb=document.getElementById('sidebar');
+  if(sb.classList.contains('open')) toggleSidebar();
+}
+function updateProgress(){
+  var pct=Math.round(Object.keys(visited).length/panels.length*100);
+  var bar=document.getElementById('globalProgress');
+  if(bar) bar.style.width=pct+'%';
+}
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sbOverlay').classList.toggle('show');
+}
+updateProgress();
+</script>
+</body>
+</html>
