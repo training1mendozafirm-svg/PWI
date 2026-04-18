@@ -372,6 +372,16 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
 .res-item .ri-body .ri-name{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
 .res-item .ri-body .ri-desc{font-size:12px;color:var(--slate);line-height:1.5}
 
+/* ══ QUIZ EXTRAS ══ */
+.q-type-badge{display:inline-flex;align-items:center;padding:1px 7px;border-radius:5px;font-size:9.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;margin-left:6px;vertical-align:middle}
+.q-type-badge.mc{background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark)}
+.q-type-badge.vf{background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);color:var(--amber)}
+.q-type-badge.sm{background:rgba(122,96,64,.09);border:1px solid rgba(122,96,64,.2);color:var(--brown)}
+.q-opt.q-tf{width:auto;display:inline-flex;margin-right:8px;padding:10px 24px}
+.q-opt.q-ms.ms-selected{border-color:var(--sage-dark);background:var(--sage-bg);color:var(--sage-dark)}
+.q-sm-hint{font-size:11px;color:var(--mist);margin-bottom:8px;font-style:italic}
+.q-progress-bar-wrap{background:var(--warm-white);border-radius:10px;border:1px solid rgba(122,96,64,.12);padding:12px 16px;margin-bottom:14px}
+
 /* ══ WAE COMPLETE CARD ══ */
 .wae-card{background:linear-gradient(135deg,#1e3328,#2b4a38);border-radius:16px;padding:28px;text-align:center;margin:14px 0;position:relative;overflow:hidden}
 .wae-card::before{content:'';position:absolute;top:-40px;right:-30px;width:150px;height:150px;border:1.5px solid rgba(201,168,76,.1);border-radius:50%;animation:pulse 4s ease-in-out infinite}
@@ -423,7 +433,7 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
   <div class="sb-divider"></div>
   <div class="sb-spec-banner"><span style="font-size:14px">⭐</span><div class="sbb-text">Cierre del Training</div></div>
   <div class="sb-group">
-    <div class="sb-item exam" id="nav-eval" onclick="showPanel('eval')"><div class="sb-num">✦</div><div class="sb-text"><div class="sb-name">Preguntas de Refuerzo</div><div class="sb-sub">4 preguntas · 80%</div></div></div>
+    <div class="sb-item exam" id="nav-eval" onclick="showPanel('eval')"><div class="sb-num">✦</div><div class="sb-text"><div class="sb-name">Evaluación Final</div><div class="sb-sub">16 preguntas · 80% aprobatorio</div></div></div>
     <div class="sb-item res" id="nav-recursos" onclick="showPanel('recursos')"><div class="sb-num">📁</div><div class="sb-text"><div class="sb-name">Recursos Operativos</div><div class="sb-sub">Herramientas del área</div></div></div>
   </div>
 </aside>
@@ -1038,15 +1048,28 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
   </div>
   <div class="mod-nav">
     <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod13')">← Módulo 13</button>
-    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('eval')">Preguntas de Refuerzo →</button>
+    <button class="mod-nav-btn mod-nav-next" onclick="showPanel('eval')">Evaluación Final →</button>
   </div>
 </div>
 
 <!-- ══ EVALUACIÓN ══ -->
 <div class="panel" id="panel-eval">
-  <div class="page-title"><div class="pt-label">Cierre del Training · PWI End to End</div><h2>Preguntas de Refuerzo</h2><p class="pt-sub">Verifica tu comprensión del proceso — 4 preguntas · 80% aprobatorio</p></div>
+  <div class="page-title">
+    <div class="pt-label">Evaluación Final · PWI End to End</div>
+    <h2>Evaluación Final</h2>
+    <p class="pt-sub">16 preguntas · Opción múltiple, Verdadero/Falso y Selección múltiple · Mínimo 80% para aprobar</p>
+  </div>
+
+  <!-- Legend -->
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+    <span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--slate)"><span style="background:var(--sage-bg);border:1px solid var(--sage-border);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--sage-dark)">MC</span>Opción múltiple</span>
+    <span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--slate)"><span style="background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.28);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--amber)">V/F</span>Verdadero / Falso</span>
+    <span style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--slate)"><span style="background:rgba(122,96,64,.09);border:1px solid rgba(122,96,64,.2);border-radius:5px;padding:2px 8px;font-size:10px;font-weight:700;color:var(--brown)">SM</span>Selección múltiple</span>
+  </div>
+
+  <!-- Q1 MC -->
   <div class="q-block">
-    <div class="qhead"><div class="qn">1</div><p>¿Cuál es el primer paso que debes realizar ANTES de hacer el primer contacto con un cliente asignado?</p></div>
+    <div class="qhead"><div class="qn">1</div><p>¿Cuál es la acción obligatoria ANTES de realizar el primer contacto con un cliente asignado? <span class="q-type-badge mc">MC</span></p></div>
     <div class="qbody" id="exam-q1">
       <button class="q-opt" data-val="1" onclick="examSel(this,'q1')">A. Enviar el SMS de Agenda con la lista de documentos requeridos.</button>
       <button class="q-opt" data-val="2" onclick="examSel(this,'q1')">B. Revisar el caso, su stage en Kase y las notas para identificar situaciones particulares.</button>
@@ -1055,44 +1078,203 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
       <div class="q-feedback" id="exam-fb-q1"></div>
     </div>
   </div>
+
+  <!-- Q2 MC -->
   <div class="q-block">
-    <div class="qhead"><div class="qn">2</div><p>¿Cuál es la duración máxima permitida para la videollamada de PWC?</p></div>
+    <div class="qhead"><div class="qn">2</div><p>¿Cuál es el criterio operativo de días que rige la gestión del agente de contacto en PWI? <span class="q-type-badge mc">MC</span></p></div>
     <div class="qbody" id="exam-q2">
-      <button class="q-opt" data-val="1" onclick="examSel(this,'q2')">A. 2 horas.</button>
-      <button class="q-opt" data-val="2" onclick="examSel(this,'q2')">B. 4 horas.</button>
-      <button class="q-opt" data-val="3" onclick="examSel(this,'q2')">C. 3.5 horas.</button>
-      <button class="q-opt" data-val="4" onclick="examSel(this,'q2')">D. No tiene límite de tiempo.</button>
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q2')">A. 1-5-15, siendo el 15 el límite del agente para cerrar el caso.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q2')">B. 1-5-11, siendo el día 11 cuando el caso pasa a Traducción y Packets.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q2')">C. 1-7-14, con revisión del TL al día 7.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q2')">D. 1-3-10, con videollamada obligatoria al día 3.</button>
       <div class="q-feedback" id="exam-fb-q2"></div>
     </div>
   </div>
+
+  <!-- Q3 VF -->
   <div class="q-block">
-    <div class="qhead"><div class="qn">3</div><p>Un cliente envía una fotografía de su acta de nacimiento borrosa y con una sombra. ¿Cuál es la acción correcta?</p></div>
+    <div class="qhead"><div class="qn">3</div><p>El Pre-Draft se genera a partir de la transcripción de la videollamada de PWC. <span class="q-type-badge vf">V/F</span></p></div>
     <div class="qbody" id="exam-q3">
-      <button class="q-opt" data-val="1" onclick="examSel(this,'q3')">A. Aceptarla provisionalmente y registrar una nota en Kase.</button>
-      <button class="q-opt" data-val="2" onclick="examSel(this,'q3')">B. Usar la imagen si la información principal es legible.</button>
-      <button class="q-opt" data-val="3" onclick="examSel(this,'q3')">C. No aceptarla y solicitar nuevamente con indicaciones claras de calidad.</button>
-      <button class="q-opt" data-val="4" onclick="examSel(this,'q3')">D. Escalar al Team Leader para que tome la decisión.</button>
+      <button class="q-opt q-tf" data-val="1" onclick="examSel(this,'q3')">✓ Verdadero</button>
+      <button class="q-opt q-tf" data-val="2" onclick="examSel(this,'q3')">✕ Falso</button>
       <div class="q-feedback" id="exam-fb-q3"></div>
     </div>
   </div>
+
+  <!-- Q4 MC -->
   <div class="q-block">
-    <div class="qhead"><div class="qn">4</div><p>¿Cuántos intentos de contacto se realizan como máximo con un cliente que no contesta, y en qué distribución?</p></div>
+    <div class="qhead"><div class="qn">4</div><p>¿Cuál es el propósito principal del reporte del BOT Pre-Draft? <span class="q-type-badge mc">MC</span></p></div>
     <div class="qbody" id="exam-q4">
-      <button class="q-opt" data-val="1" onclick="examSel(this,'q4')">A. 10 intentos: 2 diarios de lunes a viernes.</button>
-      <button class="q-opt" data-val="2" onclick="examSel(this,'q4')">B. 17 intentos: 3 diarios de lunes a viernes y 2 el sábado.</button>
-      <button class="q-opt" data-val="3" onclick="examSel(this,'q4')">C. 15 intentos: 3 diarios de lunes a viernes.</button>
-      <button class="q-opt" data-val="4" onclick="examSel(this,'q4')">D. 20 intentos: 4 diarios de lunes a viernes.</button>
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q4')">A. Generar automáticamente el Draft final de declaración del cliente.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q4')">B. Identificar los temas cubiertos en el Intake y determinar cuáles son relevantes para complementar en la entrevista de PWC.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q4')">C. Registrar el estatus del caso en KASE de forma automática.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q4')">D. Evaluar la calidad de los documentos enviados por el cliente.</button>
       <div class="q-feedback" id="exam-fb-q4"></div>
     </div>
   </div>
+
+  <!-- Q5 MC -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">5</div><p>Durante la llamada de Agenda, el agente detecta que el cliente no cuenta con una evidencia clave. ¿Cuál es la acción correcta? <span class="q-type-badge mc">MC</span></p></div>
+    <div class="qbody" id="exam-q5">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q5')">A. Continuar con la agenda normal y esperar a que el cliente la consiga por su cuenta.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q5')">B. Cancelar la cita hasta que el cliente tenga todos los documentos.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q5')">C. Apoyar al cliente para explorar las posibilidades de obtener la evidencia antes de la videollamada.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q5')">D. Escalar el caso directamente al Team Leader.</button>
+      <div class="q-feedback" id="exam-fb-q5"></div>
+    </div>
+  </div>
+
+  <!-- Q6 VF -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">6</div><p>La duración estimada que se comunica al cliente durante la Agenda para la videollamada de PWC es de aproximadamente 1 hora 40 minutos. <span class="q-type-badge vf">V/F</span></p></div>
+    <div class="qbody" id="exam-q6">
+      <button class="q-opt q-tf" data-val="1" onclick="examSel(this,'q6')">✓ Verdadero</button>
+      <button class="q-opt q-tf" data-val="2" onclick="examSel(this,'q6')">✕ Falso</button>
+      <div class="q-feedback" id="exam-fb-q6"></div>
+    </div>
+  </div>
+
+  <!-- Q7 MC -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">7</div><p>¿Cuál es la duración máxima permitida para la videollamada de PWC? <span class="q-type-badge mc">MC</span></p></div>
+    <div class="qbody" id="exam-q7">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q7')">A. 2 horas.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q7')">B. 4 horas.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q7')">C. 3.5 horas.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q7')">D. No tiene límite de tiempo.</button>
+      <div class="q-feedback" id="exam-fb-q7"></div>
+    </div>
+  </div>
+
+  <!-- Q8 VF -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">8</div><p>En casos VAWA y Visa T, el agente debe priorizar la empatía por encima de obtener la información del caso. <span class="q-type-badge vf">V/F</span></p></div>
+    <div class="qbody" id="exam-q8">
+      <button class="q-opt q-tf" data-val="1" onclick="examSel(this,'q8')">✓ Verdadero</button>
+      <button class="q-opt q-tf" data-val="2" onclick="examSel(this,'q8')">✕ Falso</button>
+      <div class="q-feedback" id="exam-fb-q8"></div>
+    </div>
+  </div>
+
+  <!-- Q9 MC -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">9</div><p>¿Qué ocurre si un archivo en Dropbox no tiene la nomenclatura o carpeta correcta? <span class="q-type-badge mc">MC</span></p></div>
+    <div class="qbody" id="exam-q9">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q9')">A. El Team Leader corrige la nomenclatura durante su revisión.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q9')">B. El sistema genera una alerta automática al agente para corregirlo.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q9')">C. La IA de ensamblado no reconoce el caso y el procesamiento no puede continuar.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q9')">D. El archivo se reasigna automáticamente a la carpeta correcta.</button>
+      <div class="q-feedback" id="exam-fb-q9"></div>
+    </div>
+  </div>
+
+  <!-- Q10 SM -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">10</div><p>¿Cuáles de las siguientes condiciones hacen que un documento sea inaceptable y deba solicitarse de nuevo? Selecciona todas las que apliquen. <span class="q-type-badge sm">SM</span></p></div>
+    <div class="qbody" id="exam-q10">
+      <div class="q-sm-hint">Selecciona todas las opciones correctas antes de verificar.</div>
+      <button class="q-opt q-ms" data-val="1" onclick="examToggle(this,'q10')">A. El documento está completamente legible y sin manchas.</button>
+      <button class="q-opt q-ms" data-val="2" onclick="examToggle(this,'q10')">B. La imagen tiene sombras que cubren parte del texto.</button>
+      <button class="q-opt q-ms" data-val="3" onclick="examToggle(this,'q10')">C. Se pueden ver los dedos del cliente en la fotografía.</button>
+      <button class="q-opt q-ms" data-val="4" onclick="examToggle(this,'q10')">D. El documento está recortado y la información no es completa.</button>
+      <button class="q-opt q-ms" data-val="5" onclick="examToggle(this,'q10')">E. La imagen está borrosa e ilegible.</button>
+      <div class="q-feedback" id="exam-fb-q10"></div>
+    </div>
+  </div>
+
+  <!-- Q11 MC -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">11</div><p>En el procesamiento del Draft final, ¿cuál de las siguientes acciones NO está permitida? <span class="q-type-badge mc">MC</span></p></div>
+    <div class="qbody" id="exam-q11">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q11')">A. Integrar la información de la entrevista PWC de forma coherente.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q11')">B. Verificar que las fechas importantes no contengan errores.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q11')">C. Agregar información que beneficia el caso aunque el cliente no la haya declarado.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q11')">D. Confirmar que la información sea consistente con lo declarado por el cliente.</button>
+      <div class="q-feedback" id="exam-fb-q11"></div>
+    </div>
+  </div>
+
+  <!-- Q12 MC -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">12</div><p>¿Cuántos intentos de contacto máximos establece la regla para clientes que no contestan? <span class="q-type-badge mc">MC</span></p></div>
+    <div class="qbody" id="exam-q12">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q12')">A. 10 intentos: 2 diarios de lunes a viernes.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q12')">B. 17 intentos: 3 diarios de lunes a viernes y 2 el sábado.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q12')">C. 15 intentos: 3 diarios de lunes a viernes.</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q12')">D. 20 intentos: 4 diarios de lunes a viernes.</button>
+      <div class="q-feedback" id="exam-fb-q12"></div>
+    </div>
+  </div>
+
+  <!-- Q13 VF -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">13</div><p>La Llamada de Corrección (Módulo 13) se activa en todos los casos sin excepción antes de la Supervisión Final. <span class="q-type-badge vf">V/F</span></p></div>
+    <div class="qbody" id="exam-q13">
+      <button class="q-opt q-tf" data-val="1" onclick="examSel(this,'q13')">✓ Verdadero</button>
+      <button class="q-opt q-tf" data-val="2" onclick="examSel(this,'q13')">✕ Falso</button>
+      <div class="q-feedback" id="exam-fb-q13"></div>
+    </div>
+  </div>
+
+  <!-- Q14 SM -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">14</div><p>¿Cuáles son los tres aspectos que evalúa el Team Leader en su checklist de supervisión (Módulo 12)? Selecciona todos los que apliquen. <span class="q-type-badge sm">SM</span></p></div>
+    <div class="qbody" id="exam-q14">
+      <div class="q-sm-hint">Selecciona todas las opciones correctas antes de verificar.</div>
+      <button class="q-opt q-ms" data-val="1" onclick="examToggle(this,'q14')">A. La calidad y suficiencia de los documentos del cliente.</button>
+      <button class="q-opt q-ms" data-val="2" onclick="examToggle(this,'q14')">B. El tiempo que duró la videollamada de PWC.</button>
+      <button class="q-opt q-ms" data-val="3" onclick="examToggle(this,'q14')">C. La calidad y suficiencia de las formas migratorias completadas.</button>
+      <button class="q-opt q-ms" data-val="4" onclick="examToggle(this,'q14')">D. La calidad y suficiencia de las evidencias de abuso o trata.</button>
+      <button class="q-opt q-ms" data-val="5" onclick="examToggle(this,'q14')">E. El número de intentos de contacto realizados con el cliente.</button>
+      <div class="q-feedback" id="exam-fb-q14"></div>
+    </div>
+  </div>
+
+  <!-- Q15 MC -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">15</div><p>¿A qué área se envía el caso una vez aprobado en la Supervisión Final? <span class="q-type-badge mc">MC</span></p></div>
+    <div class="qbody" id="exam-q15">
+      <button class="q-opt" data-val="1" onclick="examSel(this,'q15')">A. Al área de Intake para una nueva revisión.</button>
+      <button class="q-opt" data-val="2" onclick="examSel(this,'q15')">B. Al área de Compliance para validación.</button>
+      <button class="q-opt" data-val="3" onclick="examSel(this,'q15')">C. Al área de WAE (Welcome Call).</button>
+      <button class="q-opt" data-val="4" onclick="examSel(this,'q15')">D. Directamente al abogado del caso.</button>
+      <div class="q-feedback" id="exam-fb-q15"></div>
+    </div>
+  </div>
+
+  <!-- Q16 SM -->
+  <div class="q-block">
+    <div class="qhead"><div class="qn">16</div><p>¿Cuáles de las siguientes son acciones que deben realizarse inmediatamente después de concluir la videollamada de PWC? Selecciona todas las que apliquen. <span class="q-type-badge sm">SM</span></p></div>
+    <div class="qbody" id="exam-q16">
+      <div class="q-sm-hint">Selecciona todas las opciones correctas antes de verificar.</div>
+      <button class="q-opt q-ms" data-val="1" onclick="examToggle(this,'q16')">A. Reportar el estatus en KASE y en el DAILY.</button>
+      <button class="q-opt q-ms" data-val="2" onclick="examToggle(this,'q16')">B. Enviar el caso directamente al Team Leader sin revisión previa.</button>
+      <button class="q-opt q-ms" data-val="3" onclick="examToggle(this,'q16')">C. Subir la información a Dropbox usando las nomenclaturas correctas.</button>
+      <button class="q-opt q-ms" data-val="4" onclick="examToggle(this,'q16')">D. Descargar la transcripción y colocarla en el DAILY.</button>
+      <button class="q-opt q-ms" data-val="5" onclick="examToggle(this,'q16')">E. Revisar que la transcripción no tenga errores u omisiones.</button>
+      <div class="q-feedback" id="exam-fb-q16"></div>
+    </div>
+  </div>
+
+  <!-- Score tracker -->
+  <div class="q-progress-bar-wrap" id="q-progress-wrap" style="display:none">
+    <div style="font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Progreso de respuestas</div>
+    <div style="height:8px;border-radius:999px;background:rgba(122,96,64,.12);overflow:hidden">
+      <div id="q-progress-fill" style="height:100%;border-radius:999px;background:linear-gradient(90deg,var(--sage-dark),var(--sage));transition:width .4s ease;width:0%"></div>
+    </div>
+    <div id="q-progress-label" style="font-size:11px;color:var(--mist);margin-top:4px">0 / 16 respondidas</div>
+  </div>
+
   <div id="quiz-result" class="quiz-result">
     <div id="qr-score" class="qr-score"></div>
     <div id="qr-label" class="qr-label"></div>
     <div id="qr-msg" class="qr-msg"></div>
+    <div id="qr-breakdown" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center"></div>
   </div>
   <div class="quiz-actions">
     <button class="btn-quiz btn-primary" id="btn-submit" onclick="submitQuiz()">Verificar respuestas</button>
-    <button class="btn-quiz btn-secondary" id="btn-retry" onclick="resetQuiz()" style="display:none">Reintentar</button>
+    <button class="btn-quiz btn-secondary" id="btn-retry" onclick="resetQuiz()" style="display:none">Reintentar evaluación</button>
   </div>
   <div class="mod-nav">
     <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('mod14')">← Módulo 14</button>
@@ -1125,7 +1307,7 @@ mark.hi-red{background:rgba(180,50,50,.13);color:#6a1a1a;border-radius:3px;paddi
     <div class="wae-badge">✅ Training completo — Enero 2026</div>
   </div>
   <div class="mod-nav">
-    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('eval')">← Preguntas de Refuerzo</button>
+    <button class="mod-nav-btn mod-nav-prev" onclick="showPanel('eval')">← Evaluación Final</button>
     <button class="mod-nav-btn mod-nav-next" onclick="showPanel('overview')">🏠 Volver al Inicio</button>
   </div>
 </div>
@@ -1149,59 +1331,194 @@ function switchTab(btn, paneId){
   if(pane) pane.classList.add('active');
 }
 
+/* ═══ SHUFFLE ANSWERS ═══ */
+function shuffleOpts(qId){
+  var body=document.getElementById('exam-'+qId);
+  if(!body) return;
+  var opts=Array.from(body.querySelectorAll('.q-opt'));
+  var fb=document.getElementById('exam-fb-'+qId);
+  // Fisher-Yates shuffle
+  for(var i=opts.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=opts[i];opts[i]=opts[j];opts[j]=tmp;
+  }
+  opts.forEach(function(o){body.insertBefore(o,fb);});
+}
+function shuffleAll(){
+  var allQs=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];
+  allQs.forEach(function(q){shuffleOpts(q);});
+}
+
 /* ═══ QUIZ ═══ */
-var examCorrect={q1:2,q2:3,q3:3,q4:2};
-var examFB={
-  q1:{ok:'✅ Correcto. Siempre debe revisarse el caso en Kase antes de cualquier contacto. Las notas pueden contener condiciones especiales que cambian el enfoque del contacto.',fail:'❌ Incorrecto. La respuesta correcta es B. Siempre revisar el caso en Kase antes del primer contacto para identificar condiciones especiales.'},
-  q2:{ok:'✅ Correcto. La videollamada tiene una duración máxima de 3.5 horas. El estudio previo del caso es la herramienta principal para lograrlo.',fail:'❌ Incorrecto. La respuesta correcta es C: 3.5 horas. El estudio previo (BOT Pre-Draft y notas en Kase) es clave para cumplir este límite.'},
-  q3:{ok:'✅ Correcto. El estándar de calidad no admite excepciones. Documentos borrosos, con sombras o recortados deben rechazarse y solicitarse de nuevo.',fail:'❌ Incorrecto. La respuesta correcta es C. No se acepta ningún documento deficiente. Aceptarlo impacta directamente en los entregables y en la Welcome Call.'},
-  q4:{ok:'✅ Correcto. La Regla de los 17 intentos: 3 por día lunes-viernes y 2 el sábado. Cada intento debe registrarse en TramCase.',fail:'❌ Incorrecto. La respuesta correcta es B: 17 intentos (3 diarios de lunes a viernes y 2 el sábado). Todos los intentos se registran en TramCase.'}
+var TOTAL_Q=16;
+
+/* MC single-answer */
+var examCorrect={q1:2,q2:2,q3:2,q4:2,q5:3,q6:1,q7:3,q8:2,q9:3,q11:3,q12:2,q13:2,q15:3};
+
+/* Multi-select: correct set of values */
+var examMulti={
+  q10:[2,3,4,5],   /* b,c,d,e inaceptables */
+  q14:[1,3,4],     /* a,c,d correctos */
+  q16:[1,3,4,5]    /* a,c,d,e correctos */
 };
+
+var examFB={
+  q1:{ok:'✅ Correcto. Siempre revisar el caso en Kase antes del primer contacto. Las notas pueden contener condiciones especiales que cambian el enfoque del contacto.',fail:'❌ Incorrecto. La respuesta es B. Nunca realizar el primer contacto sin revisar el caso en Kase.'},
+  q2:{ok:'✅ Correcto. El criterio operativo del agente en PWI es 1-5-11. El día 11 el caso pasa a Traducción y Packets para poder salir del área al día 15.',fail:'❌ Incorrecto. La respuesta es B: 1-5-11. El 15 corresponde a la salida del área, no al límite del agente.'},
+  q3:{ok:'✅ Correcto. El Pre-Draft se genera a partir de la transcripción del Intake, no de la videollamada de PWC.',fail:'❌ Incorrecto. El Pre-Draft se genera a partir de la transcripción de la llamada de Intake. La videollamada de PWC se procesa después para generar el Draft final.'},
+  q4:{ok:'✅ Correcto. El BOT Pre-Draft identifica los temas cubiertos en el Intake y determina cuáles se deben profundizar en la entrevista de PWC.',fail:'❌ Incorrecto. La respuesta es B. El BOT Pre-Draft sirve para identificar temas cubiertos en Intake y cuáles requieren profundización en la videollamada.'},
+  q5:{ok:'✅ Correcto. Durante la Agenda, si el cliente no cuenta con algún documento o evidencia, el agente lo apoya para explorar las posibilidades de obtenerlo antes de la videollamada.',fail:'❌ Incorrecto. La respuesta es C. La Agenda incluye identificar si el cliente cuenta con los documentos y apoyarlo para obtener los que le falten.'},
+  q6:{ok:'✅ Correcto. Durante la llamada de Agenda se comunica al cliente que la videollamada tiene una duración estimada de aproximadamente 1 hora 40 minutos.',fail:'❌ Incorrecto. La duración estimada que se comunica al cliente es de aproximadamente 1 hora 40 minutos (no confundir con el máximo operativo de 3.5 horas).'},
+  q7:{ok:'✅ Correcto. La videollamada tiene una duración máxima de 3.5 horas. El estudio previo del caso (BOT Pre-Draft + Kase) es clave para lograrlo.',fail:'❌ Incorrecto. La respuesta es C: 3.5 horas. El estudio previo del caso es la herramienta principal para cumplir este límite sin sacrificar calidad.'},
+  q8:{ok:'✅ Correcto. No se debe priorizar la empatía por encima de la obtención de información. La clave es el equilibrio entre empatía y focalización en la entrevista.',fail:'❌ Incorrecto. La clave en casos VAWA y Visa T es el EQUILIBRIO entre empatía y focalización. Empatía sin foco puede comprometer la calidad de la entrevista.'},
+  q9:{ok:'✅ Correcto. Si el archivo no tiene la nomenclatura o carpeta correcta, la IA de ensamblado no reconoce el caso y el procesamiento no puede continuar.',fail:'❌ Incorrecto. La respuesta es C. La IA de ensamblado no reconocerá el caso si el archivo no está en la carpeta correcta con el nombre correcto.'},
+  q10:{ok:'✅ Correcto. Las opciones B, C, D y E representan condiciones que hacen inaceptable un documento. La opción A describe un documento aceptable.',fail:'❌ Incorrecto. Los documentos inaceptables son: con sombras, con dedos visibles, recortados o incompletos, y borrosos. Un documento completamente legible SÍ es aceptable.'},
+  q11:{ok:'✅ Correcto. Agregar información no declarada por el cliente es una exageración que pone en riesgo el caso. El Draft solo puede contener información declarada.',fail:'❌ Incorrecto. La respuesta es C. El Draft debe reflejar fielmente lo declarado por el cliente. Agregar información no declarada es una exageración que puede comprometer el caso.'},
+  q12:{ok:'✅ Correcto. La Regla de los 17 intentos: 3 por día de lunes a viernes y 2 el sábado. Cada intento debe registrarse en TramCase.',fail:'❌ Incorrecto. La respuesta es B: 17 intentos (3 diarios lunes a viernes, 2 el sábado). Cada intento se registra en TramCase con el SMS correspondiente.'},
+  q13:{ok:'✅ Correcto. La Llamada de Corrección es condicional. Solo se activa cuando el TL detecta faltantes en la revisión. Si el caso está completo, pasa directo a Supervisión Final.',fail:'❌ Incorrecto. La Llamada de Corrección (Módulo 13) es condicional, no obligatoria. Solo ocurre cuando el TL detecta faltantes en el Módulo 12.'},
+  q14:{ok:'✅ Correcto. El TL evalúa: (1) documentos del cliente, (2) formas migratorias y (3) evidencias de abuso o trata.',fail:'❌ Incorrecto. Los 3 aspectos que evalúa el TL son: calidad y suficiencia de documentos del cliente, de las formas migratorias y de las evidencias de abuso o trata.'},
+  q15:{ok:'✅ Correcto. Una vez aprobado en la Supervisión Final, el caso sale del área PWI y se envía al área de WAE (Welcome Call).',fail:'❌ Incorrecto. La respuesta es C. Después de la Supervisión Final, el caso se envía al área de WAE para continuar el proceso.'},
+  q16:{ok:'✅ Correcto. Inmediatamente después de la videollamada: reportar en KASE y DAILY, subir a Dropbox con nomenclatura correcta, descargar y verificar la transcripción.',fail:'❌ Incorrecto. Las acciones inmediatas post llamada son: reportar en KASE y DAILY, subir a Dropbox con nomenclatura correcta, descargar la transcripción y verificarla.'}
+};
+
 var examAnswers={};
+var examMultiAnswers={q10:[],q14:[],q16:[]};
+var answeredCount=0;
+
+function updateAnswerProgress(){
+  var MC=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q11','q12','q13','q15'];
+  var SM=['q10','q14','q16'];
+  var answered=0;
+  MC.forEach(function(q){if(examAnswers[q]!==undefined) answered++;});
+  SM.forEach(function(q){if(examMultiAnswers[q]&&examMultiAnswers[q].length>0) answered++;});
+  var pct=Math.round(answered/TOTAL_Q*100);
+  var fill=document.getElementById('q-progress-fill');
+  var label=document.getElementById('q-progress-label');
+  var wrap=document.getElementById('q-progress-wrap');
+  if(wrap) wrap.style.display='block';
+  if(fill) fill.style.width=pct+'%';
+  if(label) label.textContent=answered+' / '+TOTAL_Q+' respondidas';
+}
+
 function examSel(el,qId){
   if(el.classList.contains('disabled')) return;
   document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){o.classList.remove('selected');});
   el.classList.add('selected');
   examAnswers[qId]=parseInt(el.dataset.val);
+  updateAnswerProgress();
 }
+
+function examToggle(el,qId){
+  if(el.classList.contains('disabled')) return;
+  var val=parseInt(el.dataset.val);
+  el.classList.toggle('ms-selected');
+  var arr=examMultiAnswers[qId];
+  var idx=arr.indexOf(val);
+  if(idx===-1) arr.push(val);
+  else arr.splice(idx,1);
+  updateAnswerProgress();
+}
+
+function arraysEqual(a,b){
+  var sa=a.slice().sort(function(x,y){return x-y;});
+  var sb=b.slice().sort(function(x,y){return x-y;});
+  return JSON.stringify(sa)===JSON.stringify(sb);
+}
+
 function submitQuiz(){
-  var total=4,correct=0;
-  ['q1','q2','q3','q4'].forEach(function(qId){
-    var ua=examAnswers[qId],ca=examCorrect[qId];
+  var correct=0;
+  var mcQs=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q11','q12','q13','q15'];
+  var smQs=['q10','q14','q16'];
+  var modMap={q1:'M1',q2:'M1',q3:'M2',q4:'M3',q5:'M4',q6:'M4',q7:'M5',q8:'M5',q9:'M6',q10:'M8',q11:'M7',q12:'M9',q13:'M13',q14:'M12',q15:'M14',q16:'M6'};
+
+  mcQs.forEach(function(qId){
+    var ua=examAnswers[qId], ca=examCorrect[qId];
+    var isOk=(ua===ca);
     var fb=document.getElementById('exam-fb-'+qId);
     document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){
       o.classList.add('disabled');
       var v=parseInt(o.dataset.val);
       if(v===ca) o.classList.add('correct');
-      else if(v===ua&&ua!==ca) o.classList.add('wrong');
+      else if(v===ua&&!isOk) o.classList.add('wrong');
     });
-    if(fb){fb.className='q-feedback show '+(ua===ca?'ok':'fail');fb.textContent=ua===ca?examFB[qId].ok:examFB[qId].fail;}
-    if(ua===ca) correct++;
+    if(fb){fb.className='q-feedback show '+(isOk?'ok':'fail');fb.textContent=examFB[qId][isOk?'ok':'fail'];}
+    if(isOk) correct++;
   });
-  var pct=Math.round(correct/total*100),pass=pct>=80;
+
+  smQs.forEach(function(qId){
+    var userArr=examMultiAnswers[qId];
+    var correctArr=examMulti[qId];
+    var isOk=arraysEqual(userArr,correctArr);
+    var fb=document.getElementById('exam-fb-'+qId);
+    document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){
+      o.classList.add('disabled');
+      var v=parseInt(o.dataset.val);
+      var inCorrect=correctArr.indexOf(v)!==-1;
+      var inUser=userArr.indexOf(v)!==-1;
+      if(inCorrect) o.classList.add('correct');
+      else if(inUser&&!inCorrect) o.classList.add('wrong');
+    });
+    if(fb){fb.className='q-feedback show '+(isOk?'ok':'fail');fb.textContent=examFB[qId][isOk?'ok':'fail'];}
+    if(isOk) correct++;
+  });
+
+  var pct=Math.round(correct/TOTAL_Q*100), pass=pct>=80;
   var res=document.getElementById('quiz-result');
   res.className='quiz-result show '+(pass?'pass':'fail');
   document.getElementById('qr-score').textContent=pct+'%';
   document.getElementById('qr-score').className='qr-score '+(pass?'pass':'fail');
   document.getElementById('qr-label').textContent=pass?'✅ ¡Aprobado!':'❌ No aprobado';
-  document.getElementById('qr-msg').textContent=pass?'¡Excelente! Has demostrado comprensión del proceso End to End PWI con '+correct+'/'+total+' respuestas correctas.':'Obtuviste '+correct+'/'+total+' correctas ('+pct+'%). Necesitas 80% para aprobar. Repasa los módulos correspondientes.';
+  document.getElementById('qr-msg').textContent=pass?
+    'Excelente trabajo. Has demostrado comprensión sólida del proceso End to End PWI con '+correct+'/'+TOTAL_Q+' respuestas correctas.':
+    'Obtuviste '+correct+'/'+TOTAL_Q+' correctas ('+pct+'%). Necesitas al menos 80% para aprobar. Regresa a los módulos con errores y vuelve a intentarlo.';
+
+  /* Breakdown por tipo */
+  var mc_correct=0,mc_total=mcQs.length;
+  mcQs.forEach(function(q){if(examAnswers[q]===examCorrect[q]) mc_correct++;});
+  var sm_correct=0,sm_total=smQs.length;
+  smQs.forEach(function(q){if(arraysEqual(examMultiAnswers[q],examMulti[q])) sm_correct++;});
+  var bd=document.getElementById('qr-breakdown');
+  if(bd){
+    bd.innerHTML='<div style="background:rgba(93,138,112,.08);border:1px solid var(--sage-border);border-radius:9px;padding:10px 18px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--sage-dark)">'+mc_correct+'/'+mc_total+'</div><div style="font-size:10px;color:var(--mist);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Opción múltiple</div></div>'
+    +'<div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:9px;padding:10px 18px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--amber)">'+vfScore(mcQs)+'/4</div><div style="font-size:10px;color:var(--mist);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Verdadero / Falso</div></div>'
+    +'<div style="background:rgba(122,96,64,.07);border:1px solid rgba(122,96,64,.18);border-radius:9px;padding:10px 18px;text-align:center"><div style="font-size:22px;font-weight:800;color:var(--brown)">'+sm_correct+'/'+sm_total+'</div><div style="font-size:10px;color:var(--mist);font-weight:700;text-transform:uppercase;letter-spacing:.5px">Selección múltiple</div></div>';
+  }
+
   document.getElementById('btn-submit').style.display='none';
   document.getElementById('btn-retry').style.display='inline-block';
   document.getElementById('nav-eval').classList.add('completed');
   updateProgress();
   res.scrollIntoView({behavior:'smooth'});
 }
+
+function vfScore(mcQs){
+  var vfQs=['q3','q6','q8','q13'];
+  var c=0;
+  vfQs.forEach(function(q){if(examAnswers[q]===examCorrect[q]) c++;});
+  return c;
+}
+
 function resetQuiz(){
   examAnswers={};
+  examMultiAnswers={q10:[],q14:[],q16:[]};
   document.getElementById('quiz-result').className='quiz-result';
-  ['q1','q2','q3','q4'].forEach(function(qId){
-    document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){o.className='q-opt';});
+  document.getElementById('qr-breakdown').innerHTML='';
+  var allQs=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16'];
+  allQs.forEach(function(qId){
+    document.querySelectorAll('#exam-'+qId+' .q-opt').forEach(function(o){
+      o.className=o.className.replace(/\bcorrect\b|\bwrong\b|\bselected\b|\bdisabled\b|\bms-selected\b/g,'').trim();
+    });
     var fb=document.getElementById('exam-fb-'+qId);
     if(fb) fb.className='q-feedback';
   });
   document.getElementById('btn-submit').style.display='inline-block';
   document.getElementById('btn-retry').style.display='none';
+  var fill=document.getElementById('q-progress-fill');
+  var label=document.getElementById('q-progress-label');
+  if(fill) fill.style.width='0%';
+  if(label) label.textContent='0 / '+TOTAL_Q+' respondidas';
   window.scrollTo({top:0,behavior:'smooth'});
+  shuffleAll();
 }
 
 /* ═══ NAVIGATION ═══ */
@@ -1230,6 +1547,7 @@ function toggleSidebar(){
   document.getElementById('sbOverlay').classList.toggle('show');
 }
 updateProgress();
+shuffleAll();
 </script>
 </body>
 </html>
