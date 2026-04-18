@@ -1,0 +1,1459 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Recursos Operativos — Equipo PSYCHS Complex | TMLF Learning Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1209;--slate:#5a5242;--warm-slate:#7a6e5f;
+  --sage:#6b8c6b;--sage-dark:#4a6b4a;--sage-bg:rgba(107,140,107,.09);
+  --sage-border:rgba(107,140,107,.22);
+  --green-pale:#e8f0e4;--green-pale2:#d4e6cc;
+  --beige:#f5f0e8;--beige2:#ede5d6;--beige3:#e8dfc9;
+  --sand:#c9b89a;--sand-dark:#a0896a;
+  --cafe:#7a5f3a;--cafe-dark:#5a421f;--cafe-bg:rgba(122,95,58,.08);
+  --cafe-border:rgba(122,95,58,.2);
+  --cream:#faf8f4;--white:#fff;
+  --gold:#b8960a;--gold-bg:rgba(184,150,10,.08);--gold-border:rgba(184,150,10,.22);
+  --red:#8b3030;--red-bg:rgba(139,48,48,.07);--red-border:rgba(139,48,48,.18);
+  --amber:#7a5200;--amber-bg:rgba(180,120,0,.08);--amber-border:rgba(180,120,0,.2);
+  --shadow:0 6px 24px rgba(30,20,10,.09);--shadow-sm:0 2px 8px rgba(30,20,10,.06);
+  --radius:14px;--nav-h:56px;--sidebar-w:268px;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--beige);color:var(--ink);line-height:1.65}
+
+/* ══ TOPNAV ══ */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--nav-h);background:rgba(30,22,10,.96);backdrop-filter:blur(16px);border-bottom:1px solid rgba(184,150,10,.15);display:flex;align-items:center;padding:0 18px;gap:10px}
+.topnav .brand{font-family:'Cormorant Garamond',serif;font-size:18px;color:#fff;white-space:nowrap;display:flex;align-items:center;gap:10px}
+.topnav .brand .seal{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,rgba(184,150,10,.3),rgba(184,150,10,.08));border:1px solid rgba(184,150,10,.3);display:flex;align-items:center;justify-content:center;font-size:14px}
+.topnav .brand span{color:#d4b84a}
+.topnav-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.topnav-pill{padding:5px 13px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:rgba(107,140,107,.2);border:1px solid rgba(107,140,107,.35);color:rgba(160,210,140,.9)}
+.sidebar-toggle{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px}
+@media(max-width:900px){.sidebar-toggle{display:block}}
+
+/* ══ PROGRESS BAR ══ */
+.progress-bar-wrap{position:fixed;top:var(--nav-h);left:0;right:0;z-index:299;height:3px;background:rgba(255,255,255,.08)}
+.progress-bar-fill{height:3px;background:linear-gradient(90deg,var(--sage),var(--sand));transition:width .5s ease;width:0%}
+
+/* ══ SHELL ══ */
+.app-shell{display:flex;min-height:100vh;padding-top:var(--nav-h)}
+
+/* ══ SIDEBAR ══ */
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:rgba(26,18,8,.97);position:fixed;top:var(--nav-h);bottom:0;left:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.08) transparent;border-right:1px solid rgba(184,150,10,.08);z-index:200;transition:transform .3s ease}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.09);border-radius:3px}
+.sidebar-header{padding:16px 14px 12px;border-bottom:1px solid rgba(255,255,255,.05)}
+.sidebar-header .sh-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:3px}
+.sidebar-header .sh-title{font-family:'Cormorant Garamond',serif;font-size:14px;color:rgba(255,255,255,.85);font-weight:600;line-height:1.3}
+.sb-group{padding:6px 0}
+.sb-group-label{padding:6px 14px 2px;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.22)}
+.sb-divider{margin:4px 12px 5px;height:1px;background:linear-gradient(90deg,rgba(184,150,10,.15),transparent)}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;transition:all .17s;position:relative;user-select:none}
+.sb-item:hover{background:rgba(255,255,255,.04)}
+.sb-item.active{background:rgba(107,140,107,.12)}
+.sb-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--sage);border-radius:0 3px 3px 0}
+.sb-num{width:26px;height:26px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);transition:all .17s}
+.sb-item.active .sb-num{background:var(--sage);color:#fff}
+.sb-item:hover:not(.locked) .sb-num{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+.sb-text{flex:1;min-width:0}
+.sb-name{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.5);transition:color .17s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-item.active .sb-name{color:rgba(255,255,255,.9)}
+.sb-item:hover:not(.locked) .sb-name{color:rgba(255,255,255,.78)}
+.sb-sub{font-size:9.5px;color:rgba(255,255,255,.26);margin-top:1px}
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0);box-shadow:8px 0 32px rgba(0,0,0,.45)}
+  .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199}
+  .sb-overlay.show{display:block}
+}
+
+/* ══ MAIN ══ */
+.main{margin-left:var(--sidebar-w);flex:1;padding:24px 24px 60px;max-width:100%}
+@media(max-width:900px){.main{margin-left:0;padding:18px 16px 50px}}
+
+/* ══ HEADER ══ */
+.header{background:linear-gradient(135deg,rgba(26,18,8,.95),rgba(74,107,74,.85));border-radius:var(--radius);padding:30px 30px 26px;margin-bottom:20px;position:relative;overflow:hidden;color:#fff;border:1px solid rgba(107,140,107,.2)}
+.header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='30' cy='30' r='28'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");pointer-events:none}
+.header::after{content:'';position:absolute;bottom:-60px;right:60px;width:160px;height:160px;border:1.5px solid rgba(184,150,10,.1);border-radius:50%;animation:pulse 6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.04);opacity:.85}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.header-seal{position:absolute;top:22px;right:28px;width:58px;height:58px;border:1.5px solid rgba(184,150,10,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;opacity:.5;animation:pulse 4s ease-in-out infinite}
+.header-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 13px;background:rgba(107,140,107,.2);border:1px solid rgba(107,140,107,.35);border-radius:999px;font-size:9.5px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;margin-bottom:10px;color:rgba(180,220,160,.9)}
+.header-badge .dot{width:5px;height:5px;background:var(--sage);border-radius:50%}
+h1{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;line-height:1.15;position:relative;z-index:1}
+.subtitle{font-size:13.5px;opacity:.74;max-width:54ch;margin-top:6px;position:relative;z-index:1}
+.header-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;position:relative;z-index:1}
+.header-meta-item{display:flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:7px;font-size:11px}
+.header-meta-item span:first-child{opacity:.55}
+.header-meta-item strong{font-weight:700}
+
+/* ══ PROCESS DIFF BANNER ══ */
+.diff-banner{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}
+@media(max-width:640px){.diff-banner{grid-template-columns:1fr}}
+.diff-card{border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.diff-card.con-decl{background:linear-gradient(135deg,rgba(107,140,107,.15),rgba(107,140,107,.06));border:1.5px solid var(--sage-border)}
+.diff-card.sin-decl{background:linear-gradient(135deg,rgba(122,95,58,.1),rgba(122,95,58,.04));border:1.5px solid var(--cafe-border)}
+.diff-card h4{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.diff-card.con-decl h4{color:var(--sage-dark)}
+.diff-card.sin-decl h4{color:var(--cafe)}
+.diff-pills{display:flex;flex-wrap:wrap;gap:5px}
+.diff-pill{padding:4px 11px;border-radius:999px;font-size:11.5px;font-weight:700}
+.diff-pill.sage{background:rgba(107,140,107,.18);border:1px solid var(--sage-border);color:var(--sage-dark)}
+.diff-pill.cafe{background:rgba(122,95,58,.12);border:1px solid var(--cafe-border);color:var(--cafe-dark)}
+
+/* ══ BLOCK ══ */
+.block{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(180,160,120,.18);overflow:hidden;margin-bottom:14px;animation:fadeUp .25s ease both}
+.block:last-child{margin-bottom:0}
+.block .btitle{display:flex;align-items:center;gap:10px;padding:14px 18px;background:linear-gradient(180deg,rgba(107,140,107,.1),rgba(107,140,107,.02));border-bottom:1px solid rgba(180,160,120,.15)}
+.block .btitle .bicon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;color:#fff}
+.block .btitle h3{font-size:15px;color:var(--ink);font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.2px;flex:1}
+.block .btitle .mod-badge{margin-left:auto;padding:3px 10px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;flex-shrink:0}
+.badge-sage{background:var(--sage-bg);color:var(--sage-dark);border:1px solid var(--sage-border)}
+.badge-cafe{background:var(--cafe-bg);color:var(--cafe);border:1px solid var(--cafe-border)}
+.badge-warn{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
+.badge-gold{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-border)}
+.badge-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-border)}
+.block .bbody{padding:18px}
+.block .bbody p{margin:0 0 10px;font-size:13.5px;color:var(--ink)}
+.block .bbody p:last-child{margin-bottom:0}
+.block.b-error{border-color:var(--red-border);background:#fff8f8}
+.block.b-error .btitle{background:rgba(139,48,48,.05);border-bottom-color:var(--red-border)}
+.block.b-error .btitle h3{color:var(--red)}
+.block.b-warn{border-color:var(--amber-border);background:#fffbf0}
+.block.b-warn .btitle{background:rgba(180,120,0,.05);border-bottom-color:var(--amber-border)}
+.block.b-warn .btitle h3{color:var(--amber)}
+.block.b-sage{border-color:var(--sage-border);background:linear-gradient(180deg,rgba(107,140,107,.04),var(--white))}
+.block.b-sage .btitle{background:rgba(107,140,107,.08);border-bottom-color:var(--sage-border)}
+.block.b-sage .btitle h3{color:var(--sage-dark)}
+.block.b-cafe{border-color:var(--cafe-border);background:linear-gradient(180deg,rgba(122,95,58,.04),var(--white))}
+.block.b-cafe .btitle{background:rgba(122,95,58,.06);border-bottom-color:var(--cafe-border)}
+.block.b-cafe .btitle h3{color:var(--cafe-dark)}
+.block.b-gold{border-color:var(--gold-border);background:linear-gradient(180deg,rgba(184,150,10,.04),var(--white))}
+.block.b-gold .btitle{background:rgba(184,150,10,.07);border-bottom-color:var(--gold-border)}
+.block.b-gold .btitle h3{color:var(--gold)}
+
+/* ══ ALERTS ══ */
+.alert{margin:10px 0;padding:10px 13px;border-radius:10px;font-size:12.5px;display:flex;align-items:flex-start;gap:8px;line-height:1.55}
+.alert.danger{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.alert.warn{background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber)}
+.alert.success{background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark)}
+.alert.info{background:var(--cafe-bg);border:1px solid var(--cafe-border);color:var(--cafe)}
+.alert strong{font-weight:700}
+.alert-icon{flex-shrink:0;margin-top:1px}
+
+/* ══ TIMELINE ══ */
+.timeline{position:relative;margin-top:12px}
+.timeline::before{content:'';position:absolute;left:18px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--sage),var(--cafe),var(--sand));border-radius:2px}
+.tl-item{display:flex;gap:14px;padding-bottom:14px;position:relative}
+.tl-dot{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1;box-shadow:0 3px 9px rgba(74,107,74,.22)}
+.tl-body{flex:1;background:var(--cream);border:1px solid rgba(180,160,120,.16);border-radius:10px;padding:10px 14px;transition:all .2s}
+.tl-body:hover{border-color:var(--sage-border);transform:translateX(2px)}
+.tl-stage{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--sage-dark);margin-bottom:2px}
+.tl-body h4{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.tl-body .tl-res{font-size:11.5px;color:var(--warm-slate);margin-bottom:3px}
+.tl-resource{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:5px;font-size:10.5px;font-weight:600;background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark);margin-top:3px}
+
+/* ══ SECTIONS ══ */
+.sdiv{display:flex;align-items:center;gap:10px;margin:20px 0 12px}
+.sdiv .l{flex:1;height:1px;background:linear-gradient(90deg,rgba(180,160,120,.3),transparent)}
+.sdiv .l:last-child{background:linear-gradient(270deg,rgba(180,160,120,.3),transparent)}
+.sdiv .t{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--warm-slate);white-space:nowrap}
+
+/* ══ GRID ══ */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+@media(max-width:680px){.two-col,.three-col{grid-template-columns:1fr}}
+.mini-card{padding:13px;border-radius:10px;border:1px solid rgba(180,160,120,.18);background:rgba(107,140,107,.05)}
+.mini-card h4{font-size:12.5px;margin-bottom:6px;display:flex;align-items:center;gap:6px;color:var(--ink);font-weight:700}
+.mini-card p,.mini-card li{font-size:12px;color:var(--slate);line-height:1.6}
+.mini-card ul{padding-left:15px}
+.mini-card.cafe{background:rgba(122,95,58,.05);border-color:var(--cafe-border)}
+.mini-card.cafe h4{color:var(--cafe-dark)}
+.mini-card.sage{background:var(--sage-bg);border-color:var(--sage-border)}
+.mini-card.sage h4{color:var(--sage-dark)}
+.mini-card.warn{background:var(--amber-bg);border-color:var(--amber-border)}
+.mini-card.warn h4{color:var(--amber)}
+.mini-card.danger{background:var(--red-bg);border-color:var(--red-border)}
+.mini-card.danger h4{color:var(--red)}
+
+/* ══ STEP LIST ══ */
+.step-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.step-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:10px;background:var(--cream);border:1px solid rgba(180,160,120,.16);transition:all .2s}
+.step-item:hover{border-color:var(--sage-border);background:rgba(107,140,107,.04)}
+.step-num{width:24px;height:24px;border-radius:6px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;flex-shrink:0;margin-top:1px}
+.step-item p{font-size:12.5px;line-height:1.5;margin:0;color:var(--ink)}
+
+/* ══ TABLE ══ */
+.info-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:12.5px;border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.info-table th{background:var(--sage-dark);color:#fff;padding:10px 13px;text-align:left;font-weight:700;font-size:11px}
+.info-table td{padding:9px 13px;border-bottom:1px solid rgba(180,160,120,.12)}
+.info-table tr:nth-child(even) td{background:rgba(107,140,107,.04)}
+.info-table tr:last-child td{border-bottom:none}
+.info-table tr:hover td{background:rgba(107,140,107,.07)}
+
+/* ══ ACCORDION ══ */
+details.acc{margin:7px 0}
+details.acc+details.acc{margin-top:6px}
+.acc-header{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(107,140,107,.08),rgba(107,140,107,.03));border:1px solid var(--sage-border);transition:all .18s;user-select:none}
+.acc-header::-webkit-details-marker{display:none}
+details.acc[open] .acc-header{border-radius:10px 10px 0 0;border-bottom-color:transparent;background:linear-gradient(135deg,rgba(107,140,107,.12),rgba(107,140,107,.06))}
+.acc-header:hover{background:linear-gradient(135deg,rgba(107,140,107,.13),rgba(107,140,107,.07))}
+.acc-left{display:flex;align-items:center;gap:10px}
+.acc-num{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.acc-cafe .acc-num{background:linear-gradient(135deg,var(--cafe-dark),var(--cafe))}
+.acc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--warm-slate);margin-bottom:1px}
+.acc-title{font-size:13px;font-weight:700;color:var(--ink)}
+.acc-arrow{font-size:10px;color:var(--warm-slate);transition:transform .18s;flex-shrink:0}
+details.acc[open] .acc-arrow{transform:rotate(90deg)}
+.acc-body{padding:13px 15px;border:1px solid var(--sage-border);border-top:none;border-radius:0 0 10px 10px;background:rgba(232,240,228,.3)}
+.acc-cafe .acc-header{background:linear-gradient(135deg,rgba(122,95,58,.08),rgba(122,95,58,.03));border-color:var(--cafe-border)}
+details.acc[open] .acc-cafe .acc-header,.acc-cafe .acc-header:hover{background:linear-gradient(135deg,rgba(122,95,58,.12),rgba(122,95,58,.06))}
+.acc-cafe .acc-body{border-color:var(--cafe-border);background:rgba(122,95,58,.04)}
+
+/* ══ PROCESS TABS ══ */
+.tab-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tab-btn{padding:7px 15px;border-radius:8px;border:1.5px solid rgba(180,160,120,.22);background:var(--cream);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;color:var(--slate)}
+.tab-btn:hover{border-color:var(--sage-border);color:var(--sage-dark)}
+.tab-btn.active{background:var(--sage-dark);border-color:var(--sage-dark);color:#fff}
+.tab-panel{display:none;animation:fadeUp .22s ease both}
+.tab-panel.active{display:block}
+
+/* ══ OB LIST ══ */
+.ob-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+@media(max-width:580px){.ob-list{grid-template-columns:1fr}}
+.ob-item{display:flex;align-items:flex-start;gap:8px;padding:9px 12px;border-radius:9px;background:var(--sage-bg);border:1px solid var(--sage-border);transition:all .2s}
+.ob-item:hover{transform:translateX(2px)}
+.ob-num{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,var(--sage-dark),var(--sage));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10px;flex-shrink:0;margin-top:1px}
+.ob-item span{font-size:12px;font-weight:600;line-height:1.4;color:var(--ink)}
+
+/* ══ CHIPS ══ */
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.chip{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark)}
+.chip.cafe{background:var(--cafe-bg);border-color:var(--cafe-border);color:var(--cafe)}
+.chip.warn{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber)}
+.chip.danger{background:var(--red-bg);border-color:var(--red-border);color:var(--red)}
+.chip.gold{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold)}
+
+/* ══ MARKS ══ */
+mark.hi{background:rgba(184,150,10,.2);color:#5a3e00;border-radius:3px;padding:1px 5px;font-weight:700;border-bottom:2px solid rgba(184,150,10,.4)}
+mark.hi-sage{background:rgba(107,140,107,.15);color:var(--sage-dark);border-radius:3px;padding:1px 5px;font-weight:700;border-bottom:2px solid var(--sage-border)}
+mark.hi-red{background:rgba(139,48,48,.1);color:var(--red);border-radius:3px;padding:1px 5px;font-weight:700;border-bottom:2px solid var(--red-border)}
+mark.hi-cafe{background:rgba(122,95,58,.12);color:var(--cafe-dark);border-radius:3px;padding:1px 5px;font-weight:700;border-bottom:2px solid var(--cafe-border)}
+
+/* ══ MOD META ══ */
+.mod-meta{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-bottom:14px}
+.mod-meta-item{padding:8px 11px;border-radius:8px;background:rgba(107,140,107,.06);border:1px solid var(--sage-border)}
+.mod-meta-item .label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--warm-slate);margin-bottom:2px}
+.mod-meta-item .value{font-size:12px;font-weight:700;color:var(--ink)}
+
+/* ══ PRINCIPLE ══ */
+.principle{margin:12px 0;padding:13px 16px;border-radius:10px;background:linear-gradient(135deg,rgba(107,140,107,.05),rgba(107,140,107,.02));border:1px solid var(--sage-border);border-left:3px solid var(--sage)}
+.principle p{margin:0;font-size:14px;font-weight:600;font-style:italic;font-family:'Cormorant Garamond',serif;line-height:1.5;color:var(--ink)}
+.principle .principle-sub{font-weight:500;color:var(--warm-slate);margin-top:4px;font-style:normal;font-family:'DM Sans',sans-serif;font-size:12px}
+
+/* ══ STAT CARDS ══ */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:14px 0}
+.stat-card{background:var(--white);border-radius:11px;padding:14px;border:1px solid rgba(180,160,120,.18);text-align:center}
+.stat-card .stat-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--sage-dark);line-height:1}
+.stat-card .stat-label{font-size:10.5px;color:var(--warm-slate);margin-top:4px;font-weight:600}
+
+/* ══ RESOURCE TABLE ══ */
+.res-grid{display:grid;grid-template-columns:1fr;gap:7px;margin-top:10px}
+.res-item{display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border-radius:10px;background:var(--cream);border:1px solid rgba(180,160,120,.16)}
+.res-icon{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--sage-bg);border:1px solid var(--sage-border)}
+.res-content h5{font-size:12.5px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.res-content p{font-size:11.5px;color:var(--warm-slate);margin:0;line-height:1.5}
+
+/* ══ QUIZ ══ */
+.quiz-q{background:var(--cream);border:1px solid rgba(180,160,120,.18);border-radius:11px;padding:14px 16px;margin-bottom:10px}
+.quiz-qtext{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.5}
+.quiz-opts{display:flex;flex-direction:column;gap:6px}
+.quiz-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-radius:8px;border:1.5px solid rgba(180,160,120,.2);background:var(--white);cursor:pointer;font-size:12.5px;transition:all .18s;line-height:1.45;text-align:left;width:100%}
+.quiz-opt:hover{border-color:var(--sage-border);background:var(--sage-bg)}
+.quiz-opt.selected{border-color:var(--sage);background:var(--sage-bg)}
+.quiz-opt.correct{border-color:var(--sage-dark);background:rgba(107,140,107,.12);pointer-events:none}
+.quiz-opt.incorrect{border-color:var(--red);background:var(--red-bg);pointer-events:none}
+.quiz-radio{width:17px;height:17px;border-radius:50%;border:2px solid rgba(180,160,120,.35);flex-shrink:0;margin-top:2px;transition:all .18s}
+.quiz-opt.selected .quiz-radio{border-color:var(--sage);background:var(--sage)}
+.quiz-opt.correct .quiz-radio{border-color:var(--sage-dark);background:var(--sage-dark)}
+.quiz-opt.incorrect .quiz-radio{border-color:var(--red);background:var(--red)}
+.quiz-feedback{margin-top:8px;padding:9px 12px;border-radius:8px;font-size:12px;line-height:1.5;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.correct-fb{background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark)}
+.quiz-feedback.incorrect-fb{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.quiz-result{margin-top:14px;padding:16px;border-radius:11px;text-align:center;display:none}
+.quiz-result.show{display:block;animation:fadeUp .3s ease}
+.quiz-result.pass{background:var(--sage-bg);border:1px solid var(--sage-border)}
+.quiz-result.warn{background:var(--amber-bg);border:1px solid var(--amber-border)}
+.quiz-score{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700}
+.quiz-score.pass{color:var(--sage-dark)}.quiz-score.warn{color:var(--amber)}
+.quiz-btn{margin-top:10px;padding:9px 22px;border-radius:8px;border:none;background:var(--sage-dark);color:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.quiz-btn:hover{background:var(--sage)}
+
+/* ══ CHECKLIST ══ */
+.checklist{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+.check-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;border:1px solid rgba(180,160,120,.16);background:var(--cream);cursor:pointer;transition:all .18s;user-select:none}
+.check-item:hover{border-color:var(--sage-border)}
+.check-item.checked{background:var(--sage-bg);border-color:var(--sage-border)}
+.check-box{width:18px;height:18px;border-radius:5px;border:2px solid rgba(180,160,120,.35);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .18s;font-size:11px}
+.check-item.checked .check-box{border-color:var(--sage-dark);background:var(--sage-dark);color:#fff}
+.check-label{font-size:12.5px;color:var(--ink);line-height:1.4}
+.check-item.checked .check-label{color:var(--sage-dark)}
+
+/* ══ FOCO ROJO ══ */
+.foco-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.foco-item{display:flex;align-items:flex-start;gap:8px;padding:10px 13px;border-radius:9px;background:var(--red-bg);border:1px solid var(--red-border)}
+.foco-icon{color:var(--red);font-size:13px;flex-shrink:0;margin-top:2px}
+.foco-item p{margin:0;font-size:12.5px;color:var(--red);font-style:italic;line-height:1.45}
+
+/* ══ COMPETENCY TABLE ══ */
+.comp-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12px;border-radius:10px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.comp-table th{background:var(--sage-dark);color:#fff;padding:10px 12px;text-align:left;font-weight:700;font-size:11px}
+.comp-table td{padding:9px 12px;border-bottom:1px solid rgba(180,160,120,.12)}
+.comp-table tr:nth-child(even) td{background:rgba(107,140,107,.04)}
+.comp-table tr:last-child td{border-bottom:none}
+.comp-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:700;background:var(--sage-bg);border:1px solid var(--sage-border);color:var(--sage-dark)}
+
+/* ══ SCROLL NAV ══ */
+.scroll-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.snav-btn{padding:6px 14px;border-radius:7px;border:1px solid rgba(180,160,120,.22);background:var(--white);font-size:11.5px;font-weight:600;cursor:pointer;color:var(--slate);transition:all .18s;text-decoration:none}
+.snav-btn:hover{border-color:var(--sage-border);color:var(--sage-dark);background:var(--sage-bg)}
+
+/* ══ PAGE TITLE ══ */
+.page-title{margin-bottom:16px}
+.page-title .pt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--warm-slate);margin-bottom:4px}
+.page-title h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink)}
+.page-title .pt-sub{font-size:13px;color:var(--warm-slate);margin-top:3px}
+
+/* ══ OVERVIEW CARDS ══ */
+.overview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-top:10px}
+.ov-card{background:var(--white);border-radius:11px;padding:13px;border:1px solid rgba(180,160,120,.18);cursor:pointer;transition:all .22s;display:flex;flex-direction:column;gap:3px}
+.ov-card:hover{transform:translateY(-3px);box-shadow:0 7px 20px rgba(30,20,10,.1);border-color:var(--sage-border)}
+.ov-card .ov-icon{font-size:20px;margin-bottom:2px}
+.ov-card strong{font-size:11.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.ov-card small{font-size:10px;color:var(--warm-slate)}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  h1{font-size:24px}
+  .header{padding:22px 20px}
+  .header-seal{display:none}
+  .stat-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPNAV -->
+<nav class="topnav">
+  <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+  <div class="brand">
+    <div class="seal">⚖️</div>
+    TMLF <span>Learning Center</span>
+  </div>
+  <div class="topnav-right">
+    <div class="topnav-pill">Training Operativo</div>
+    <div class="topnav-pill">Complex</div>
+  </div>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar"></div></div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sb-overlay" id="sbOverlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sh-label">Training Operativo</div>
+    <div class="sh-title">Recursos Operativos<br>Equipo PSYCHS Complex</div>
+  </div>
+  <div class="sb-group">
+    <div class="sb-group-label">Módulos</div>
+    <div class="sb-divider"></div>
+    <div class="sb-item active" onclick="scrollTo('sec-intro')">
+      <div class="sb-num">0</div>
+      <div class="sb-text"><div class="sb-name">Descripción General</div><div class="sb-sub">Objetivos · Contexto</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-mapa')">
+      <div class="sb-num">1</div>
+      <div class="sb-text"><div class="sb-name">Mapa Cronológico</div><div class="sb-sub">Flujo operativo</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-tramcase')">
+      <div class="sb-num">2</div>
+      <div class="sb-text"><div class="sb-name">TramCase</div><div class="sb-sub">Notas y codificación</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-speechs')">
+      <div class="sb-num">3</div>
+      <div class="sb-text"><div class="sb-name">Speechs y Guidelines</div><div class="sb-sub">Por tipo de proceso</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-sms')">
+      <div class="sb-num">4</div>
+      <div class="sb-text"><div class="sb-name">SMS Operativos</div><div class="sb-sub">Plantillas y protocolo</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-checklist')">
+      <div class="sb-num">5</div>
+      <div class="sb-text"><div class="sb-name">Checklist Documental</div><div class="sb-sub">Suficiencia por proceso</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-hub')">
+      <div class="sb-num">6</div>
+      <div class="sb-text"><div class="sb-name">Mendoza Hub</div><div class="sb-sub">Formas migratorias</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-entrevista')">
+      <div class="sb-num">7</div>
+      <div class="sb-text"><div class="sb-name">Desarrollo Entrevista</div><div class="sb-sub">Con declaración</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-dropbox')">
+      <div class="sb-num">8</div>
+      <div class="sb-text"><div class="sb-name">Dropbox</div><div class="sb-sub">Orden documental</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-antifraude')">
+      <div class="sb-num">9</div>
+      <div class="sb-text"><div class="sb-name">Antifraude</div><div class="sb-sub">Protocolo preventivo</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-incidencias')">
+      <div class="sb-num">10</div>
+      <div class="sb-text"><div class="sb-name">Escenarios Especiales</div><div class="sb-sub">No contesta · Reagenda</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-supervision')">
+      <div class="sb-num">11</div>
+      <div class="sb-text"><div class="sb-name">Supervisión</div><div class="sb-sub">Forms y cierre</div></div>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-item" onclick="scrollTo('sec-quiz')">
+      <div class="sb-num">✦</div>
+      <div class="sb-text"><div class="sb-name">Preguntas de Refuerzo</div><div class="sb-sub">Evaluación</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-recursos')">
+      <div class="sb-num">◈</div>
+      <div class="sb-text"><div class="sb-name">Resumen de Recursos</div><div class="sb-sub">Tabla de referencia</div></div>
+    </div>
+    <div class="sb-item" onclick="scrollTo('sec-cierre')">
+      <div class="sb-num">★</div>
+      <div class="sb-text"><div class="sb-name">Conclusión Operativa</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-seal">⚖️</div>
+    <div class="header-badge"><span class="dot"></span>Training Operativo · Enero 2026</div>
+    <h1>Recursos Operativos<br>Equipo PSYCHS Complex</h1>
+    <p class="subtitle">Domina el flujo operativo completo: herramientas, registros, speechs y criterio profesional diferenciado por tipo de proceso.</p>
+    <div class="header-meta">
+      <div class="header-meta-item"><span>🏛️</span><strong>The Mendoza Law Firm</strong></div>
+      <div class="header-meta-item"><span>👥</span><strong>TMLF Learning Center</strong></div>
+      <div class="header-meta-item"><span>📋</span><strong>Módulo único · Multi-bloque</strong></div>
+      <div class="header-meta-item"><span>📅</span><strong>Versión Enero 2026</strong></div>
+    </div>
+  </div>
+
+  <!-- DIFERENCIACIÓN CLAVE -->
+  <div class="diff-banner">
+    <div class="diff-card con-decl">
+      <h4>✅ Con Declaración</h4>
+      <p style="font-size:11.5px;color:var(--sage-dark);margin-bottom:8px">Requieren videollamada + entrevista narrativa (4-6 hrs)</p>
+      <div class="diff-pills">
+        <span class="diff-pill sage">Visa U</span>
+        <span class="diff-pill sage">Visa K1</span>
+        <span class="diff-pill sage">Consular Process + Waiver</span>
+      </div>
+    </div>
+    <div class="diff-card sin-decl">
+      <h4>📁 Sin Declaración</h4>
+      <p style="font-size:11.5px;color:var(--cafe);margin-bottom:8px">Contacto telefónico o breve · Foco en documentos e información objetiva</p>
+      <div class="diff-pills">
+        <span class="diff-pill cafe">FOIA</span>
+        <span class="diff-pill cafe">Naturalización</span>
+        <span class="diff-pill cafe">Regular AOS</span>
+        <span class="diff-pill cafe">I-90</span>
+        <span class="diff-pill cafe">Otros</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCROLL NAV -->
+  <div class="scroll-nav">
+    <a class="snav-btn" onclick="scrollTo('sec-mapa')">Mapa Cronológico</a>
+    <a class="snav-btn" onclick="scrollTo('sec-tramcase')">TramCase</a>
+    <a class="snav-btn" onclick="scrollTo('sec-speechs')">Speechs</a>
+    <a class="snav-btn" onclick="scrollTo('sec-sms')">SMS</a>
+    <a class="snav-btn" onclick="scrollTo('sec-checklist')">Checklist</a>
+    <a class="snav-btn" onclick="scrollTo('sec-hub')">Mendoza Hub</a>
+    <a class="snav-btn" onclick="scrollTo('sec-entrevista')">Entrevista</a>
+    <a class="snav-btn" onclick="scrollTo('sec-antifraude')">Antifraude</a>
+    <a class="snav-btn" onclick="scrollTo('sec-quiz')">Evaluación</a>
+  </div>
+
+  <!-- ══════════ SECCIÓN 0: DESCRIPCIÓN GENERAL ══════════ -->
+  <div id="sec-intro">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 0 · Descripción General</span><div class="l"></div></div>
+
+    <div class="block b-sage">
+      <div class="btitle">
+        <div class="bicon">🎯</div>
+        <h3>Contexto del Equipo Complex</h3>
+        <span class="mod-badge badge-sage">Intro</span>
+      </div>
+      <div class="bbody">
+        <p>El equipo <mark class="hi-sage">PSYCHS Complex</mark> atiende una cartera diversa de procesos migratorios divididos en dos grandes grupos: <mark class="hi">procesos que requieren entrevista y declaración</mark> (Visa U, Visa K1, Consular Process + Waiver) y <mark class="hi-cafe">procesos sin entrevista con declaración</mark> (FOIA, Naturalización, Regular AOS, I-90, entre otros).</p>
+        <p>Esta distinción determina el conjunto de recursos que se activan en cada caso y la forma en que se conduce el contacto con el cliente. El objetivo es integrar las herramientas en un flujo real de trabajo con <strong>criterio profesional</strong>, no solo memorizarlas.</p>
+        <div class="principle"><p>"No se trata de memorizar herramientas; se trata de integrarlas en un flujo real de trabajo con criterio profesional."</p><p class="principle-sub">— TMLF Learning Center · Equipo PSYCHS Complex</p></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="btitle">
+        <div class="bicon">📌</div>
+        <h3>Objetivo General</h3>
+        <span class="mod-badge badge-gold">Objetivos</span>
+      </div>
+      <div class="bbody">
+        <p>Dominar el uso operativo de las herramientas, guías, formatos y registros del equipo Complex para ejecutar contactos con el cliente de manera <mark class="hi">profesional, documentada y alineada a los estándares de calidad de la firma</mark>, diferenciando correctamente el flujo de los procesos que requieren declaración de los que no.</p>
+        <div class="sdiv" style="margin:12px 0 8px"><div class="l"></div><span class="t">Objetivos específicos</span><div class="l"></div></div>
+        <div class="ob-list">
+          <div class="ob-item"><div class="ob-num">1</div><span>Identificar qué recurso corresponde a cada momento del proceso según el tipo de visa o trámite.</span></div>
+          <div class="ob-item"><div class="ob-num">2</div><span>Ejecutar la llamada de agenda y videollamada con speechs diferenciados sin sonar leído.</span></div>
+          <div class="ob-item"><div class="ob-num">3</div><span>Solicitar documentación con base en la checklist y la suficiencia del caso.</span></div>
+          <div class="ob-item"><div class="ob-num">4</div><span>Registrar cada interacción en TramCase con subject, codificación y fechas compromiso correctos.</span></div>
+          <div class="ob-item"><div class="ob-num">5</div><span>Utilizar Mendoza Hub para el llenado suficiente de formas migratorias antes y durante la videollamada.</span></div>
+          <div class="ob-item"><div class="ob-num">6</div><span>Aplicar lineamientos de Dropbox, SMS, antifraude y supervisión como parte del flujo estándar.</span></div>
+          <div class="ob-item"><div class="ob-num">7</div><span>Reconocer cuándo un proceso no requiere entrevista y adaptar el contacto a ese flujo.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-val">11</div><div class="stat-label">Módulos operativos</div></div>
+      <div class="stat-card"><div class="stat-val">3</div><div class="stat-label">Procesos c/ declaración</div></div>
+      <div class="stat-card"><div class="stat-val">5+</div><div class="stat-label">Procesos s/ declaración</div></div>
+      <div class="stat-card"><div class="stat-val">7</div><div class="stat-label">Tipos de SMS</div></div>
+      <div class="stat-card"><div class="stat-val">13</div><div class="stat-label">Recursos operativos</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 1: MAPA CRONOLÓGICO ══════════ -->
+  <div id="sec-mapa">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 1 · Mapa Cronológico</span><div class="l"></div></div>
+
+    <div class="block b-sage">
+      <div class="btitle">
+        <div class="bicon">🗺️</div>
+        <h3>Mapa Cronológico del Proceso Operativo</h3>
+        <span class="mod-badge badge-sage">Flujo</span>
+      </div>
+      <div class="bbody">
+        <p>Antes de estudiar cada recurso, visualiza en qué momento exacto aparece dentro del flujo operativo:</p>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">0</div>
+            <div class="tl-body">
+              <div class="tl-stage">Preparación</div>
+              <h4>Preparación interna</h4>
+              <div class="tl-res">Recurso: Notas TramCase · Dropbox · Checklist</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Revisar caso y documentación previa → <strong>Llegada preparada al contacto</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">1</div>
+            <div class="tl-body">
+              <div class="tl-stage">Primer contacto</div>
+              <h4>Agenda / Primer contacto</h4>
+              <div class="tl-res">Recurso: Speech de Agenda (por visa) · Códigos · Checklist · SMS</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Explicar proceso, solicitar docs, fijar cita → <strong>Cliente informado y cita agendada</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">2</div>
+            <div class="tl-body">
+              <div class="tl-stage">Post agenda</div>
+              <h4>SMS post agenda y pendientes</h4>
+              <div class="tl-res">Recurso: SMS post agenda · Listado de info · Fecha compromiso</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Enviar recordatorios y detallar requeridos → <strong>Cliente prepara documentos e info previa</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">3</div>
+            <div class="tl-body">
+              <div class="tl-stage">Inicio de videollamada</div>
+              <h4>Apertura de videollamada</h4>
+              <div class="tl-res">Recurso: Fondos institucionales · Códigos · Guideline de entrevista</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Abrir videollamada, encuadrar al cliente, revisar docs → <strong>Revisión de recibidos y faltantes</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">4</div>
+            <div class="tl-body">
+              <div class="tl-stage">Llenado de formas</div>
+              <h4>Mendoza Hub — Llenado de formularios</h4>
+              <div class="tl-res">Recurso: Mendoza Hub · Checklist · Speech de llenado</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Recabar info suficiente para formas migratorias → <strong>Formulario avanzado y datos validados</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">5</div>
+            <div class="tl-body" style="border-color:var(--sage-border)">
+              <div class="tl-stage" style="color:var(--sage-dark)">⭐ Solo procesos con declaración</div>
+              <h4>Desarrollo de entrevista (Visa U · K1 · Consular)</h4>
+              <div class="tl-res">Recurso: Guideline de entrevista · Speech específico por visa</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Profundizar historia y soporte probatorio → <strong>Base narrativa y probatoria fortalecida</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">6</div>
+            <div class="tl-body">
+              <div class="tl-stage">Cierre</div>
+              <h4>Cierre y seguimiento</h4>
+              <div class="tl-res">Recurso: SMS post entrevista / seguimiento</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Confirmar pendientes y fechas → <strong>Pendientes claros y trazables</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">7</div>
+            <div class="tl-body">
+              <div class="tl-stage">Incidencias</div>
+              <h4>Manejo de incidencias</h4>
+              <div class="tl-res">Recurso: SMS no contesta / reagenda / no coopera · Notas TramCase</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Documentar incumplimientos o reprogramación → <strong>Historial operativo protegido</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">8</div>
+            <div class="tl-body" style="border-color:var(--red-border)">
+              <div class="tl-stage" style="color:var(--red)">🚨 Riesgo de fraude</div>
+              <h4>Antifraude preventivo</h4>
+              <div class="tl-res">Recurso: Disclaimer antifraude · Reporte interno</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Intervenir ante intención de mentir o fabricar → <strong>Riesgo contenido y escalado</strong></p>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">9</div>
+            <div class="tl-body">
+              <div class="tl-stage">Organización documental</div>
+              <h4>Dropbox y nomenclatura</h4>
+              <div class="tl-res">Recurso: Dropbox · Nomenclatura establecida</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Ordenar documentos, audios y evidencias → <strong>Expediente limpio y localizable</strong></p>
+            </div>
+          </div>
+          <div class="tl-item" style="padding-bottom:0">
+            <div class="tl-dot" style="background:linear-gradient(135deg,var(--gold),var(--sand-dark))">10</div>
+            <div class="tl-body" style="border-color:var(--gold-border)">
+              <div class="tl-stage" style="color:var(--gold)">Control de calidad</div>
+              <h4>Supervisión y revisión TL</h4>
+              <div class="tl-res">Recurso: Form de Supervisión</div>
+              <p style="font-size:12px;color:var(--warm-slate);margin:4px 0 0">Validar suficiencia y cumplimiento → <strong>Caso listo para siguiente etapa</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 2: TRAMCASE ══════════ -->
+  <div id="sec-tramcase">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 2 · TramCase y Codificación</span><div class="l"></div></div>
+
+    <div class="block">
+      <div class="btitle">
+        <div class="bicon">📝</div>
+        <h3>Notas de TramCase y Codificación del Contacto</h3>
+        <span class="mod-badge badge-cafe">Registro oficial</span>
+      </div>
+      <div class="bbody">
+        <p>Las notas de TramCase son el <mark class="hi">registro oficial del trabajo realizado con el cliente</mark>. No son opcionales: permiten la trazabilidad del caso, protegen a la operación y facilitan que cualquier miembro del equipo pueda retomar el expediente.</p>
+
+        <div class="sdiv" style="margin:12px 0 8px"><div class="l"></div><span class="t">Subjects correctos — Equipo Complex</span><div class="l"></div></div>
+        <table class="info-table">
+          <tr><th>Subject</th><th>Uso</th></tr>
+          <tr><td><code style="font-size:11.5px;background:var(--beige2);padding:2px 6px;border-radius:4px">PSYCH CDMX: COMPLEX</code></td><td>Nota estándar del equipo Complex</td></tr>
+          <tr><td><code style="font-size:11.5px;background:var(--beige2);padding:2px 6px;border-radius:4px">PSYCH CDMX: SECOND / THIRD / FOURTH…</code></td><td>Entrevistas adicionales (VAWA, Visa T, Complex)</td></tr>
+          <tr><td><code style="font-size:11.5px;background:var(--beige2);padding:2px 6px;border-radius:4px">PSYCH CDMX: DAIR</code></td><td>Dictaminación — VAWA, Visa T y Complex</td></tr>
+          <tr><td><code style="font-size:11.5px;background:rgba(139,48,48,.07);padding:2px 6px;border-radius:4px;color:var(--red)">VAWA P+ ORGANIC EVIDENCE STRATEGY</code></td><td><span style="color:var(--red);font-weight:700">Exclusivo VAWA — NO usar en Complex</span></td></tr>
+          <tr><td><code style="font-size:11.5px;background:rgba(139,48,48,.07);padding:2px 6px;border-radius:4px;color:var(--red)">PSYCH CDMX: VISA T</code></td><td><span style="color:var(--red);font-weight:700">Exclusivo Visa T — NO usar en Complex</span></td></tr>
+        </table>
+
+        <div class="alert info" style="margin-top:12px"><span class="alert-icon">ℹ️</span><div><strong>La lista no es limitativa:</strong> Si tienes una situación distinta, puedes desarrollarla con la misma estructura. Lo que no cambia: el subject debe identificar claramente el área y el propósito del contacto, <strong>siempre en inglés</strong>.</div></div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Paso a paso operativo</span><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><p><strong>Antes de llamar:</strong> revisa las notas existentes para entender el historial, pendientes previos, evidencias prometidas e incidencias.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p><strong>Al iniciar:</strong> menciona el nombre completo del cliente. Es indispensable para la codificación correcta.</p></div>
+          <div class="step-item"><div class="step-num">3</div><p><strong>Durante el contacto:</strong> documenta en tiempo real los acuerdos, documentos solicitados y fechas compromiso.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p><strong>Al concluir:</strong> deja nota clara con lo que se hizo, lo que se pidió, lo que entregó o no, y qué sigue.</p></div>
+          <div class="step-item"><div class="step-num">5</div><p><strong>En incidencias:</strong> también queda asentado con detalle, <mark class="hi">de inmediato</mark>, no al final del día.</p></div>
+        </div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Ejemplos de notas por situación</span><div class="l"></div></div>
+        <table class="info-table">
+          <tr><th>Situación</th><th>Ejemplo de nota (en inglés)</th></tr>
+          <tr><td>No contesta (deja TM)</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. Called CL but NA left TM.</em></td></tr>
+          <tr><td>Agenda de entrevista</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. First VAWA Interview: Margarito Reyes / Abuser (Wife) for May 15 at 01:00 pm DC / 12:00 pm CDMX.</em></td></tr>
+          <tr><td>Entrevista terminada</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. Interview Done: Margarito Reyes / Alondra Guzmán Ruiz (Wife).</em></td></tr>
+          <tr><td>Reagenda</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. Interview Rescheduled: for May 15 at 01:00 pm DC / 12:00 pm CDMX. Because the abuser arrived at home.</em></td></tr>
+          <tr><td>Entrevista continuará</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. Interview will continue for May 15 at 01:00 pm DC / 12:00 pm CDMX. Because the client was busy.</em></td></tr>
+          <tr><td>Envío a filtros</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. Interview Sent to filter.</em></td></tr>
+          <tr><td>Testimonio de testigo</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. The witness statement was taken from Juan Herrera.</em></td></tr>
+          <tr><td>Recepción de evidencias</td><td><em>PSYCH CDMX: Psych. Carolina Sánchez Martínez. Evidence was received and uploaded to DB.</em></td></tr>
+        </table>
+
+        <div class="block b-error" style="margin-top:14px;box-shadow:none">
+          <div class="btitle"><div class="bicon" style="background:linear-gradient(135deg,var(--red),#c04040)">⚠️</div><h3>Errores frecuentes — TramCase</h3><span class="mod-badge badge-warn">Evitar</span></div>
+          <div class="bbody">
+            <div class="checklist">
+              <div class="check-item"><div class="check-box">✗</div><div class="check-label" style="color:var(--red)">Notas vagas como "se habló con cliente" sin acuerdos ni pendientes.</div></div>
+              <div class="check-item"><div class="check-box">✗</div><div class="check-label" style="color:var(--red)">Olvidar registrar fecha compromiso para documentos o evidencias.</div></div>
+              <div class="check-item"><div class="check-box">✗</div><div class="check-label" style="color:var(--red)">No mencionar el nombre completo del cliente → impide la codificación.</div></div>
+              <div class="check-item"><div class="check-box">✗</div><div class="check-label" style="color:var(--red)">Documentar al final del día en lugar de en tiempo real.</div></div>
+              <div class="check-item"><div class="check-box">✗</div><div class="check-label" style="color:var(--red)">Usar el subject de otro equipo (VAWA o Visa T) en casos Complex.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 3: SPEECHS ══════════ -->
+  <div id="sec-speechs">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 3 · Speechs y Guidelines</span><div class="l"></div></div>
+
+    <div class="block b-sage">
+      <div class="btitle">
+        <div class="bicon">🎙️</div>
+        <h3>Speechs y Guidelines por Tipo de Proceso</h3>
+        <span class="mod-badge badge-sage">Comunicación</span>
+      </div>
+      <div class="bbody">
+        <p>El equipo Complex cuenta con speechs diferenciados. Cada proceso tiene un <mark class="hi">contexto legal distinto</mark> que debe comunicarse con claridad al cliente desde el primer contacto. El colaborador debe comprender el contenido y adaptarlo de forma natural, <mark class="hi-red">nunca leyéndolo literalmente</mark>.</p>
+
+        <div class="tab-bar" id="speechTabs">
+          <button class="tab-btn active" onclick="switchTab('speechTabs','sT','s0')">Visa U</button>
+          <button class="tab-btn" onclick="switchTab('speechTabs','sT','s1')">Visa K1</button>
+          <button class="tab-btn" onclick="switchTab('speechTabs','sT','s2')">Consular Process</button>
+          <button class="tab-btn" onclick="switchTab('speechTabs','sT','s3')">Sin Declaración</button>
+        </div>
+
+        <div id="s0" class="tab-panel active">
+          <div class="two-col">
+            <div class="mini-card sage">
+              <h4>📞 Speech de Agenda — Visa U</h4>
+              <ul><li>Introduce el concepto de visa humanitaria para víctimas de delito.</li><li>Explica la necesidad de detalle sobre el incidente.</li><li>Describe el contacto requerido con autoridades.</li><li><strong>Duración estimada: 4-5 hrs.</strong></li></ul>
+            </div>
+            <div class="mini-card sage">
+              <h4>🎬 Guideline Inicio Entrevista — Visa U</h4>
+              <ul><li>Refuerza que la info debe coincidir con documentos de autoridades.</li><li>Explora detalle del crimen, personas afectadas y repercusiones a largo plazo.</li><li><mark class="hi-sage">Honestidad obligatoria.</mark></li></ul>
+            </div>
+          </div>
+          <div class="alert success" style="margin-top:10px"><span class="alert-icon">📋</span><div><strong>Evidencias clave Visa U:</strong> Reporte policial · Certificación de ley firmada por autoridad (U-Supplement) · Registros médicos · Declaraciones de testigos · Evidencia de impacto continuo.</div></div>
+        </div>
+
+        <div id="s1" class="tab-panel">
+          <div class="two-col">
+            <div class="mini-card sage">
+              <h4>📞 Speech de Agenda — Visa K1</h4>
+              <ul><li>Introduce que es la visa para prometidos de ciudadanos americanos.</li><li>Requiere demostrar relación auténtica.</li><li>Deben conocerse en persona desde al menos 2 años.</li><li><strong>Duración estimada: 4-5 hrs.</strong></li></ul>
+            </div>
+            <div class="mini-card sage">
+              <h4>🎬 Guideline Inicio Entrevista — Visa K1</h4>
+              <ul><li>Migración busca autenticidad de la relación.</li><li>La entrevista profundiza en la historia de amor con detalle.</li><li><strong>Participan ambos:</strong> peticionario y beneficiario.</li></ul>
+            </div>
+          </div>
+          <div class="alert warn" style="margin-top:10px"><span class="alert-icon">⚠️</span><div><strong>Requisito legal crítico:</strong> El peticionario y el beneficiario deben haberse conocido en persona dentro de los <mark class="hi">últimos 2 años</mark>. Si no se cumple, detener la entrevista y escalar con Team Leader.</div></div>
+        </div>
+
+        <div id="s2" class="tab-panel">
+          <div class="two-col">
+            <div class="mini-card sage">
+              <h4>📞 Speech de Agenda — Consular Process</h4>
+              <ul><li>Videollamada con peticionario y beneficiario.</li><li><strong>Duración: 5-6 hrs.</strong></li><li>Requiere visión completa y detallada de la historia.</li><li>Sin bloque de preponderancia.</li></ul>
+            </div>
+            <div class="mini-card sage">
+              <h4>🎬 Guideline Inicio Entrevista — Consular</h4>
+              <ul><li>Revisión de docs y llenado de formas migratorias.</li><li><strong>Sin bloque de abuso.</strong></li><li>En casos con Waiver: indagar sobre hardship (impacto económico, familiar, de salud).</li><li>Cierre con pendientes y recordatorio de docs firmados.</li></ul>
+            </div>
+          </div>
+        </div>
+
+        <div id="s3" class="tab-panel">
+          <div class="mini-card cafe" style="margin-bottom:10px">
+            <h4>📁 Guidelines No VAWA PWC — Sin Declaración</h4>
+            <p>Para FOIA, Naturalización, AOS, I-90 y otros. Aplica la guideline de Agenda No VAWA y la guideline de llamada de PWC No VAWA. No requieren videollamada con entrevista narrativa. El foco está en la recolección de documentos e información objetiva para completar las formas migratorias. El contacto puede ser telefónico y más breve.</p>
+          </div>
+          <div class="alert info"><span class="alert-icon">📁</span><div><strong>Flujo sin declaración:</strong> Agenda o llamada directa → Recolección de documentos e info objetiva → Llenado de formas en Mendoza Hub → Seguimiento documental → Supervisión.</div></div>
+        </div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Contenido mínimo de la llamada de Agenda (todos los procesos)</span><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">✓</div><p>Presentación institucional con nombre del agente y referencia a The Mendoza Law Firm.</p></div>
+          <div class="step-item"><div class="step-num">✓</div><p>Explicación del propósito de la videollamada o llamada.</p></div>
+          <div class="step-item"><div class="step-num">✓</div><p>Descripción del tipo de proceso del cliente.</p></div>
+          <div class="step-item"><div class="step-num">✓</div><p>Revisión de checklist y solicitud de envío con fecha compromiso.</p></div>
+          <div class="step-item"><div class="step-num">✓</div><p>Advertencia sobre calidad de fotos y documentos.</p></div>
+          <div class="step-item"><div class="step-num">✓</div><p>Confirmación de fecha y hora del siguiente contacto.</p></div>
+        </div>
+
+        <div class="block b-error" style="margin-top:14px;box-shadow:none">
+          <div class="btitle"><div class="bicon" style="background:linear-gradient(135deg,var(--red),#c04040)">⚠️</div><h3>Errores frecuentes — Speechs</h3></div>
+          <div class="bbody">
+            <div class="foco-list">
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Leer el speech literal, generando una interacción robótica y sin conexión con el cliente.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Usar el speech de Visa U para un caso de Consular Process o viceversa.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Omitir la explicación del tipo de visa o proceso al cliente.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>No cubrir el bloque de preponderancia en casos que sí lo requieren (Visa U y Visa K1).</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Hacer transiciones abruptas entre bloques sin preparar al cliente.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 4: SMS ══════════ -->
+  <div id="sec-sms">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 4 · SMS Operativos</span><div class="l"></div></div>
+
+    <div class="block">
+      <div class="btitle">
+        <div class="bicon">💬</div>
+        <h3>SMS Operativos</h3>
+        <span class="mod-badge badge-cafe">Comunicación escrita</span>
+      </div>
+      <div class="bbody">
+        <p>Los SMS son plantillas funcionales que sirven para reforzar instrucciones, confirmar citas y documentar seguimiento. <mark class="hi-red">Nunca deben enviarse sin revisión previa</mark>: cada mensaje requiere edición antes del envío para adaptarlo al proceso correcto y al nombre del cliente.</p>
+
+        <div class="three-col" style="margin-top:12px">
+          <div class="mini-card sage"><h4>📋 Mensaje de Agenda</h4><p>Documentos requeridos según checklist del proceso e información necesaria para Mendoza Hub.</p></div>
+          <div class="mini-card sage"><h4>📅 Post Agenda</h4><p>Recordatorio de videollamada, enlace de Google Meet y guías de escaneo de documentos.</p></div>
+          <div class="mini-card sage"><h4>✅ Confirmación de videollamada</h4><p>Recordatorio del día y hora del contacto con solicitud de confirmación.</p></div>
+          <div class="mini-card cafe"><h4>📨 Post Videollamada / Llamada</h4><p>Encuesta de satisfacción, instrucciones ICE, preguntas frecuentes y cierre formal.</p></div>
+          <div class="mini-card cafe"><h4>🔄 Seguimiento</h4><p>Lista de documentos o evidencias pendientes con fecha límite de entrega.</p></div>
+          <div class="mini-card warn"><h4>⚠️ No contesta / No coopera / Reagenda</h4><p>Mensajes predeterminados con alerta de retraso en el caso.</p></div>
+        </div>
+        <div class="mini-card danger" style="margin-top:8px"><h4>🚨 Antifraude</h4><p>Script preventivo con solicitud de confirmación de honestidad por escrito.</p></div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Paso a paso operativo</span><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><p><strong>Después de la agenda:</strong> envía el SMS con documentos, información y fecha límite según la checklist del proceso específico.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p><strong>Previo a la videollamada:</strong> envía SMS de confirmación con fecha, hora y enlace de Meet.</p></div>
+          <div class="step-item"><div class="step-num">3</div><p><strong>Después de la videollamada:</strong> envía SMS post entrevista con encuesta de satisfacción, pendientes y preguntas frecuentes.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p><strong>En seguimientos:</strong> personaliza el mensaje con el documento o elemento específico faltante.</p></div>
+          <div class="step-item"><div class="step-num">5</div><p><strong>Ante incidencias:</strong> envía el mensaje predeterminado y registra inmediatamente en TramCase.</p></div>
+        </div>
+
+        <div class="alert warn" style="margin-top:12px">
+          <span class="alert-icon">⚠️</span>
+          <div><strong>Revisión obligatoria antes de enviar cualquier SMS:</strong><br>
+          Nombre completo del cliente · Tipo de proceso correcto · Lista de documentos acorde a la checklist · Fecha y hora correctas · Redacción sin errores · Sin placeholders sin editar · Sin inducción a respuestas falsas.</div>
+        </div>
+
+        <div class="block b-error" style="margin-top:12px;box-shadow:none">
+          <div class="btitle"><div class="bicon" style="background:linear-gradient(135deg,var(--red),#c04040)">⚠️</div><h3>Errores frecuentes — SMS</h3></div>
+          <div class="bbody">
+            <div class="foco-list">
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Enviar plantillas sin editar, con nombres genéricos o datos de otro cliente.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Solicitar documentos que no corresponden al tipo de proceso del cliente.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>No registrar en TramCase el envío o resultado del SMS.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Mandar mensajes sin fecha compromiso ni instrucción clara.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 5: CHECKLIST ══════════ -->
+  <div id="sec-checklist">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 5 · Checklist Documental</span><div class="l"></div></div>
+
+    <div class="block b-cafe">
+      <div class="btitle">
+        <div class="bicon">✅</div>
+        <h3>Checklist de Documentos y Suficiencia</h3>
+        <span class="mod-badge badge-cafe">Estándar documental</span>
+      </div>
+      <div class="bbody">
+        <p>La checklist no solo sirve para "pedir papeles": sirve para <mark class="hi">medir suficiencia, detectar vacíos y conducir la conversación estratégicamente</mark>, diferenciando entre documentos críticos y documentos de apoyo.</p>
+
+        <div class="step-list" style="margin-bottom:14px">
+          <div class="step-item"><div class="step-num">1</div><p><strong>Desde la llamada de agenda:</strong> confirma qué ya existe y qué debe obtenerse antes de la videollamada.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p><strong>Durante la videollamada:</strong> valida si lo recibido está completo, correcto y legible.</p></div>
+          <div class="step-item"><div class="step-num">3</div><p><strong>Ante un faltante:</strong> no cierres con "después lo manda". Explora disponibilidad, fecha de entrega y vía de envío.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p><strong>Valida calidad:</strong> documentos completos, nítidos, legibles y coherentes con el caso.</p></div>
+          <div class="step-item"><div class="step-num">5</div><p><strong>Resistencia del cliente:</strong> evalúa con criterio o consulta con TL si el documento es crítico para continuar.</p></div>
+          <div class="step-item"><div class="step-num">6</div><p><strong>Todo faltante</strong> debe cerrar con <mark class="hi">fecha compromiso registrada en TramCase</mark>.</p></div>
+        </div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Suficiencia documental por proceso</span><div class="l"></div></div>
+
+        <details class="acc">
+          <summary class="acc-header">
+            <div class="acc-left"><div class="acc-num">U</div><div><div class="acc-label">Con declaración</div><div class="acc-title">Visa U — Suficiencia documental</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <div class="chips">
+              <span class="chip">ID del solicitante</span><span class="chip">Acta de nacimiento</span><span class="chip danger">Reporte policial</span><span class="chip danger">U-Supplement (cert. ley)</span><span class="chip">Evidencia de cooperación</span><span class="chip">Registros médicos</span><span class="chip">Registros psicológicos</span><span class="chip">Registros laborales</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header">
+            <div class="acc-left"><div class="acc-num">K1</div><div><div class="acc-label">Con declaración</div><div class="acc-title">Visa K1 — Suficiencia documental</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <div class="chips">
+              <span class="chip">Docs peticionario</span><span class="chip">Docs beneficiario</span><span class="chip danger">Fotos juntos</span><span class="chip danger">Historial de mensajes</span><span class="chip danger">Comprobante encuentro en 2 años</span><span class="chip">Historial de llamadas</span><span class="chip">Documentos de estado civil</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header">
+            <div class="acc-left"><div class="acc-num">C+</div><div><div class="acc-label">Con declaración</div><div class="acc-title">Consular Process + Waiver</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <div class="chips">
+              <span class="chip">Docs peticionario</span><span class="chip">Docs beneficiario</span><span class="chip">Evidencia de relación</span><span class="chip">Historial de entradas y salidas</span><span class="chip">Antecedentes migratorios</span><span class="chip danger">Evidencia de hardship económico</span><span class="chip danger">Evidencia de hardship familiar</span>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc acc-cafe">
+          <summary class="acc-header acc-cafe">
+            <div class="acc-left"><div class="acc-num acc-cafe">ND</div><div><div class="acc-label">Sin declaración</div><div class="acc-title">FOIA · Naturalización · AOS · I-90</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <div class="chips">
+              <span class="chip cafe">Documentos de identidad</span><span class="chip cafe">Historial de residencia</span><span class="chip cafe">Historial de empleo</span><span class="chip cafe">Historial criminal (si aplica)</span><span class="chip cafe">Formas previas de USCIS</span><span class="chip cafe">Documentos específicos del trámite</span>
+            </div>
+          </div>
+        </details>
+
+        <div class="alert danger" style="margin-top:12px">
+          <span class="alert-icon">🚨</span>
+          <div><strong>Estándar de calidad — Sin excepciones:</strong> No se acepta ningún documento o fotografía que sea ilegible, esté manchado, tenga sombras, dedos visibles, esté recortado o incompleto. Si el documento no cumple el estándar, debe solicitarse nuevamente al cliente antes de integrarlo al expediente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 6: MENDOZA HUB ══════════ -->
+  <div id="sec-hub">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 6 · Mendoza Hub</span><div class="l"></div></div>
+
+    <div class="block">
+      <div class="btitle">
+        <div class="bicon">📋</div>
+        <h3>Formas Mendoza Hub</h3>
+        <span class="mod-badge badge-sage">Plataforma de formas</span>
+      </div>
+      <div class="bbody">
+        <p>Mendoza Hub es la plataforma que aloja los formularios del proceso y concentra las preguntas que deben responderse en conjunto con el cliente. Su función es garantizar la <mark class="hi">suficiencia de información para el llenado de las formas migratorias</mark>. Es una herramienta de uso del equipo de Packets.</p>
+
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><p><strong>Antes de la videollamada:</strong> avanza la forma con toda la información ya disponible en MyCase, documentos previos y antecedentes. La forma debe llegar <mark class="hi">lo más completa posible</mark> al inicio de la llamada.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p><strong>Durante la entrevista:</strong> usa el formulario como guía estructurada para recabar datos faltantes y validar consistencia.</p></div>
+          <div class="step-item"><div class="step-num">3</div><p><strong>Inicia con datos básicos:</strong> nombre, fechas, lugares, datos del peticionario, beneficiario o abusador, hijos, contacto y contexto general.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p><strong>Continúa con:</strong> entradas y salidas, identidades alternas, posibles bars, historial criminal, situación familiar y cualquier otro dato requerido.</p></div>
+          <div class="step-item"><div class="step-num">5</div><p><strong>Mantén agilidad:</strong> el llenado puede ser extenso; sé claro, directo y ordenado para no desgastar al cliente.</p></div>
+          <div class="step-item"><div class="step-num">6</div><p><strong>Ante inconsistencias:</strong> acláralas en el momento y deja nota para revisión posterior si es necesario.</p></div>
+          <div class="step-item"><div class="step-num">7</div><p><strong>Cierra el bloque</strong> con revisión rápida de datos sensibles o pendientes de confirmación.</p></div>
+        </div>
+
+        <div class="block b-error" style="margin-top:14px;box-shadow:none">
+          <div class="btitle"><div class="bicon" style="background:linear-gradient(135deg,var(--red),#c04040)">⚠️</div><h3>Errores frecuentes — Mendoza Hub</h3></div>
+          <div class="bbody">
+            <div class="foco-list">
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Llegar a la videollamada con la forma completamente vacía.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Hacer preguntas desordenadas sin respetar la lógica del formulario.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>No confirmar nombres, fechas o lugares sensibles al momento de capturarlos.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Confundir información objetiva del formulario con la narración de la historia del caso.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 7: ENTREVISTA ══════════ -->
+  <div id="sec-entrevista">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 7 · Desarrollo de Entrevista</span><div class="l"></div></div>
+
+    <div class="block b-sage">
+      <div class="btitle">
+        <div class="bicon">🎬</div>
+        <h3>Desarrollo de Entrevista — Procesos con Declaración</h3>
+        <span class="mod-badge badge-sage">Visa U · K1 · Consular</span>
+      </div>
+      <div class="bbody">
+        <div class="alert info"><span class="alert-icon">ℹ️</span><div>Este módulo aplica <strong>únicamente</strong> a Visa U, Visa K1 y Consular Process + Waiver. Para FOIA, Naturalización, AOS e I-90 no hay bloque de entrevista narrativa: el contacto se centra en recolección documental e información objetiva.</div></div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Por tipo de proceso</span><div class="l"></div></div>
+
+        <details class="acc" open>
+          <summary class="acc-header">
+            <div class="acc-left"><div class="acc-num">U</div><div><div class="acc-label">Entrevista sobre el delito</div><div class="acc-title">Visa U — Bloque de entrevista</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <p style="font-size:13px;margin-bottom:10px">La entrevista de Visa U se centra en el crimen que sufrió el cliente y su cooperación con autoridades. La información debe ser <mark class="hi-red">consistente con los documentos emitidos por las autoridades</mark>.</p>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><p>Desarrolla los eventos con orden y claridad. Numera verbalmente cada evento para facilitar el procesamiento posterior.</p></div>
+              <div class="step-item"><div class="step-num">2</div><p>Prioriza los hechos más relevantes primero: qué pasó, cuándo, dónde, cómo, personas presentes, afectación y cooperación con autoridades.</p></div>
+              <div class="step-item"><div class="step-num">3</div><p>En cada evento: pregunta si existe evidencia y, si no, explora alternativas o testigos.</p></div>
+              <div class="step-item"><div class="step-num">4</div><p>Si la evidencia está disponible: solicita envío en ese momento. Si no: fija <mark class="hi">fecha compromiso específica</mark>.</p></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc">
+          <summary class="acc-header">
+            <div class="acc-left"><div class="acc-num">K1</div><div><div class="acc-label">Entrevista sobre la relación</div><div class="acc-title">Visa K1 — Bloque de entrevista</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <p style="font-size:13px;margin-bottom:10px">El bloque de Visa K1 busca demostrar la <mark class="hi">autenticidad de la relación</mark> entre el peticionario y el beneficiario. Ambos participan en la videollamada.</p>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><p>Profundiza en la historia de la relación: cómo se conocieron, cómo evolucionó el vínculo, momentos importantes.</p></div>
+              <div class="step-item"><div class="step-num">2</div><p>Verifica que se han conocido en persona dentro de los <mark class="hi-red">últimos 2 años</mark> (requisito legal obligatorio).</p></div>
+              <div class="step-item"><div class="step-num">3</div><p>Confirma que no existe impedimento legal para el matrimonio (estado civil, situaciones previas).</p></div>
+              <div class="step-item"><div class="step-num">4</div><p>Solicita evidencia: fotos juntos, historial de mensajes, registros de llamadas, comprobantes de viajes o encuentros.</p></div>
+              <div class="step-item"><div class="step-num">5</div><p>La entrevista debe sentirse <mark class="hi-sage">humana y auténtica</mark>, no como un interrogatorio.</p></div>
+            </div>
+          </div>
+        </details>
+
+        <details class="acc acc-cafe">
+          <summary class="acc-header acc-cafe">
+            <div class="acc-left"><div class="acc-num acc-cafe">C+</div><div><div class="acc-label">Sin bloque de abuso</div><div class="acc-title">Consular Process + Waiver</div></div></div>
+            <span class="acc-arrow">▶</span>
+          </summary>
+          <div class="acc-body">
+            <p style="font-size:13px;margin-bottom:10px">El Consular Process <mark class="hi-cafe">no incluye bloque de abuso</mark>. La videollamada (5-6 hrs) se centra en revisión de documentos, llenado de formas y cierre con pendientes claros.</p>
+            <div class="step-list">
+              <div class="step-item"><div class="step-num">1</div><p>Revisa en conjunto los documentos enviados y los faltantes al inicio de la videollamada.</p></div>
+              <div class="step-item"><div class="step-num">2</div><p>Llena las formas migratorias con información objetiva de ambos (peticionario y beneficiario).</p></div>
+              <div class="step-item"><div class="step-num">3</div><p>En casos con Waiver: indaga sobre los motivos de inadmisibilidad y el <mark class="hi">hardship</mark> (impacto en el peticionario si el beneficiario no puede ingresar).</p></div>
+              <div class="step-item"><div class="step-num">4</div><p>Cierra con lista clara de pendientes, fechas compromiso y recordatorio del paquete de bienvenida.</p></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 8: DROPBOX ══════════ -->
+  <div id="sec-dropbox">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 8 · Dropbox y Orden Documental</span><div class="l"></div></div>
+
+    <div class="block b-cafe">
+      <div class="btitle">
+        <div class="bicon">📁</div>
+        <h3>Dropbox y Orden Documental</h3>
+        <span class="mod-badge badge-cafe">Repositorio</span>
+      </div>
+      <div class="bbody">
+        <p>Dropbox es el repositorio operativo donde deben quedar ordenados documentos, evidencias y entregables. Su valor real es la <mark class="hi">localización rápida y la continuidad del caso sin desorden</mark>. La nomenclatura correcta es crítica para que las automatizaciones del sistema funcionen.</p>
+
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><p>Sube los documentos siguiendo la <strong>estructura de carpetas establecida</strong> para el tipo de proceso.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p>Respeta la nomenclatura definida: el nombre del archivo debe identificar su contenido sin necesidad de abrirlo.</p></div>
+          <div class="step-item"><div class="step-num">3</div><p>Verifica que archivos de audio y video sean reproducibles. Si no lo son, cambia el formato o deja constancia en TramCase.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p>Cuando una evidencia esté citada en estrategia o DOE, asegúrate de que el nombre del archivo coincida y sea localizable.</p></div>
+          <div class="step-item"><div class="step-num">5</div><p>Evita duplicados, versiones confusas o archivos sin identificar.</p></div>
+          <div class="step-item"><div class="step-num">6</div><p>Si recibes evidencia nueva después de la videollamada, súbela y vincúlala al seguimiento en TramCase.</p></div>
+        </div>
+
+        <div class="block b-error" style="margin-top:12px;box-shadow:none">
+          <div class="btitle"><div class="bicon" style="background:linear-gradient(135deg,var(--red),#c04040)">⚠️</div><h3>Errores frecuentes — Dropbox</h3></div>
+          <div class="bbody">
+            <div class="foco-list">
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Guardar archivos con nombres genéricos como "foto1", "audio nuevo" o "documento final final".</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>No verificar si un video o audio se reproduce correctamente antes de subirlo.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Mezclar archivos del cliente en carpetas incorrectas.</p></div>
+              <div class="foco-item"><span class="foco-icon">✗</span><p>Dejar evidencia recibida solo en el mensaje de texto sin integrarla al repositorio.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 9: ANTIFRAUDE ══════════ -->
+  <div id="sec-antifraude">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 9 · Antifraude Preventivo</span><div class="l"></div></div>
+
+    <div class="block b-error">
+      <div class="btitle">
+        <div class="bicon" style="background:linear-gradient(135deg,var(--red),#c04040)">🚨</div>
+        <h3>Antifraude Preventivo</h3>
+        <span class="mod-badge badge-warn">Protocolo obligatorio</span>
+      </div>
+      <div class="bbody">
+        <p>El recurso antifraude debe activarse en <mark class="hi-red">cualquier momento del contacto</mark> cuando se detecten indicios de intención de mentir, exagerar, fabricar evidencia o construir hechos para "hacer pasar" el caso. Aplica especialmente en Visa U, K1 y Consular con Waiver.</p>
+
+        <div class="sdiv" style="margin:12px 0 8px"><div class="l"></div><span class="t">🚩 Focos rojos que activan el recurso</span><div class="l"></div></div>
+        <div class="foco-list">
+          <div class="foco-item"><span class="foco-icon">🚩</span><p>"Usted dígame qué tengo que decir para arreglar."</p></div>
+          <div class="foco-item"><span class="foco-icon">🚩</span><p>"Póngale lo que necesita, yo le contesto como usted quiera."</p></div>
+          <div class="foco-item"><span class="foco-icon">🚩</span><p>"Yo puedo provocar a mi familiar para obtener la evidencia que necesita."</p></div>
+          <div class="foco-item"><span class="foco-icon">🚩</span><p>"Eso no pasó, pero si quiere lo decimos."</p></div>
+          <div class="foco-item"><span class="foco-icon">🚩</span><p>"Explíqueme cómo tiene que ser y yo lo digo así."</p></div>
+          <div class="foco-item"><span class="foco-icon">🚩</span><p>"¿Qué tengo que hacer para que mi caso pase?"</p></div>
+        </div>
+
+        <div class="sdiv" style="margin:12px 0 8px"><div class="l"></div><span class="t">Protocolo de intervención</span><div class="l"></div></div>
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><p>Escucha con atención frases que indiquen deseo de que le digan "qué decir" o cómo fabricar evidencia.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p><strong>Al detectar el indicio:</strong> reencuadra la conversación de inmediato y explica que la firma solo trabaja con casos basados en la verdad.</p></div>
+          <div class="step-item"><div class="step-num">3</div><p>Lee y envía el <mark class="hi-red">script preventivo antifraude</mark> por mensaje de texto mientras mantienes la llamada activa.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p>Pide al cliente que responda por escrito: <strong>"Acepto ser honesto al hablar de los hechos en mi caso."</strong></p></div>
+          <div class="step-item"><div class="step-num">5</div><p>Si persiste la intención: informa que la situación será reportada al área de Compliance y <mark class="hi-red">escala de inmediato</mark>.</p></div>
+          <div class="step-item"><div class="step-num">6</div><p>Documenta con precisión en TramCase lo ocurrido, sin adornar ni minimizar el riesgo.</p></div>
+        </div>
+
+        <div class="alert danger" style="margin-top:12px">
+          <span class="alert-icon">🚨</span>
+          <div><strong>Intervención firme, clara y profesional:</strong> No se debe humillar al cliente, pero sí dejar explícito el estándar de verdad. Todo riesgo de fraude, aunque parezca menor o motivado por desesperación, debe quedar documentado en TramCase y escalado a Compliance. <strong>Ignorar una señal de fraude es una falta operativa grave.</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 10: INCIDENCIAS ══════════ -->
+  <div id="sec-incidencias">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 10 · Escenarios Especiales e Incidencias</span><div class="l"></div></div>
+
+    <div class="block b-warn">
+      <div class="btitle">
+        <div class="bicon" style="background:linear-gradient(135deg,var(--amber),#a07800)">⚡</div>
+        <h3>Manejo de Escenarios Especiales e Incidencias</h3>
+        <span class="mod-badge badge-amber">Protocolo</span>
+      </div>
+      <div class="bbody">
+        <div class="three-col">
+          <div class="mini-card warn">
+            <h4>📵 Cliente no contesta</h4>
+            <ul>
+              <li>Realiza el intento de contacto por la vía establecida.</li>
+              <li>Envía el SMS correspondiente inmediatamente.</li>
+              <li>Deja nota en TramCase: fecha, hora, canal y resultado.</li>
+              <li><mark class="hi">Regla de 17 intentos:</mark> 3 diarios L-V, 2 el sábado.</li>
+            </ul>
+          </div>
+          <div class="mini-card warn">
+            <h4>🚫 Cliente no coopera</h4>
+            <ul>
+              <li>Explica nuevamente la importancia de la información.</li>
+              <li>Solicita fecha compromiso específica.</li>
+              <li>Documenta en TramCase la falta de cooperación y el acuerdo alcanzado.</li>
+              <li>Si persiste, eleva conforme al protocolo del área.</li>
+            </ul>
+          </div>
+          <div class="mini-card warn">
+            <h4>🔄 Reagenda</h4>
+            <ul>
+              <li>Confirma la imposibilidad real del cliente para atender.</li>
+              <li>Propón nueva fecha y hora concretas.</li>
+              <li>Envía SMS de reagenda con aviso de retraso.</li>
+              <li>Actualiza la nota y la codificación en TramCase.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mini-card cafe" style="margin-top:10px">
+          <h4>📁 FOIA y procesos sin declaración</h4>
+          <p>Reconoce que estos casos no requieren videollamada estándar con entrevista narrativa. Si el cliente puede atender en el primer contacto, explora información y documentos necesarios en esa misma interacción. Aplica siempre speechs de No VAWA PWC, notas de TramCase, checklist y trazabilidad estándar.</p>
+        </div>
+
+        <div class="alert info" style="margin-top:10px">
+          <span class="alert-icon">🎥</span>
+          <div><strong>Fondos institucionales — Imagen en videollamada:</strong> Antes de iniciar cualquier videollamada, el colaborador debe tener activo el fondo institucional de TMLF. Verifica: <strong>fondo activo · iluminación · audio · encuadre · presentación personal</strong> antes de conectar con el cliente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN 11: SUPERVISIÓN ══════════ -->
+  <div id="sec-supervision">
+    <div class="sdiv"><div class="l"></div><span class="t">Módulo 11 · Supervisión y Cierre</span><div class="l"></div></div>
+
+    <div class="block b-gold">
+      <div class="btitle">
+        <div class="bicon" style="background:linear-gradient(135deg,var(--gold),var(--sand-dark))">🔍</div>
+        <h3>Form de Supervisión y Cierre del Ciclo Operativo</h3>
+        <span class="mod-badge badge-gold">Control de calidad</span>
+      </div>
+      <div class="bbody">
+        <p>El Form de Supervisión permite al <mark class="hi">Team Leader revisar los casos entregados</mark>: verificar que el trabajo se haya hecho con suficiencia, documentos completos, formas avanzadas, notas claras, evidencias integradas y seguimiento trazable.</p>
+
+        <div class="step-list">
+          <div class="step-item"><div class="step-num">1</div><p>Una vez concluida la etapa, presenta el caso de forma ordenada: notas completas, evidencias en Dropbox, formularios avanzados y checklist actualizada.</p></div>
+          <div class="step-item"><div class="step-num">2</div><p>El Team Leader revisa mediante el Form si la entrega cumple los estándares de suficiencia (contenido + proceso).</p></div>
+          <div class="step-item"><div class="step-num">3</div><p>Si la supervisión detecta vacíos, el caso regresa con observaciones específicas que deben atenderse antes de avanzar.</p></div>
+          <div class="step-item"><div class="step-num">4</div><p>El colaborador debe interpretar la supervisión como una <mark class="hi">etapa operativa más</mark>, no como un trámite ajeno.</p></div>
+        </div>
+
+        <div class="sdiv" style="margin:14px 0 8px"><div class="l"></div><span class="t">Criterios de dominio esperados al finalizar el training</span><div class="l"></div></div>
+        <table class="comp-table">
+          <tr><th>Competencia</th><th>Evidencia observable</th><th>Nivel</th></tr>
+          <tr><td><strong>Speechs diferenciados por visa</strong></td><td>Explica el proceso (Visa U, K1, Consular, No VAWA) con naturalidad y sin leer textualmente</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>Checklist con criterio</strong></td><td>Detecta faltantes, valida calidad, diferencia críticos de opcionales y establece fechas compromiso</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>Documentación TramCase</strong></td><td>Notas claras en inglés, subject correcto, codificación exacta y trazabilidad de seguimiento</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>Mendoza Hub</strong></td><td>Llenado suficiente antes y durante la videollamada, validación de datos sensibles</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>SMS correctos</strong></td><td>Plantillas siempre editadas, congruentes con el proceso correcto y enviadas oportunamente</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>Orden documental</strong></td><td>Dropbox con nomenclatura correcta, archivos reproducibles y expediente localizable</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>Intervención antifraude</strong></td><td>Activa disclaimer, envía texto preventivo y escala el riesgo cuando corresponde</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+          <tr><td><strong>Escenarios especiales</strong></td><td>Aplica protocolo correcto ante no contesta, no coopera, reagenda, FOIA y Naturalización</td><td><span class="comp-badge">✓ Logrado</span></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN QUIZ ══════════ -->
+  <div id="sec-quiz">
+    <div class="sdiv"><div class="l"></div><span class="t">Preguntas de Refuerzo</span><div class="l"></div></div>
+
+    <div class="block b-gold">
+      <div class="btitle">
+        <div class="bicon" style="background:linear-gradient(135deg,var(--gold),var(--sand-dark))">✦</div>
+        <h3>Verifica tu Comprensión</h3>
+        <span class="mod-badge badge-gold">4 preguntas</span>
+      </div>
+      <div class="bbody" id="quizContainer">
+
+        <div class="quiz-q" data-q="0">
+          <div class="quiz-qtext">1. ¿Cuál es la diferencia operativa principal entre un caso de Visa U y un caso de Naturalización dentro del equipo Complex?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="answerQ(0,0)"><div class="quiz-radio"></div>La Visa U requiere más documentos de identidad que la Naturalización.</button>
+            <button class="quiz-opt" onclick="answerQ(0,1)"><div class="quiz-radio"></div>La Visa U requiere entrevista con declaración narrativa y bloque de evidencias; la Naturalización no requiere entrevista y el contacto se centra en información objetiva y documentos.</button>
+            <button class="quiz-opt" onclick="answerQ(0,2)"><div class="quiz-radio"></div>La Naturalización usa la guideline de Visa U porque ambas son procesos humanitarios.</button>
+            <button class="quiz-opt" onclick="answerQ(0,3)"><div class="quiz-radio"></div>No hay diferencia: ambas usan el mismo speech y el mismo flujo de contacto.</button>
+          </div>
+          <div class="quiz-feedback" id="fb-0"></div>
+        </div>
+
+        <div class="quiz-q" data-q="1">
+          <div class="quiz-qtext">2. ¿Cuál es el subject correcto para una nota de TramCase del equipo Complex durante una entrevista estándar?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="answerQ(1,0)"><div class="quiz-radio"></div>VAWA P+ ORGANIC EVIDENCE STRATEGY</button>
+            <button class="quiz-opt" onclick="answerQ(1,1)"><div class="quiz-radio"></div>PSYCH CDMX: VISA T</button>
+            <button class="quiz-opt" onclick="answerQ(1,2)"><div class="quiz-radio"></div>PSYCH CDMX: COMPLEX</button>
+            <button class="quiz-opt" onclick="answerQ(1,3)"><div class="quiz-radio"></div>PWC CDMX / NOMBRE DEL COLABORADOR</button>
+          </div>
+          <div class="quiz-feedback" id="fb-1"></div>
+        </div>
+
+        <div class="quiz-q" data-q="2">
+          <div class="quiz-qtext">3. Durante la videollamada de Visa K1, el cliente menciona que solo se han visto por videollamada y nunca en persona. ¿Cuál es la acción correcta?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="answerQ(2,0)"><div class="quiz-radio"></div>Continuar con la entrevista normalmente y documentar el dato en las formas.</button>
+            <button class="quiz-opt" onclick="answerQ(2,1)"><div class="quiz-radio"></div>Cortar la videollamada de inmediato y escalar el caso como fraude.</button>
+            <button class="quiz-opt" onclick="answerQ(2,2)"><div class="quiz-radio"></div>Reconocer que esto es un requisito legal crítico, detener la entrevista de narración y escalar con el Team Leader para determinar la viabilidad del caso.</button>
+            <button class="quiz-opt" onclick="answerQ(2,3)"><div class="quiz-radio"></div>Ignorar el comentario y enfocarse en la historia de la relación.</button>
+          </div>
+          <div class="quiz-feedback" id="fb-2"></div>
+        </div>
+
+        <div class="quiz-q" data-q="3">
+          <div class="quiz-qtext">4. Un cliente de Consular Process dice: "Usted dígame qué necesita que yo diga y yo lo digo así." ¿Cuál es el protocolo correcto?</div>
+          <div class="quiz-opts">
+            <button class="quiz-opt" onclick="answerQ(3,0)"><div class="quiz-radio"></div>Explicarle con paciencia cómo debe narrar su historia para que suene convincente.</button>
+            <button class="quiz-opt" onclick="answerQ(3,1)"><div class="quiz-radio"></div>Ignorar el comentario porque probablemente el cliente no entiende el proceso.</button>
+            <button class="quiz-opt" onclick="answerQ(3,2)"><div class="quiz-radio"></div>Activar el recurso antifraude: reencuadrar la conversación, leer y enviar el script preventivo, pedir confirmación por escrito de honestidad y escalar si persiste la intención.</button>
+            <button class="quiz-opt" onclick="answerQ(3,3)"><div class="quiz-radio"></div>Terminar la videollamada sin explicación y reportarlo al día siguiente.</button>
+          </div>
+          <div class="quiz-feedback" id="fb-3"></div>
+        </div>
+
+        <div style="text-align:center;margin-top:12px">
+          <button class="quiz-btn" id="checkBtn" onclick="checkQuiz()">Verificar respuestas</button>
+          <button class="quiz-btn" id="resetBtn" onclick="resetQuiz()" style="display:none;background:var(--warm-slate);margin-left:8px">Reintentar</button>
+        </div>
+
+        <div class="quiz-result" id="quizResult">
+          <div class="quiz-score" id="quizScore"></div>
+          <div style="margin-top:8px;font-size:13px;font-weight:600;color:var(--ink)" id="quizMsg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN RECURSOS ══════════ -->
+  <div id="sec-recursos">
+    <div class="sdiv"><div class="l"></div><span class="t">Resumen de Recursos Operativos</span><div class="l"></div></div>
+
+    <div class="block b-sage">
+      <div class="btitle">
+        <div class="bicon">📦</div>
+        <h3>Resumen Completo de Recursos — Equipo Complex</h3>
+        <span class="mod-badge badge-sage">Referencia rápida</span>
+      </div>
+      <div class="bbody">
+        <p>Todos son de uso obligatorio en el momento que corresponde:</p>
+        <table class="info-table">
+          <tr><th>Recurso</th><th>Descripción y uso</th></tr>
+          <tr><td><strong>Notas de TramCase</strong></td><td>Registro oficial de cada interacción. Subject: PSYCH CDMX: COMPLEX (y variantes). Siempre en inglés. Incluye codificación, fecha compromiso y resultado del contacto.</td></tr>
+          <tr><td><strong>Speech Agenda — Visa U</strong></td><td>Para casos de Visa U. Introduce el concepto de visa humanitaria para víctimas de delito. Explica necesidad de cooperación con autoridades y detalle del incidente.</td></tr>
+          <tr><td><strong>Speech Agenda — Visa K1</strong></td><td>Para casos de Visa K1. Introduce el proceso para prometidos de ciudadanos americanos. Destaca la necesidad de demostrar autenticidad de relación y conocimiento en persona.</td></tr>
+          <tr><td><strong>Speech Agenda — Consular Process</strong></td><td>Para casos de I-130 + Waiver. Videollamada con peticionario y beneficiario (5-6 hrs). Sin bloque de preponderancia.</td></tr>
+          <tr><td><strong>Guidelines No VAWA PWC</strong></td><td>Para FOIA, Naturalización, AOS, I-90 y otros sin declaración. Agenda y llamada de PWC sin entrevista narrativa.</td></tr>
+          <tr><td><strong>Guideline Inicio Entrevista</strong></td><td>Guía específica para el inicio de videollamada de Visa U, K1 y Consular. Define dinámica, honestidad y estructura de la entrevista.</td></tr>
+          <tr><td><strong>SMS Operativos</strong></td><td>7 tipos: Agenda, Post Agenda, Confirmación, Post Videollamada, Seguimiento, No contesta/Reagenda/No coopera, y Antifraude. Siempre editar antes de enviar.</td></tr>
+          <tr><td><strong>Checklist de documentos</strong></td><td>Suficiencia documental por proceso. Aplica desde la agenda. Todo faltante cierra con fecha compromiso.</td></tr>
+          <tr><td><strong>Mendoza Hub (Formas)</strong></td><td>Plataforma de formularios migratorios. Llenar antes y durante la videollamada. Uso del equipo de Packets.</td></tr>
+          <tr><td><strong>Dropbox y nomenclatura</strong></td><td>Repositorio ordenado con carpetas y nombres de archivo correctos. Archivos reproducibles y sin duplicados.</td></tr>
+          <tr><td><strong>Disclaimer Antifraude</strong></td><td>Script preventivo + envío por SMS + confirmación escrita del cliente. Escalar a Compliance si persiste el riesgo.</td></tr>
+          <tr><td><strong>Fondos institucionales</strong></td><td>Fondo TMLF activo en toda videollamada. Imagen profesional obligatoria.</td></tr>
+          <tr><td><strong>Form de Supervisión TL</strong></td><td>Revisión de suficiencia documental, formas y trazabilidad. Resultado: caso listo para avanzar o regresa con observaciones.</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECCIÓN CIERRE ══════════ -->
+  <div id="sec-cierre">
+    <div class="sdiv"><div class="l"></div><span class="t">Conclusión Operativa</span><div class="l"></div></div>
+
+    <div class="block b-gold">
+      <div class="btitle">
+        <div class="bicon" style="background:linear-gradient(135deg,var(--gold),var(--sand-dark))">★</div>
+        <h3>Conclusión Operativa</h3>
+        <span class="mod-badge badge-gold">Cierre</span>
+      </div>
+      <div class="bbody">
+        <div class="principle">
+          <p>"El equipo PSYCHS Complex no opera con recursos aislados: opera con una cadena operativa en la que cada herramienta tiene un momento, una lógica y una consecuencia sobre la calidad del caso."</p>
+          <p class="principle-sub">— TMLF Learning Center · Training Operativo · Enero 2026</p>
+        </div>
+        <p style="margin-top:14px">La diversidad de procesos que atiende el equipo (Visa U, K1, Consular + Waiver, FOIA, Naturalización, AOS, I-90) exige un nivel adicional de criterio: el colaborador debe identificar rápidamente qué tipo de proceso tiene frente a él y activar los recursos que corresponden, <mark class="hi">no los genéricos</mark>.</p>
+        <p>El dominio real del puesto no consiste en memorizar speechs o plantillas, sino en saber utilizarlos <mark class="hi-sage">cronológicamente, con intención, con trazabilidad y con criterio profesional</mark> frente al cliente.</p>
+
+        <div class="three-col" style="margin-top:14px">
+          <div class="mini-card sage"><h4>⏱️ Cronológicamente</h4><p>Cada recurso tiene un momento preciso en el flujo. Úsalos en orden, no al azar.</p></div>
+          <div class="mini-card cafe"><h4>🎯 Con criterio</h4><p>Diferencia qué proceso tienes frente a ti y activa los recursos que corresponden.</p></div>
+          <div class="mini-card"><h4>📋 Con trazabilidad</h4><p>Todo queda documentado en TramCase con exactitud y oportunidad.</p></div>
+        </div>
+
+        <div style="text-align:center;margin-top:20px;padding:16px;background:var(--sage-bg);border-radius:10px;border:1px solid var(--sage-border)">
+          <div style="font-size:20px;margin-bottom:6px">⚖️</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;color:var(--sage-dark)">The Mendoza Law Firm</div>
+          <div style="font-size:11px;color:var(--warm-slate);margin-top:3px">TMLF Learning Center · Documento interno · Equipo PSYCHS Complex · Enero 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// SIDEBAR
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sbOverlay').classList.toggle('show');
+}
+
+// SMOOTH SCROLL
+function scrollTo(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-70,behavior:'smooth'});
+  if(window.innerWidth<=900){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sbOverlay').classList.remove('show');
+  }
+}
+
+// PROGRESS BAR
+window.addEventListener('scroll',()=>{
+  const scrolled=window.scrollY;
+  const total=document.body.scrollHeight-window.innerHeight;
+  document.getElementById('progressBar').style.width=(total>0?(scrolled/total*100):0)+'%';
+});
+
+// TABS
+function switchTab(barId,prefix,targetId){
+  const bar=document.getElementById(barId);
+  bar.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  const panel=document.getElementById(targetId);
+  if(!panel)return;
+  const parent=panel.parentElement;
+  parent.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  panel.classList.add('active');
+}
+
+// QUIZ
+const CORRECT=[1,2,2,2];
+const EXPLAIN=[
+  '💡 El equipo Complex diferencia dos grandes grupos: con declaración (Visa U, K1, Consular + Waiver) y sin declaración (FOIA, Naturalización, AOS, I-90). Esta distinción determina el speech, la duración del contacto y los recursos que se activan.',
+  '💡 "PSYCH CDMX: COMPLEX" identifica correctamente al equipo Complex. Usar el subject de otro equipo (VAWA, Visa T o PWI) genera confusión en la trazabilidad del caso.',
+  '💡 La Visa K1 requiere encuentro físico en los últimos 2 años. Es un requisito legal obligatorio. Si no se cumple, el colaborador debe detener la entrevista y consultar con el Team Leader antes de continuar.',
+  '💡 Esta frase es un foco rojo de antifraude. El protocolo es: reencuadrar de inmediato, leer el script antifraude, enviarlo por SMS simultáneamente, solicitar confirmación escrita del cliente y, si persiste, escalar a Compliance sin demora.'
+];
+let answers=new Array(4).fill(null);
+let submitted=false;
+
+function answerQ(q,opt){
+  if(submitted)return;
+  answers[q]=opt;
+  const qEl=document.querySelectorAll('.quiz-q')[q];
+  qEl.querySelectorAll('.quiz-opt').forEach((b,i)=>{
+    b.classList.remove('selected');
+    if(i===opt)b.classList.add('selected');
+  });
+}
+
+function checkQuiz(){
+  if(answers.includes(null)){alert('Por favor responde todas las preguntas.');return;}
+  submitted=true;
+  let score=0;
+  document.querySelectorAll('.quiz-q').forEach((qEl,q)=>{
+    qEl.querySelectorAll('.quiz-opt').forEach((b,i)=>{
+      b.classList.add('disabled');
+      if(i===CORRECT[q])b.classList.add('correct');
+      else if(i===answers[q]&&answers[q]!==CORRECT[q])b.classList.add('incorrect');
+    });
+    const fb=document.getElementById('fb-'+q);
+    if(answers[q]===CORRECT[q]){score++;fb.textContent='✅ '+EXPLAIN[q];fb.className='quiz-feedback show correct-fb';}
+    else{fb.textContent='❌ '+EXPLAIN[q];fb.className='quiz-feedback show incorrect-fb';}
+  });
+  document.getElementById('checkBtn').style.display='none';
+  document.getElementById('resetBtn').style.display='inline-block';
+  const res=document.getElementById('quizResult');
+  const sc=document.getElementById('quizScore');
+  const msg=document.getElementById('quizMsg');
+  sc.textContent=score+'/4';
+  if(score===4){sc.className='quiz-score pass';msg.textContent='¡Excelente! Dominas los recursos operativos del equipo Complex.';res.className='quiz-result show pass';}
+  else{sc.className='quiz-score warn';msg.textContent='Revisa los módulos correspondientes a las preguntas incorrectas.';res.className='quiz-result show warn';}
+}
+
+function resetQuiz(){
+  answers=new Array(4).fill(null);
+  submitted=false;
+  document.querySelectorAll('.quiz-q').forEach((qEl,q)=>{
+    qEl.querySelectorAll('.quiz-opt').forEach(b=>{b.className='quiz-opt';});
+    const fb=document.getElementById('fb-'+q);
+    fb.className='quiz-feedback';fb.textContent='';
+  });
+  document.getElementById('checkBtn').style.display='inline-block';
+  document.getElementById('resetBtn').style.display='none';
+  document.getElementById('quizResult').className='quiz-result';
+}
+</script>
+</body>
+</html>
