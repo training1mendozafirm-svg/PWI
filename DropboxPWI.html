@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Módulo 7 — Organización en Dropbox | TMLF Learning Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2A2018;--slate:#6B6055;--steel:#8B7B6F;--mist:#B5A898;
+  --gold:#B8936A;--gold-bg:rgba(184,147,106,.09);
+  --white:#FDFAF7;--bg:#F0EBE3;--shadow:0 8px 28px rgba(42,32,24,.10);--radius:16px;
+  --green:#2D5A1B;--green2:#4A7C35;--green-bg:rgba(45,90,27,.08);
+  --sage:#6B8C6B;--sage-light:#A8C5A0;--pale-green:#D4E8CC;
+  --red:#8b2c2c;--red-bg:rgba(180,50,50,.08);
+  --amber:#7a5200;--amber-bg:rgba(180,130,0,.09);
+  --accent:#2D5A1B;--accent2:#4A7C35;
+  --beige:#E8DDD0;--sand:#D4C4A8;--cafe:#8B7355;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;padding:28px 18px 60px}
+
+/* ══ TOP BAR ══ */
+.topbar{background:linear-gradient(135deg,#111A0E 0%,#1E3A14 60%,#2D5A1B 100%);border-radius:14px;padding:14px 22px;display:flex;align-items:center;gap:12px;margin-bottom:22px;box-shadow:0 6px 20px rgba(10,20,10,.2)}
+.topbar .brand{font-family:'Cormorant Garamond',serif;font-size:17px;color:#fff;display:flex;align-items:center;gap:10px}
+.topbar .brand .seal{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,rgba(184,147,106,.3),rgba(184,147,106,.08));border:1px solid rgba(184,147,106,.3);display:flex;align-items:center;justify-content:center;font-size:13px}
+.topbar .brand span{color:var(--gold)}
+.topbar-pill{margin-left:auto;padding:4px 13px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:rgba(184,147,106,.12);border:1px solid rgba(184,147,106,.28);color:rgba(184,147,106,.9)}
+
+/* ══ PAGE TITLE ══ */
+.page-title{margin-bottom:16px}
+.page-title .pt-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--slate);margin-bottom:4px}
+.page-title h2{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink)}
+.page-title .pt-sub{font-size:13px;color:var(--slate);margin-top:3px}
+
+/* ══ RULE CARD ══ */
+.rule-card{padding:16px 18px;border-radius:12px;margin-bottom:14px}
+.rule-card.danger{background:#FFF0F0;border:1px solid rgba(180,50,50,.25);border-left:4px solid var(--red)}
+.rule-card h4{font-size:13.5px;font-weight:700;color:var(--red);margin-bottom:5px}
+.rule-card p{font-size:13px;color:#5a2020;line-height:1.55;margin:0}
+
+/* ══ BLOCKS ══ */
+.block{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid rgba(107,140,107,.15);overflow:hidden;margin-bottom:14px}
+.block:last-child{margin-bottom:0}
+.block .btitle{display:flex;align-items:center;gap:10px;padding:15px 18px;background:linear-gradient(180deg,rgba(168,197,160,.16),rgba(168,197,160,.02));border-bottom:1px solid rgba(107,140,107,.13)}
+.block .btitle .bicon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px}
+.block .btitle h3{font-size:15.5px;color:var(--ink);font-family:'Cormorant Garamond',serif;font-weight:700;letter-spacing:.2px;flex:1}
+.block .btitle .mod-badge{margin-left:auto;padding:3px 10px;border-radius:6px;font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;flex-shrink:0}
+.badge-core{background:rgba(45,90,27,.09);color:#2D5A1B;border:1px solid rgba(45,90,27,.17)}
+.badge-warn{background:rgba(139,44,44,.08);color:#8b2c2c;border:1px solid rgba(139,44,44,.17)}
+.block .bbody{padding:18px}
+.block .bbody p{margin:0 0 10px;font-size:13.5px}
+.block .bbody p:last-child{margin-bottom:0}
+
+/* ══ THREE COL ══ */
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:12px}
+@media(max-width:700px){.three-col{grid-template-columns:1fr}}
+.mini-card{padding:14px;border-radius:11px;border:1px solid rgba(107,140,107,.15);background:rgba(168,197,160,.06)}
+.mini-card h4{font-size:13px;margin-bottom:7px;display:flex;align-items:center;gap:7px;color:var(--ink);font-weight:700}
+.mini-card p,.mini-card li{font-size:12.5px;color:var(--slate);line-height:1.6}
+
+/* ══ ALERTS ══ */
+.alert{margin-top:10px;padding:12px 14px;border-radius:10px;font-size:13px;display:flex;align-items:flex-start;gap:10px;line-height:1.55}
+.alert.danger{background:#FFF0F0;border:1px solid rgba(180,50,50,.2);color:var(--red)}
+.alert-icon{flex-shrink:0;margin-top:1px;font-size:16px}
+.alert strong{font-weight:700;display:block;margin-bottom:2px}
+
+/* ══ DROPBOX MOCKUP ══ */
+.db-mockup{border-radius:12px;overflow:hidden;border:1px solid rgba(107,140,107,.22);box-shadow:0 4px 16px rgba(42,32,24,.1);margin:14px 0;background:#fff}
+.db-header{background:#0061FE;padding:14px 18px;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.db-body{display:grid;grid-template-columns:210px 1fr;min-height:180px}
+@media(max-width:600px){.db-body{grid-template-columns:1fr}}
+.db-sidebar-db{background:#f7f7f7;border-right:1px solid #e0e0e0;padding:10px}
+.db-sidebar-db .db-label{font-size:9px;font-weight:700;text-transform:uppercase;color:#888;margin:8px 0 4px 4px}
+.db-sidebar-db .db-folder{font-size:11.5px;color:#333;padding:4px 6px;border-radius:4px;cursor:default;display:flex;align-items:center;gap:5px}
+.db-sidebar-db .db-folder.active{background:#e8f0fe;color:#0061FE;font-weight:700}
+.db-content{padding:12px 16px}
+.db-content .db-path{font-size:11px;color:#888;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.db-row{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:4px;font-size:12px;color:#333;margin-bottom:2px}
+.db-row:hover{background:#f5f5f5}
+.db-row .db-icon{font-size:14px;flex-shrink:0;color:#0061FE}
+.db-row span{font-size:11.5px}
+
+/* ══ NOMENCLATURA MOCKUP ══ */
+.nom-mockup{border-radius:12px;border:1px solid rgba(107,140,107,.22);box-shadow:0 4px 16px rgba(42,32,24,.08);margin:14px 0;background:#fff;padding:16px 20px;display:grid;grid-template-columns:1fr 2fr 1fr;gap:12px;align-items:start;font-family:Arial,sans-serif}
+@media(max-width:650px){.nom-mockup{grid-template-columns:1fr}}
+.nom-left{font-size:12px;color:#2c3e50;line-height:1.7;font-weight:600;background:#f8f9fa;padding:10px;border-radius:6px}
+.nom-center{border:1px solid #ccc;border-radius:6px;padding:10px}
+.nom-center .nom-row{display:flex;align-items:center;gap:7px;padding:3px 0;font-size:11.5px;color:#333}
+.nom-center .nom-row .nom-icon{width:16px;height:16px;background:#e74c3c;border-radius:2px;flex-shrink:0}
+.nom-center .nom-row span{font-weight:600}
+.nom-right{background:#FFF9E6;border:1px solid #e0c87a;border-radius:6px;padding:10px;font-size:11.5px;color:#5a4000;line-height:1.6}
+.nom-right strong{display:block;margin-bottom:4px;font-size:12px}
+
+/* ══ CAPTION ══ */
+.doc-img-caption{font-size:11px;color:var(--slate);font-style:italic;text-align:center;margin-top:6px;padding:0 10px}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="seal">📋</div>
+    <span>TMLF</span> Learning Center
+  </div>
+  <div class="topbar-pill">Módulo 7 · PWI</div>
+</div>
+
+<!-- PAGE TITLE -->
+<div class="page-title">
+  <div class="pt-label">Módulo 7</div>
+  <h2>Organización en Dropbox — Orden y Nomenclatura</h2>
+  <div class="pt-sub">Estructura de carpetas y nomenclatura obligatoria para VAWA y Visa T</div>
+</div>
+
+<!-- ALERTA CRÍTICA -->
+<div class="rule-card danger">
+  <h4>🚨 Responsabilidad Crítica</h4>
+  <p>Subir los documentos a Dropbox con el orden de carpetas y la nomenclatura correcta es una responsabilidad crítica del equipo de PWC. Un archivo <strong>mal ubicado o mal nombrado</strong> puede hacer que la <strong>IA de ensamblado no lo reconozca</strong> y afectar el avance del caso.</p>
+</div>
+
+<!-- PORTADA -->
+<div style="border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:0 4px 16px rgba(0,0,61,.15)">
+  <div style="background:#0061FE;padding:40px 30px;text-align:center;color:#fff">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:800;letter-spacing:2px;line-height:1.1">PREWELCOME<br>INTERVIEW</div>
+    <div style="font-size:12px;letter-spacing:4px;margin-top:12px;opacity:.8">D R O P B O X</div>
+    <div style="font-size:48px;margin:10px 0;opacity:.9">◈</div>
+    <div style="font-size:12px;letter-spacing:3px;opacity:.7;margin-top:8px">ENERO 2026</div>
+  </div>
+</div>
+<div class="doc-img-caption" style="margin-bottom:16px">Portada del material de Dropbox — PreWelcome Interview</div>
+
+<!-- BLOQUE: VAWA -->
+<div class="block">
+  <div class="btitle"><div class="bicon">📁</div><h3>Orden de Carpetas — Casos VAWA</h3><span class="mod-badge badge-core">VAWA</span></div>
+  <div class="bbody">
+    <p>En casos VAWA las carpetas que emplea el equipo de PWC son:</p>
+    <div class="three-col">
+      <div class="mini-card" style="border-color:rgba(0,97,254,.25);background:#F0F5FF">
+        <h4 style="color:#0061FE">📁 5. Supporting Documents</h4>
+        <p>Todos los documentos del cliente, la <strong>Checklist</strong> y el <strong>PDF del formulario</strong>.</p>
+      </div>
+      <div class="mini-card" style="border-color:rgba(0,97,254,.25);background:#F0F5FF">
+        <h4 style="color:#0061FE">📁 9. VAWA</h4>
+        <p><strong>Evidencias de abuso</strong> y de GMC (Good Moral Character).</p>
+      </div>
+      <div class="mini-card" style="border-color:rgba(0,97,254,.25);background:#F0F5FF">
+        <h4 style="color:#0061FE">📁 10. Recordings; Attorney Notes</h4>
+        <p>Grabación de <strong>Agenda de PWC</strong> y <strong>Videollamada de PWC</strong>.</p>
+      </div>
+    </div>
+    <div class="db-mockup" style="margin-top:14px">
+      <div class="db-header">⬡ DROPBOX — Estructura VAWA</div>
+      <div class="db-body">
+        <div class="db-sidebar-db">
+          <div class="db-label">Carpetas usadas por PWC</div>
+          <div class="db-folder">📁 1. Sign Up Documents</div>
+          <div class="db-folder">📁 2. Bills And Receipts</div>
+          <div class="db-folder">📁 3. Clients Communication</div>
+          <div class="db-folder">📁 4. Forms</div>
+          <div class="db-folder active">📁 5. Supporting Documents ›</div>
+          <div class="db-folder">📁 6. Submissions Materials</div>
+          <div class="db-folder">📁 7. Submissions</div>
+          <div class="db-folder">📁 8. USCIS Receipts Notices</div>
+          <div class="db-folder active">📁 9. VAWA ›</div>
+          <div class="db-folder active">📁 10. Recordings; Attorney Notes › PWC</div>
+        </div>
+        <div class="db-content">
+          <div class="db-path">📁 VAWA › <strong>Carpetas activas del equipo PWC</strong></div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>5. Supporting Documents</strong> — Documentos, Checklist, PDF Formulario</span></div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>9. VAWA</strong> — Evidencias de abuso y GMC</span></div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>10. Recordings; Attorney Notes</strong> — Grabaciones PWC</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-img-caption">Orden de carpetas en casos VAWA — estructura de Dropbox</div>
+  </div>
+</div>
+
+<!-- BLOQUE: VAWA COMBO -->
+<div class="block">
+  <div class="btitle"><div class="bicon">🗂️</div><h3>Dentro de la Carpeta 9. VAWA — Casos COMBO</h3></div>
+  <div class="bbody">
+    <p>En los casos COMBO, dentro de la carpeta '9. VAWA' se crean <strong>dos carpetas: una con el nombre de cada uno de los clientes del COMBO</strong>. Si solo tienes asignado a un cliente del COMBO, puedes crear únicamente la carpeta con su nombre.</p>
+    <div class="db-mockup" style="margin-top:14px">
+      <div class="db-header">📁 Dentro de la carpeta 9. VAWA</div>
+      <div class="db-body">
+        <div class="db-sidebar-db">
+          <div class="db-label">Casos COMBO</div>
+          <div class="db-folder active">📁 9. VAWA ›</div>
+          <div class="db-folder" style="padding-left:18px">📁 P+ ORGANIC ›</div>
+          <div class="db-folder" style="padding-left:18px">📁 EVIDENCE ›</div>
+          <div class="db-folder" style="padding-left:24px;font-size:10.5px">📁 FU Evidence ›</div>
+          <div class="db-folder" style="padding-left:24px;font-size:10.5px">📁 Character Rehab ›</div>
+          <div class="db-folder" style="padding-left:24px;font-size:10.5px">📁 Presence of Abuse ›</div>
+        </div>
+        <div class="db-content">
+          <div class="db-path">9. VAWA › Estructura interna</div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>P+ ORGANIC ›</strong></span></div>
+          <div class="db-row" style="margin-left:18px"><div class="db-icon">📁</div><span>EVIDENCE ›</span></div>
+          <div class="db-row" style="margin-left:36px"><div class="db-icon">📁</div><span>FU Evidence</span></div>
+          <div class="db-row" style="margin-left:36px"><div class="db-icon">📁</div><span>Character Rehab</span></div>
+          <div class="db-row" style="margin-left:36px"><div class="db-icon">📁</div><span>Presence of Abuse ›</span></div>
+          <div class="db-row" style="margin-left:54px"><div class="db-icon">📁</div><span>Backup Evidence</span></div>
+          <div class="db-row" style="margin-left:54px"><div class="db-icon">📁</div><span>Non Funcional Evidence</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-img-caption">Estructura interna de la carpeta 9. VAWA — subcarpetas P+ Organic, Evidence, Character Rehab, Presence of Abuse</div>
+  </div>
+</div>
+
+<!-- BLOQUE: VISA T -->
+<div class="block">
+  <div class="btitle"><div class="bicon">📁</div><h3>Orden de Carpetas — Casos Visa T</h3><span class="mod-badge badge-core">Visa T</span></div>
+  <div class="bbody">
+    <p>En casos Visa T las carpetas que emplea el equipo de PWC son:</p>
+    <div class="three-col">
+      <div class="mini-card" style="border-color:rgba(0,97,254,.25);background:#F0F5FF">
+        <h4 style="color:#0061FE">📁 5. Supporting Documents</h4>
+        <p>Todos los documentos, evidencias de GMC, <strong>Checklist</strong> y <strong>PDF formulario</strong>.</p>
+      </div>
+      <div class="mini-card" style="border-color:rgba(0,97,254,.25);background:#F0F5FF">
+        <h4 style="color:#0061FE">📁 9. Visa T</h4>
+        <p><strong>Evidencias de la trata</strong>.</p>
+      </div>
+      <div class="mini-card" style="border-color:rgba(0,97,254,.25);background:#F0F5FF">
+        <h4 style="color:#0061FE">📁 10. Recordings; Attorney Notes</h4>
+        <p>Grabación de <strong>Agenda de PWC</strong>, <strong>Videollamada de PWC</strong> y <strong>Transcript</strong>.</p>
+      </div>
+    </div>
+    <div class="db-mockup" style="margin-top:14px">
+      <div class="db-header">⬡ DROPBOX — Estructura VISA T</div>
+      <div class="db-body">
+        <div class="db-sidebar-db">
+          <div class="db-label">Carpetas usadas por PWC</div>
+          <div class="db-folder">📁 1. Sign Up Documents</div>
+          <div class="db-folder">📁 2. Bills And Receipts</div>
+          <div class="db-folder">📁 3. Clients Communication</div>
+          <div class="db-folder">📁 4. Forms</div>
+          <div class="db-folder active">📁 5. Supporting Documents ›</div>
+          <div class="db-folder">📁 6. Submissions Materials</div>
+          <div class="db-folder">📁 7. Submissions</div>
+          <div class="db-folder">📁 8. USCIS Receipts Notices</div>
+          <div class="db-folder active">📁 9. Visa T ›</div>
+          <div class="db-folder active">📁 10. Recordings; Attorney Notes › PWC</div>
+        </div>
+        <div class="db-content">
+          <div class="db-path">📁 VISA T › <strong>Carpetas activas del equipo PWC</strong></div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>5. Supporting Documents</strong> — Docs, GMC, Checklist, PDF Formulario</span></div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>9. Visa T</strong> — Evidencias de la trata</span></div>
+          <div class="db-row"><div class="db-icon">📁</div><span><strong>10. Recordings; Attorney Notes</strong> — Grabaciones + Transcript PWC</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="doc-img-caption">Orden de carpetas en casos Visa T — estructura de Dropbox</div>
+  </div>
+</div>
+
+<!-- BLOQUE: NOMENCLATURA -->
+<div class="block">
+  <div class="btitle"><div class="bicon">🏷️</div><h3>Nomenclatura de los Documentos en Dropbox</h3><span class="mod-badge badge-warn">Obligatorio</span></div>
+  <div class="bbody">
+    <p>La nomenclatura de archivos es <strong>obligatoria y debe respetarse exactamente</strong>. La IA de ensamblado no reconocerá el caso como 'fully' si los archivos no se encuentran en la carpeta correcta con el nombre correcto.</p>
+    <div class="alert danger"><div class="alert-icon">🚨</div><div><strong>Nunca se debe nombrar un documento si no corresponde al contenido del mismo.</strong> Es importante notificar cualquier documento que no se identifique cómo puede ser nombrado.</div></div>
+    <div class="nom-mockup" style="margin-top:14px">
+      <div class="nom-left">
+        <div style="font-size:13px;font-weight:700;margin-bottom:8px">En relación a la nomenclatura de documentos es importante respetarla ya que al usar la IA en el ensamblado puede no reconocer que el caso es un fully si no se encuentra en la carpeta y con el nombre correcto.</div>
+      </div>
+      <div class="nom-center">
+        <div style="text-align:center;margin-bottom:8px;font-size:20px">◈</div>
+        <div class="nom-row"><div class="nom-icon"></div><span>ID CL</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>ID SPOUSE</span></div>
+        <div style="height:6px"></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>BC CL</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>BC SPOUSE</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>BC ABUSER</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>BC KID ______ <small>*NOMBRE SI TIENE MÚLTIPLES HIJOS</small></span></div>
+        <div style="height:6px"></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>MC</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>DC</span></div>
+        <div style="height:6px"></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>TAXES _____ <small>*CL, BENEFICIARY, PETITIONER</small></span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>TICKETS _____</span></div>
+        <div style="height:6px"></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>POLICE RECORDS</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>MEDICAL RECORDS</span></div>
+        <div style="height:6px"></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>EVIDENCIA 1</span></div>
+        <div class="nom-row"><div class="nom-icon"></div><span>EVIDENCIA 2</span></div>
+      </div>
+      <div class="nom-right">
+        <strong>Nota:</strong>
+        Es importante notificar cualquier documento que no se identifique el cómo puede ser nombrado. <strong>Nunca se debe nombrar un documento si no corresponde al contenido del mismo.</strong>
+      </div>
+    </div>
+    <div class="doc-img-caption">Nomenclatura de documentos en Dropbox: ID CL, BC CL, BC KID, MC, DC, TAXES, TICKETS, POLICE RECORDS, MEDICAL RECORDS, EVIDENCIA 1, EVIDENCIA 2</div>
+  </div>
+</div>
+
+</body>
+</html>
