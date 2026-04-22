@@ -381,7 +381,72 @@ table.t code{background:rgba(107,143,113,.14);padding:1px 6px;border-radius:4px;
 .regla-banner .rb-text .rb-title{font-size:13px;font-weight:800;color:var(--cafe-dark);margin-bottom:3px}
 .regla-banner .rb-text .rb-detail{font-size:12px;color:var(--slate);line-height:1.5}
 
-/* ══ STAT CARD upgrade ══ */
+/* ══ DIAGRAMA FLUJO VISUAL ══ */
+.diag-wrap{background:linear-gradient(160deg,#1a1f1b,#243328);border-radius:16px;padding:28px 24px;margin-bottom:22px;overflow-x:auto}
+.diag-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:rgba(255,255,255,.55);letter-spacing:.3px;margin-bottom:20px;text-align:center;text-transform:uppercase;font-style:normal;font-size:10px;letter-spacing:1.5px;font-family:'DM Sans',sans-serif;font-weight:700}
+.diag-row{display:flex;align-items:stretch;gap:0;min-width:700px}
+.diag-col{display:flex;flex-direction:column;align-items:center;flex:1;gap:0;min-width:100px}
+.diag-phase-block{border-radius:10px;padding:10px 8px 8px;width:100%;text-align:center;position:relative;cursor:default}
+.diag-phase-block .dpb-icon{font-size:18px;margin-bottom:5px;display:block}
+.diag-phase-block .dpb-num{font-size:8px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;opacity:.65;margin-bottom:2px}
+.diag-phase-block .dpb-name{font-size:11.5px;font-weight:800;line-height:1.25;color:#fff}
+.diag-phase-block .dpb-steps{margin-top:6px;display:flex;flex-direction:column;gap:3px}
+.diag-phase-block .dpb-step{font-size:9.5px;line-height:1.35;color:rgba(255,255,255,.75);text-align:left;padding:3px 5px;border-radius:4px;background:rgba(0,0,0,.15)}
+.diag-phase-block .dpb-step strong{color:#fff;display:block;font-size:8.5px;text-transform:uppercase;letter-spacing:.4px;opacity:.7;margin-bottom:1px}
+.dpb-prep{background:linear-gradient(160deg,#2e4233,#3a5540)}
+.dpb-agenda{background:linear-gradient(160deg,#4a6b50,#5c8264)}
+.dpb-video{background:linear-gradient(160deg,#6b5035,#8b6f47)}
+.dpb-entrevista{background:linear-gradient(160deg,#1e2d22,#2e4233);border:1.5px solid rgba(143,173,148,.3)}
+.dpb-cierre{background:linear-gradient(160deg,#4a6b50,#6b8f71)}
+.dpb-docs{background:linear-gradient(160deg,#5a4a38,#7a6248)}
+.diag-arrow{display:flex;align-items:center;justify-content:center;padding:0 4px;color:rgba(143,173,148,.5);font-size:18px;font-weight:700;flex-shrink:0;align-self:center;margin-top:-40px}
+.diag-step-pill{display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
+.diag-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:center}
+.diag-legend-item{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;color:rgba(255,255,255,.6)}
+.diag-legend-dot{width:8px;height:8px;border-radius:3px;flex-shrink:0}
+.diag-final-arrow{display:flex;align-items:center;justify-content:center;margin-top:10px;gap:8px;padding:8px 14px;background:rgba(143,173,148,.1);border:1px solid rgba(143,173,148,.2);border-radius:8px}
+.diag-final-arrow span{font-size:10px;color:rgba(143,173,148,.8);font-weight:600;letter-spacing:.5px}
+
+.flujo-wrap{display:flex;flex-direction:column;gap:0;margin-top:4px}
+.flujo-phase{margin-bottom:18px}
+.flujo-phase-header{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:10px 10px 0 0;margin-bottom:2px}
+.flujo-phase-header .fph-icon{font-size:16px}
+.flujo-phase-header .fph-label{font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;opacity:.75}
+.flujo-phase-header .fph-title{font-size:13px;font-weight:800;color:#fff;flex:1}
+.flujo-phase-header .fph-steps{font-size:10px;font-weight:700;opacity:.65;color:#fff}
+.ph-prep .flujo-phase-header{background:linear-gradient(135deg,#2e4233,#3a5540)}
+.ph-agenda .flujo-phase-header{background:linear-gradient(135deg,#4a6b50,#5c8264)}
+.ph-video .flujo-phase-header{background:linear-gradient(135deg,#6b5035,#8b6f47)}
+.ph-entrevista .flujo-phase-header{background:linear-gradient(135deg,#1a1f1b,#2e3d32)}
+.ph-cierre .flujo-phase-header{background:linear-gradient(135deg,#4a6b50,#6b8f71)}
+.ph-docs .flujo-phase-header{background:linear-gradient(135deg,#5a4a38,#7a6248)}
+.flujo-steps{display:flex;flex-direction:column;gap:6px;padding:8px 0 0}
+.flujo-step{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:10px;background:var(--white);border:1px solid var(--green-border);transition:all .2s;position:relative}
+.flujo-step:hover{transform:translateX(4px);box-shadow:0 4px 14px rgba(45,36,24,.08)}
+.flujo-step-num{width:32px;height:32px;min-width:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:800;flex-shrink:0;margin-top:1px}
+.ph-prep .flujo-step-num{background:linear-gradient(135deg,#2e4233,#4a6b50);color:#fff}
+.ph-agenda .flujo-step-num{background:linear-gradient(135deg,#4a6b50,#6b8f71);color:#fff}
+.ph-video .flujo-step-num{background:linear-gradient(135deg,#6b5035,#8b6f47);color:#fff}
+.ph-entrevista .flujo-step-num{background:linear-gradient(135deg,#1a1f1b,#2e3d32);color:#8fad94}
+.ph-cierre .flujo-step-num{background:linear-gradient(135deg,#4a6b50,#8fad94);color:#fff}
+.ph-docs .flujo-step-num{background:linear-gradient(135deg,#5a4a38,#8b6f47);color:#fff}
+.flujo-step-body{flex:1;min-width:0}
+.flujo-step-tag{font-size:9px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px;opacity:.7}
+.ph-prep .flujo-step-tag{color:#2e4233}
+.ph-agenda .flujo-step-tag{color:#4a6b50}
+.ph-video .flujo-step-tag{color:#6b5035}
+.ph-entrevista .flujo-step-tag{color:#2e3d32}
+.ph-cierre .flujo-step-tag{color:#4a6b50}
+.ph-docs .flujo-step-tag{color:#5a4a38}
+.flujo-step-text{font-size:13px;color:var(--ink);line-height:1.55}
+.flujo-step-text strong{color:var(--sage-dark)}
+.ph-video .flujo-step-text strong{color:var(--cafe-dark)}
+.ph-entrevista .flujo-step{background:linear-gradient(135deg,rgba(26,31,27,.04),rgba(46,61,50,.06));border-color:rgba(26,31,27,.18)}
+.ph-entrevista .flujo-step-text{font-weight:600}
+.flujo-connector{display:flex;align-items:center;justify-content:center;height:14px;color:var(--muted);font-size:11px;opacity:.4;margin:0 0 0 20px}
+.flujo-step-icon{font-size:18px;flex-shrink:0;margin-top:6px}
+@media(max-width:700px){.flujo-step{padding:10px 12px}.flujo-step-num{width:28px;height:28px;min-width:28px;font-size:13px}}
+
 .stat-card{background:var(--white);border-radius:12px;padding:16px;border:1px solid var(--green-border);text-align:center;box-shadow:0 3px 12px rgba(45,36,24,.06);transition:transform .2s}
 .stat-card:hover{transform:translateY(-2px)}
 .stat-card .sv{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:var(--sage-dark);line-height:1}
@@ -1382,30 +1447,318 @@ table.t code{background:rgba(107,143,113,.14);padding:1px 6px;border-radius:4px;
     <div class="page-title">
       <div class="pt-label">Flujo completo</div>
       <h2>Flujo Operativo del Colaborador PWI VISA T</h2>
+      <div class="pt-sub">15 pasos organizados por fase operativa — desde la preparación hasta la entrega a supervisión.</div>
     </div>
 
-    <div class="block">
-      <div class="btitle"><div class="bicon">⚡</div><h3>Secuencia completa — 15 pasos</h3></div>
-      <div class="bbody">
-        <div class="step-list">
-          <div class="step-item"><div class="step-dot">1</div><div class="step-text">Revisar notas previas, TramCase, evidencia existente y Dropbox.</div></div>
-          <div class="step-item"><div class="step-dot">2</div><div class="step-text">Preparar estrategia de entrevista y revisar checklist según tipo de trata.</div></div>
-          <div class="step-item"><div class="step-dot">3</div><div class="step-text">Realizar llamada de agenda con speech comprendido y uso correcto de códigos.</div></div>
-          <div class="step-item"><div class="step-dot">4</div><div class="step-text">Solicitar documentos, información y evidencia diferenciada; fijar fecha compromiso.</div></div>
-          <div class="step-item"><div class="step-dot">5</div><div class="step-text">Enviar SMS post agenda y listados necesarios (información y evidencia por tipo de trata).</div></div>
-          <div class="step-item"><div class="step-dot">6</div><div class="step-text">Preparar Mendoza Hub antes de la videollamada.</div></div>
-          <div class="step-item"><div class="step-dot">7</div><div class="step-text">Iniciar videollamada con fondo institucional, apertura profesional y explicación de dinámica.</div></div>
-          <div class="step-item"><div class="step-dot">8</div><div class="step-text">Llenar formas con información objetiva y validar inconsistencias.</div></div>
-          <div class="step-item"><div class="step-dot">9</div><div class="step-text">Desarrollar entrevista de trata: Background → Proceso → Medios → Fines → Consecuencias → Cooperación con autoridades → PEU → Dificultades Extremas.</div></div>
-          <div class="step-item"><div class="step-dot">10</div><div class="step-text">Cerrar llamada: speech de terapia + cierre Pte.1 (paquete de bienvenida y evidencias pendientes) + cierre Pte.2 (recomendaciones de seguridad y despedida) + encuesta de satisfacción.</div></div>
-          <div class="step-item"><div class="step-dot">11</div><div class="step-text">Enviar SMS post entrevista con lista de evidencias pendientes personalizada.</div></div>
-          <div class="step-item"><div class="step-dot">12</div><div class="step-text">Subir y ordenar evidencias en Dropbox con nomenclatura correcta.</div></div>
-          <div class="step-item"><div class="step-dot">13</div><div class="step-text">Dejar notas completas en TramCase con estructura PWI VT CDMX.</div></div>
-          <div class="step-item"><div class="step-dot">14</div><div class="step-text">Aplicar antifraude o manejo de incidencias si corresponde.</div></div>
-          <div class="step-item"><div class="step-dot">15</div><div class="step-text">Entregar el caso a supervisión con trazabilidad completa: transcript + DOE + checklist + formulario.</div></div>
+    <!-- ══ DIAGRAMA VISUAL ══ -->
+    <div class="diag-wrap">
+      <div class="diag-title">🗺 Diagrama de flujo operativo — 15 pasos · 6 fases</div>
+
+      <div class="diag-row">
+
+        <!-- FASE 1 -->
+        <div class="diag-col">
+          <div class="diag-phase-block dpb-prep">
+            <span class="dpb-icon">🗂️</span>
+            <div class="dpb-num">Fase 1</div>
+            <div class="dpb-name">Preparación</div>
+            <div class="dpb-steps">
+              <div class="dpb-step"><strong>Paso 1</strong>Revisar TramCase, notas, Dropbox</div>
+              <div class="dpb-step"><strong>Paso 2</strong>Estrategia + checklist por tipo de trata</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-arrow">→</div>
+
+        <!-- FASE 2 -->
+        <div class="diag-col">
+          <div class="diag-phase-block dpb-agenda">
+            <span class="dpb-icon">📞</span>
+            <div class="dpb-num">Fase 2</div>
+            <div class="dpb-name">Agenda</div>
+            <div class="dpb-steps">
+              <div class="dpb-step"><strong>Paso 3</strong>Llamada con speech y códigos</div>
+              <div class="dpb-step"><strong>Paso 4</strong>Solicitar docs + fecha compromiso</div>
+              <div class="dpb-step"><strong>Paso 5</strong>SMS post agenda</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-arrow">→</div>
+
+        <!-- FASE 3 -->
+        <div class="diag-col">
+          <div class="diag-phase-block dpb-video">
+            <span class="dpb-icon">🎥</span>
+            <div class="dpb-num">Fase 3</div>
+            <div class="dpb-name">Videollamada</div>
+            <div class="dpb-steps">
+              <div class="dpb-step"><strong>Paso 6</strong>Preparar Mendoza Hub</div>
+              <div class="dpb-step"><strong>Paso 7</strong>Iniciar con fondo institucional</div>
+              <div class="dpb-step"><strong>Paso 8</strong>Llenar formas I-914</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-arrow">→</div>
+
+        <!-- FASE 4 -->
+        <div class="diag-col">
+          <div class="diag-phase-block dpb-entrevista">
+            <span class="dpb-icon">🔎</span>
+            <div class="dpb-num">Fase 4 · Núcleo</div>
+            <div class="dpb-name">Entrevista de Trata</div>
+            <div class="dpb-steps">
+              <div class="dpb-step"><strong>Paso 9</strong>Background → Proceso → Medios → Fines → Consecuencias → Coop. autoridades → PEU → Dif. Extremas</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-arrow">→</div>
+
+        <!-- FASE 5 -->
+        <div class="diag-col">
+          <div class="diag-phase-block dpb-cierre">
+            <span class="dpb-icon">✅</span>
+            <div class="dpb-num">Fase 5</div>
+            <div class="dpb-name">Cierre</div>
+            <div class="dpb-steps">
+              <div class="dpb-step"><strong>Paso 10</strong>Terapia + Cierre Pte.1 y 2 + Encuesta</div>
+              <div class="dpb-step"><strong>Paso 11</strong>SMS post entrevista</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="diag-arrow">→</div>
+
+        <!-- FASE 6 -->
+        <div class="diag-col">
+          <div class="diag-phase-block dpb-docs">
+            <span class="dpb-icon">📁</span>
+            <div class="dpb-num">Fase 6</div>
+            <div class="dpb-name">Documentación</div>
+            <div class="dpb-steps">
+              <div class="dpb-step"><strong>Paso 12</strong>Dropbox + nomenclatura</div>
+              <div class="dpb-step"><strong>Paso 13</strong>Notas TramCase PWI VT CDMX</div>
+              <div class="dpb-step"><strong>Paso 14</strong>Antifraude / incidencias</div>
+              <div class="dpb-step" style="background:rgba(143,173,148,.18);border:1px solid rgba(143,173,148,.3)"><strong style="color:#8fad94">Paso 15</strong>Entrega a supervisión ✓</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /diag-row -->
+
+      <div class="diag-final-arrow">
+        <span>🗂️ Preparación</span><span style="opacity:.4">→</span>
+        <span>📞 Agenda</span><span style="opacity:.4">→</span>
+        <span>🎥 Videollamada</span><span style="opacity:.4">→</span>
+        <span>🔎 Entrevista</span><span style="opacity:.4">→</span>
+        <span>✅ Cierre</span><span style="opacity:.4">→</span>
+        <span>📁 Supervisión</span>
+      </div>
+
+    </div><!-- /diag-wrap -->
+
+    <div class="flujo-wrap">
+
+      <!-- FASE 1: PREPARACIÓN -->
+      <div class="flujo-phase ph-prep">
+        <div class="flujo-phase-header">
+          <span class="fph-icon">🗂️</span>
+          <div style="flex:1"><div class="fph-label">Fase 1</div><div class="fph-title">Preparación interna</div></div>
+          <span class="fph-steps">Pasos 1–2</span>
+        </div>
+        <div class="flujo-steps">
+          <div class="flujo-step">
+            <div class="flujo-step-num">1</div>
+            <div class="flujo-step-icon">🔍</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Revisión previa</div>
+              <div class="flujo-step-text">Revisar notas previas, TramCase, evidencia existente y Dropbox.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">2</div>
+            <div class="flujo-step-icon">🧩</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Estrategia</div>
+              <div class="flujo-step-text">Preparar estrategia de entrevista y revisar checklist según tipo de trata.</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="flujo-connector">▼</div>
+
+      <!-- FASE 2: AGENDA -->
+      <div class="flujo-phase ph-agenda">
+        <div class="flujo-phase-header">
+          <span class="fph-icon">📞</span>
+          <div style="flex:1"><div class="fph-label">Fase 2</div><div class="fph-title">Llamada de agenda</div></div>
+          <span class="fph-steps">Pasos 3–5</span>
+        </div>
+        <div class="flujo-steps">
+          <div class="flujo-step">
+            <div class="flujo-step-num">3</div>
+            <div class="flujo-step-icon">🎙️</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Primer contacto</div>
+              <div class="flujo-step-text">Realizar llamada de agenda con speech comprendido y <strong>uso correcto de códigos</strong>.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">4</div>
+            <div class="flujo-step-icon">📋</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Solicitud</div>
+              <div class="flujo-step-text">Solicitar documentos, información y evidencia diferenciada; fijar <strong>fecha compromiso</strong>.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">5</div>
+            <div class="flujo-step-icon">💬</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">SMS post agenda</div>
+              <div class="flujo-step-text">Enviar SMS post agenda y listados necesarios (información y evidencia por tipo de trata).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flujo-connector">▼</div>
+
+      <!-- FASE 3: VIDEOLLAMADA PREP + INICIO -->
+      <div class="flujo-phase ph-video">
+        <div class="flujo-phase-header">
+          <span class="fph-icon">🎥</span>
+          <div style="flex:1"><div class="fph-label">Fase 3</div><div class="fph-title">Videollamada — Preparación e inicio</div></div>
+          <span class="fph-steps">Pasos 6–8</span>
+        </div>
+        <div class="flujo-steps">
+          <div class="flujo-step">
+            <div class="flujo-step-num">6</div>
+            <div class="flujo-step-icon">💻</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Mendoza Hub</div>
+              <div class="flujo-step-text">Preparar <strong>Mendoza Hub</strong> antes de la videollamada.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">7</div>
+            <div class="flujo-step-icon">🖥️</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Apertura</div>
+              <div class="flujo-step-text">Iniciar videollamada con <strong>fondo institucional</strong>, apertura profesional y explicación de dinámica.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">8</div>
+            <div class="flujo-step-icon">📝</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Formas I-914</div>
+              <div class="flujo-step-text">Llenar formas con información objetiva y <strong>validar inconsistencias</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flujo-connector">▼</div>
+
+      <!-- FASE 4: ENTREVISTA (destacada) -->
+      <div class="flujo-phase ph-entrevista">
+        <div class="flujo-phase-header">
+          <span class="fph-icon">🔎</span>
+          <div style="flex:1"><div class="fph-label">Fase 4 — Núcleo del proceso</div><div class="fph-title">Entrevista de trata</div></div>
+          <span class="fph-steps">Paso 9</span>
+        </div>
+        <div class="flujo-steps">
+          <div class="flujo-step">
+            <div class="flujo-step-num">9</div>
+            <div class="flujo-step-icon">🧠</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Bloques de declaración</div>
+              <div class="flujo-step-text">Desarrollar entrevista de trata: <strong>Background → Proceso → Medios → Fines → Consecuencias → Cooperación con autoridades → PEU → Dificultades Extremas.</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flujo-connector">▼</div>
+
+      <!-- FASE 5: CIERRE -->
+      <div class="flujo-phase ph-cierre">
+        <div class="flujo-phase-header">
+          <span class="fph-icon">✅</span>
+          <div style="flex:1"><div class="fph-label">Fase 5</div><div class="fph-title">Cierre de llamada</div></div>
+          <span class="fph-steps">Pasos 10–11</span>
+        </div>
+        <div class="flujo-steps">
+          <div class="flujo-step">
+            <div class="flujo-step-num">10</div>
+            <div class="flujo-step-icon">🌿</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Cierre estructurado</div>
+              <div class="flujo-step-text">Cerrar llamada: <strong>speech de terapia</strong> + cierre Pte.1 (paquete de bienvenida y evidencias pendientes) + cierre Pte.2 (recomendaciones de seguridad y despedida) + encuesta de satisfacción.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">11</div>
+            <div class="flujo-step-icon">💬</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">SMS post entrevista</div>
+              <div class="flujo-step-text">Enviar SMS post entrevista con <strong>lista de evidencias pendientes personalizada</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flujo-connector">▼</div>
+
+      <!-- FASE 6: DOCUMENTACIÓN Y ENTREGA -->
+      <div class="flujo-phase ph-docs">
+        <div class="flujo-phase-header">
+          <span class="fph-icon">📁</span>
+          <div style="flex:1"><div class="fph-label">Fase 6</div><div class="fph-title">Documentación y entrega a supervisión</div></div>
+          <span class="fph-steps">Pasos 12–15</span>
+        </div>
+        <div class="flujo-steps">
+          <div class="flujo-step">
+            <div class="flujo-step-num">12</div>
+            <div class="flujo-step-icon">📂</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Dropbox</div>
+              <div class="flujo-step-text">Subir y ordenar evidencias en Dropbox con <strong>nomenclatura correcta</strong>.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">13</div>
+            <div class="flujo-step-icon">🗒️</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">TramCase</div>
+              <div class="flujo-step-text">Dejar notas completas en TramCase con estructura <strong>PWI VT CDMX</strong>.</div>
+            </div>
+          </div>
+          <div class="flujo-step">
+            <div class="flujo-step-num">14</div>
+            <div class="flujo-step-icon">🛡️</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag">Control de riesgo</div>
+              <div class="flujo-step-text">Aplicar antifraude o manejo de incidencias si corresponde.</div>
+            </div>
+          </div>
+          <div class="flujo-step" style="border-color:rgba(74,107,80,.4);background:linear-gradient(135deg,rgba(74,107,80,.07),rgba(74,107,80,.02))">
+            <div class="flujo-step-num" style="background:linear-gradient(135deg,#2e5035,#4a6b50)">15</div>
+            <div class="flujo-step-icon">🏁</div>
+            <div class="flujo-step-body">
+              <div class="flujo-step-tag" style="color:#2e5035">Entrega final</div>
+              <div class="flujo-step-text"><strong>Entregar el caso a supervisión</strong> con trazabilidad completa: transcript + DOE + checklist + formulario.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /flujo-wrap -->
   </div>
 
   <!-- ════════ S15: CRITERIOS ════════ -->
